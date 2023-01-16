@@ -1,20 +1,19 @@
 package org.locadora.views;
 
 
-import org.locadora.controller.CostumerController;
-import org.locadora.model.Telephone;
-import org.locadora.model.costumer.Costumer;
-import org.locadora.model.costumer.LegalPerson;
-import org.locadora.model.costumer.NaturalPerson;
+import org.locadora.controller.CustomerController;
+import org.locadora.model.customer.Customer;
+import org.locadora.model.customer.LegalPerson;
+import org.locadora.model.customer.NaturalPerson;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
-public class CostumerUI {
+public class CustomerUI {
     public static void add() {
-        CostumerController costumerController = new CostumerController();
+        CustomerController customerController = new CustomerController();
+        AddressUI addressUI = new AddressUI();
         Integer option;
         String name;
         String surname;
@@ -39,17 +38,19 @@ public class CostumerUI {
                     surname = Input.stringNotNullable("SOBRENOME: ", 3);
                     cpf = Input.stringNotNullable("CPF: ", 3);
                     driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);
+                    // TODO: NÃO SERIA MELHOR DE FATO TERMOS O ADDRESS UI E SÓ CHAMARMOS O MÉTODO ADD AQUI PARA FICAR LIMPO?
                     System.out.println("\nCADASTRO DE ENDEREÇO: ");
                     street = Input.stringNotNullable("NOME DA RUA: ", 3);
                     number = Input.stringNotNullable("NÚMERO: ", 3);
                     cep = Input.stringNotNullable("CEP: ", 3);
                     city = Input.stringNotNullable("CIDADE: ", 3);
                     state = Input.stringNotNullable("ESTADO: ", 3);
+                    // TODO: MESMA SUGESTÃO PARA O CASO DO TELEFONE (CRIARIAMOS O TELEPHONEUI)
                     System.out.println("\nCADASTRO DE TELEFONE: ");
                     ddd = Input.stringNotNullable("DDD: ", 3);
                     telephone = Input.stringNotNullable("NÚMERO TELEFONE: ", 3);
 
-                    costumerController.saveNaturalPerson(name, surname, cpf, driverLicense, cep, street, number, city, state, ddd, telephone);
+                    customerController.saveNaturalPerson(name, surname, cpf, driverLicense, cep, street, number, city, state, ddd, telephone);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -62,7 +63,7 @@ public class CostumerUI {
                     nickname = Input.stringNotNullable("NOME FANTASIA: ", 3);
                     cnpj = Input.stringNotNullable("CNPJ: ", 3);
 
-                    costumerController.saveLegalPerson(name, nickname, cnpj);
+                    customerController.saveLegalPerson(name, nickname, cnpj);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -78,7 +79,7 @@ public class CostumerUI {
         System.out.println("");
         return index;
     }
-    public static String listNaturalPerson(List<Costumer> naturalPersonList) {
+    public static String listNaturalPerson(List<Customer> naturalPersonList) {
         int index = 0;
         int tentativas = 0;
         boolean working;
@@ -96,7 +97,7 @@ public class CostumerUI {
                 if (naturalPersonList.size() > 1) {
 
                     System.out.println("");
-                    for (Costumer naturalPerson : naturalPersonList) {
+                    for (Customer naturalPerson : naturalPersonList) {
                         System.out.println("-------- CLIENTE -------");
                         System.out.println("ID: " + index);
                         System.out.println("Nome: " + naturalPerson.getName() + " ");
@@ -120,10 +121,10 @@ public class CostumerUI {
                         break;
                     }
 
-                    CostumerUI.view(naturalPersonList.get(indexOption));
+                    CustomerUI.view(naturalPersonList.get(indexOption));
 
                 } else {
-                    CostumerUI.view(naturalPersonList.get(0));
+                    CustomerUI.view(naturalPersonList.get(0));
                     break;
                 }
 
@@ -136,9 +137,9 @@ public class CostumerUI {
         return "2";
     }
 
-    //TODO: RESOLVER LISTA PAGINADA COM CASTING?
+    //TODO: RESOLVER LISTA PAGINADA COM CASTING? NÃO CONSIGO ACESSAR O INDEX QUANDO FAÇO CASTING PRA ACESSAR O GETSURNAME
 
-    public static String paginatedList(List<Costumer> costumers) {
+    public static String paginatedList(List<Customer> customers) {
         boolean working = true;
         int ammount = 0;
         int start = 0;
@@ -151,18 +152,18 @@ public class CostumerUI {
                     System.out.println("");
                 }
 
-                if (start < 0 || start > costumers.size()) start = 0;
+                if (start < 0 || start > customers.size()) start = 0;
                 if (ammount < 0) ammount = 0;
-                if (ammount > costumers.size()) ammount = costumers.size();
-                if (start + ammount > costumers.size()) start = costumers.size() - ammount;
+                if (ammount > customers.size()) ammount = customers.size();
+                if (start + ammount > customers.size()) start = customers.size() - ammount;
 
                 System.out.println("------ CLIENTES ------");
 
                 for (int i = start; i < start + ammount; i++) {
-                    if (i == costumers.size()) break;
-                    if (costumers instanceof NaturalPerson) {
+                    if (i == customers.size()) break;
+                    if (customers instanceof NaturalPerson) {
                         System.out.println("ID: " + i);
-                        System.out.println("NOME: " + costumers.get(i)/* + " " + costumers.get(i).getSurname()*/);
+                        System.out.println("NOME: " + customers.get(i)/* + " " + customers.get(i).getSurname()*/);
                         System.out.println("----------------------");
                     }
                 }
@@ -171,7 +172,7 @@ public class CostumerUI {
                 boolean better = true;
 
                 while (better) {
-                    if (costumers.size() == 0) {
+                    if (customers.size() == 0) {
                         switch (MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE")) {
                             case 0 -> {
                                 better = false;
@@ -217,28 +218,23 @@ public class CostumerUI {
         return option;
     }
 
-    public static void view(Costumer costumer) {
-        boolean working = true;
+    public static void view(Customer customer) {
 
-        while (working) {
-            if(costumer instanceof NaturalPerson) {
-                System.out.println("------- CLIENTE -------");
-                System.out.println(" NOME: " + costumer.getName());
-                System.out.println(" SOBRENOME: " + ((NaturalPerson)costumer).getSurname());
-                System.out.println(" CNH: " + ((NaturalPerson) costumer).getDriverLicense());
-                System.out.println(" ENDEREÇO: " + costumer.getAddress());
-                System.out.println(" TELEFONE: " + costumer.getTelephone());
-                System.out.println("-----------------------");
-                System.out.println("");
-                working = false;
-            } else {
-                System.out.println("------- CLIENTE -------");
-                System.out.println(" NOME: " + costumer.getName());
-                System.out.println(" NOMEFANTASIA: " + ((LegalPerson)costumer).getNickname());
-                System.out.println("-----------------------");
-                System.out.println("");
-                working = false;
-            }
+        if (customer instanceof NaturalPerson) {
+            System.out.println("------- CLIENTE -------");
+            System.out.println(" NOME: " + customer.getName());
+            System.out.println(" SOBRENOME: " + ((NaturalPerson) customer).getSurname());
+            System.out.println(" CNH: " + ((NaturalPerson) customer).getDriverLicense());
+            System.out.println(" ENDEREÇO: " + customer.getAddress());
+            System.out.println(" TELEFONE: " + customer.getTelephone());
+            System.out.println("-----------------------");
+            System.out.println("");
+        } else {
+            System.out.println("------- CLIENTE -------");
+            System.out.println(" NOME: " + customer.getName());
+            System.out.println(" NOMEFANTASIA: " + ((LegalPerson) customer).getNickname());
+            System.out.println("-----------------------");
+            System.out.println("");
         }
     }
 }

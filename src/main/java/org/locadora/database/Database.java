@@ -5,9 +5,9 @@ package org.locadora.database;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.locadora.model.Agency;
-import org.locadora.model.costumer.Costumer;
-import org.locadora.model.costumer.LegalPerson;
-import org.locadora.model.costumer.NaturalPerson;
+import org.locadora.model.customer.Customer;
+import org.locadora.model.customer.LegalPerson;
+import org.locadora.model.customer.NaturalPerson;
 import org.locadora.model.vehicle.Motorcycle;
 import org.locadora.model.vehicle.Vehicle;
 
@@ -24,14 +24,14 @@ public class Database {
 
     //seria o caso de trabalharmos com generics aqui pra fazer essa leitura independente do tipo?
     private Path dbPath;
-    private List<Costumer> costumers;
+    private List<Customer> customers;
     private List<Vehicle> vehicles;
     private List<Agency> agencies;
     private static Database instance;
 
     private Database() {
         dbPath = Paths.get("src/database/database.json");
-        costumers = new ArrayList<>();
+        customers = new ArrayList<>();
         vehicles = new ArrayList<>();
         agencies = new ArrayList<>();
     }
@@ -45,29 +45,29 @@ public class Database {
     //TODO: INICIAR COM CONTATO, VEÍCULO OU AGÊNCIA
 
     public void init() throws IOException {
-        JSONObject costumersObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray costumersArray = (JSONArray) costumersObject.get("costumers");
-        for (Object costumertObject : costumersArray) {
+        JSONObject customersObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
+        JSONArray customersArray = (JSONArray) customersObject.get("customers");
+        for (Object customerObject : customersArray) {
 
-            JSONObject costumer = (JSONObject) costumertObject;
+            JSONObject customer = (JSONObject) customerObject;
 
             //CONDIÇÃO SE PESSOA FÍSICA OU PESSOA JURÍDICA
             //Pessoa Física
-            String name = (String) costumer.get("name");
-            String surname = (String) costumer.get("surname");
-            String cpf = (String) costumer.get("cpf");
-            String driverLicense = (String) costumer.get("driverLicense");
-            Costumer natualPerson = new NaturalPerson(name, surname, cpf, driverLicense);
-            costumers.add(natualPerson);
+            String name = (String) customer.get("name");
+            String surname = (String) customer.get("surname");
+            String cpf = (String) customer.get("cpf");
+            String driverLicense = (String) customer.get("driverLicense");
+            Customer natualPerson = new NaturalPerson(name, surname, cpf, driverLicense);
+            customers.add(natualPerson);
 
             //TODO: USEI LEGALPERSON SÓ PARA INSTANCIAR E NÃO DAR ERRO DE EXECUÇÃO
 
-            Costumer legalPerson = new LegalPerson();
-            costumers.add(legalPerson);
+            Customer legalPerson = new LegalPerson();
+            customers.add(legalPerson);
         }
 
         JSONObject agenciesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray agenciesArray = (JSONArray) costumersObject.get("agencies");
+        JSONArray agenciesArray = (JSONArray) customersObject.get("agencies");
         for (Object agencyObject : agenciesArray) {
 
             JSONObject agency = (JSONObject) agencyObject;
@@ -77,7 +77,7 @@ public class Database {
             agencies.add(newAgency);
         }
         JSONObject vehiclesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray vehiclesArray = (JSONArray) costumersObject.get("vehicles");
+        JSONArray vehiclesArray = (JSONArray) customersObject.get("vehicles");
         for (Object vehicleObject : vehiclesArray) {
 
             JSONObject vehicle = (JSONObject) vehicleObject;
@@ -91,8 +91,8 @@ public class Database {
         }
     }
 
-    public Costumer getCustomer(int index) {
-        return costumers.get(index);
+    public Customer getCustomer(int index) {
+        return customers.get(index);
     }
 
     public Agency getAgency(int index) {
@@ -101,23 +101,23 @@ public class Database {
 
     // TODO: VALIDAR SE O CASTING ESTÁ FUNCIONANDO
 
-    public List<Costumer> searchCostumer(String value) {
-        List<Costumer> matchCostumers = new ArrayList<>();
+    public List<Customer> searchCustomer(String value) {
+        List<Customer> matchCustomers = new ArrayList<>();
 
-        for (Costumer costumer : costumers) {
-            if (costumer instanceof NaturalPerson) {
-                String fullName = costumer.getName() + " " + ((NaturalPerson)costumer).getSurname();
+        for (Customer customer : customers) {
+            if (customer instanceof NaturalPerson) {
+                String fullName = customer.getName() + " " + ((NaturalPerson)customer).getSurname();
                 if (fullName.contains(value)) {
-                    matchCostumers.add(costumer);
+                    matchCustomers.add(customer);
                 }
             } else {
-                String fullName = costumer.getName() + " " + ((LegalPerson)costumer).getNickname();
+                String fullName = customer.getName() + " " + ((LegalPerson)customer).getNickname();
                 if (fullName.contains(value)) {
-                    matchCostumers.add(costumer);
+                    matchCustomers.add(customer);
                 }
             }
         }
-        return matchCostumers;
+        return matchCustomers;
     }
     public List<Vehicle> searchVehicles(String value) {
         List<Vehicle> matchVehicles = new ArrayList<>();
@@ -142,8 +142,8 @@ public class Database {
         return matchAgencies;
     }
 
-    public List<Costumer> getCostumers() {
-        return costumers;
+    public List<Customer> getCustomers() {
+        return customers;
     }
 
     public List<Agency> getAgencies(){
@@ -154,10 +154,10 @@ public class Database {
         return vehicles;
     }
 
-    public boolean addCostumer(Costumer costumer) { //RN6
-        if (costumers.contains(costumer)) return false;
+    public boolean addCustomer(Customer customer) { //RN6
+        if (customers.contains(customer)) return false;
 
-        costumers.add(costumer);
+        customers.add(customer);
         return true;
     }
     public boolean addVehicle(Vehicle vehicle) { //RN1
@@ -175,31 +175,31 @@ public class Database {
     }
 
     public void deleteAll() {
-        costumers.clear();
+        customers.clear();
     }
 
     public void remove(int index) {
-        costumers.remove(index);
+        customers.remove(index);
     }
 
     public void close() throws IOException {
         Files.newBufferedWriter(dbPath);
-        JSONArray costumersArray = new JSONArray();
+        JSONArray customersArray = new JSONArray();
 
-        for (Costumer costumer : costumers) {
-            JSONObject costumerObject = new JSONObject();
-            costumerObject.put("name", costumer.getName());
-            if (costumer instanceof NaturalPerson) {
-                costumerObject.put("surname", ((NaturalPerson) costumer).getSurname());
+        for (Customer customer : customers) {
+            JSONObject customerObject = new JSONObject();
+            customerObject.put("name", customer.getName());
+            if (customer instanceof NaturalPerson) {
+                customerObject.put("surname", ((NaturalPerson) customer).getSurname());
             } else {
-                costumerObject.put("surname", ((LegalPerson) costumer).getNickname());
+                customerObject.put("surname", ((LegalPerson) customer).getNickname());
             }
-            costumerObject.put("address", costumer.getAddress());
-            costumerObject.put("telephone", costumer.getTelephone());
-            costumersArray.put(costumerObject);
+            customerObject.put("address", customer.getAddress());
+            customerObject.put("telephone", customer.getTelephone());
+            customersArray.put(customerObject);
         }
 
-        JSONObject object = new JSONObject().put("costumers", costumersArray);
+        JSONObject object = new JSONObject().put("customers", customersArray);
 
         Files.writeString(dbPath, object.toString(), StandardOpenOption.WRITE);
     }

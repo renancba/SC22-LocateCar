@@ -186,15 +186,11 @@ public class AgencyUI {
         agencyController.search(term.toUpperCase());
     }
     public static void view(Agency agency) {
-        boolean working = true;
 
-        while (working) {
-            System.out.println("------- AGÊNCIA -------");
-            System.out.println(" NOME: " + agency.getName());
-            System.out.println(" ENDEREÇO: " + agency.getAddress());
-            System.out.println("-----------------------");
-            System.out.println("");
-            working = false;
-        }
+        System.out.println("------- AGÊNCIA -------");
+        System.out.println(" NOME: " + agency.getName());
+        System.out.println(" ENDEREÇO: " + agency.getAddress());
+        System.out.println("-----------------------");
+        System.out.println("");
     }
 }

@@ -6,6 +6,8 @@ import org.locadora.model.Address;
 import org.locadora.model.Agency;
 import org.locadora.views.AgencyUI;
 
+import java.util.List;
+
 public class AgencyController {
     //TODO: SÓ ESTÁ SENDO SALVA COM O NOME. ADICIONAR ADDRESS
     public void create() {

@@ -2,7 +2,7 @@ package org.locadora.views;
 
 
 import org.locadora.controller.AgencyController;
-import org.locadora.controller.CostumerController;
+import org.locadora.controller.CustomerController;
 import org.locadora.controller.VehicleController;
 import org.locadora.utils.MenuCreator;
 
@@ -24,7 +24,7 @@ public class Home {
                     System.out.println("ESCOLHEU CLIENTES");
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR CLIENTE",
                             "ALTERAR DADOS DE UM CLIENTE", "LISTAR CLIENTE", "RETORNAR AO MENU INICIAL");
-                    submenuCostumer(option);
+                    submenuCustomer(option);
 
                 }
                 case 1 -> {
@@ -59,14 +59,14 @@ public class Home {
     }
 
     // TODO: NÃO SOUBE EXATAMENTE SE ESSES SUBMENUS ENTRARIAM AQUI. CONTINUAR IMPLEMENTANDO.
-    public static void submenuCostumer (Integer option){
-        CostumerController costumerController = new CostumerController();
+    public static void submenuCustomer(Integer option){
+        CustomerController customerController = new CustomerController();
         boolean executing = true;
         while (executing){
             switch (option) {
                 case 0 -> {
                     System.out.println("CADASTRANDO CLIENTE...");
-                    costumerController.create();
+                    customerController.create();
                     executing = false;
                 }
                 case 1 -> {
@@ -75,7 +75,8 @@ public class Home {
                 }
                 case 2 -> {
                     System.out.println("LISTAR CLIENTES");
-                    costumerController.view();
+                    customerController.view();
+                    // TODO: CRIAR LISTA DE CLIENTES, NÃO EXIBIR OS DADOS COMPLETOS NA LISTA GERAL
                     executing = false;
                 }
                 case 3 -> { //retornar ao menu inicial
@@ -104,6 +105,7 @@ public class Home {
                     vehicleController.search(null);
                     executing = false;
                 }
+                // TODO: CRIAR NOVO CASE COM LISTA DE VEÍCULOS, NÃO EXIBIR OS DADOS COMPLETOS NA LISTA GERAL
                 case 3 -> { //retornar ao menu inicial
                     executing = false;
                 }
@@ -135,6 +137,7 @@ public class Home {
                     executing = false;
                 }
                 case 3 -> {
+                    // TODO: CRIAR LISTA DE AGÊNCIAS, NÃO EXIBIR OS DADOS COMPLETOS NA LISTA GERAL
                     agencyController.view();
                     executing = false;
                 }

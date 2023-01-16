@@ -1,4 +1,4 @@
-package org.locadora.model.costumer;
+package org.locadora.model.customer;
 
 
 import org.locadora.model.Address;
@@ -6,7 +6,7 @@ import org.locadora.model.Telephone;
 
 import java.util.Objects;
 
-public class LegalPerson extends Costumer {
+public class LegalPerson extends Customer {
     private String cnpj;
     private String nickname;
 

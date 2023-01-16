@@ -3,18 +3,18 @@ package org.locadora.controller;
 import org.locadora.database.Database;
 import org.locadora.model.Address;
 import org.locadora.model.Telephone;
-import org.locadora.model.costumer.LegalPerson;
-import org.locadora.model.costumer.NaturalPerson;
-import org.locadora.views.CostumerUI;
+import org.locadora.model.customer.LegalPerson;
+import org.locadora.model.customer.NaturalPerson;
+import org.locadora.views.CustomerUI;
 
-public class CostumerController {
+public class CustomerController {
     public String paginatedList() {
         Database db = Database.getInstance();
-        return CostumerUI.listNaturalPerson(db.getCostumers());
+        return CustomerUI.listNaturalPerson(db.getCustomers());
     }
 
     public void create() {
-        CostumerUI.add();
+        CustomerUI.add();
     }
 
     //TODO: TEM COMO DEIXAR MAIS UNIVERSAL PARA NÃO REPETIR CÓDIGO?
@@ -24,7 +24,7 @@ public class CostumerController {
         NaturalPerson naturalPerson = new NaturalPerson(name, surname, cpf, driverLicense, new Telephone(ddd, telephone), new Address(cep,street,number,city,state));
         Database db = Database.getInstance();
 
-        if (db.addCostumer(naturalPerson)) {
+        if (db.addCustomer(naturalPerson)) {
             System.out.println("");
             System.out.println("-----------------");
             System.out.println("| CONTATO SALVO |");
@@ -43,7 +43,7 @@ public class CostumerController {
         LegalPerson legalPerson = new LegalPerson(name, nickname, cnpj);
         Database db = Database.getInstance();
 
-        if (db.addCostumer(legalPerson)) {
+        if (db.addCustomer(legalPerson)) {
             System.out.println("");
             System.out.println("-----------------");
             System.out.println("| CONTATO SALVO |");
@@ -68,8 +68,8 @@ public class CostumerController {
     public void viewCustomerInfo() {
         Database db = Database.getInstance();
         try {
-            int index = CostumerUI.getIndex();
-            CostumerUI.view(db.getCustomer(index));
+            int index = CustomerUI.getIndex();
+            CustomerUI.view(db.getCustomer(index));
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");

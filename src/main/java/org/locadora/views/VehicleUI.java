@@ -214,31 +214,25 @@ public class VehicleUI {
         vehicleController.search(term.toUpperCase());
     }
     public static void view(Vehicle vehicle) {
-        boolean working = true;
-
-        while (working) {
-            if(vehicle instanceof Motorcycle) {
-                System.out.println("------- VEÍCULO -------");
-                System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());
-                System.out.println(" MODELO: " + (vehicle).getVehicleModel());
-                System.out.println("-----------------------");
-                System.out.println("");
-                working = false;
-            } else if (vehicle instanceof Car){
-                System.out.println("------- VEÍCULO -------");
-                System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());
-                System.out.println(" MODELO: " + (vehicle).getVehicleModel());
-                System.out.println("-----------------------");
-                System.out.println("");
-                working = false;
-            } else {
-                System.out.println("------- VEÍCULO -------");
-                System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());
-                System.out.println(" MODELO: " + (vehicle).getVehicleModel());
-                System.out.println("-----------------------");
-                System.out.println("");
-                working = false;
-            }
+        
+        if (vehicle instanceof Motorcycle) {
+            System.out.println("------- VEÍCULO -------");
+            System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());
+            System.out.println(" MODELO: " + (vehicle).getVehicleModel());
+            System.out.println("-----------------------");
+            System.out.println("");
+        } else if (vehicle instanceof Car) {
+            System.out.println("------- VEÍCULO -------");
+            System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());
+            System.out.println(" MODELO: " + (vehicle).getVehicleModel());
+            System.out.println("-----------------------");
+            System.out.println("");
+        } else {
+            System.out.println("------- VEÍCULO -------");
+            System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());
+            System.out.println(" MODELO: " + (vehicle).getVehicleModel());
+            System.out.println("-----------------------");
+            System.out.println("");
         }
     }
 }

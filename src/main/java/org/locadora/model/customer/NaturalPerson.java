@@ -1,11 +1,11 @@
-package org.locadora.model.costumer;
+package org.locadora.model.customer;
 
 import org.locadora.model.Address;
 import org.locadora.model.Telephone;
 
 import java.util.Objects;
 
-public class NaturalPerson extends Costumer {
+public class NaturalPerson extends Customer {
     private String surname;
     private String cpf;
     private String driverLicense;

@@ -1,11 +1,11 @@
 package org.locadora.model;
 
-import org.locadora.model.costumer.Costumer;
+import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
 
 public class RentalCompany {
 
-    public void registerCostumer (Costumer costumer) {
+    public void registerCustomer(Customer customer) {
 
     }
     public void registerVehicle (Vehicle veiculo) {
@@ -20,10 +20,10 @@ public class RentalCompany {
     public void returnVehicle (Vehicle veiculo) {
 
     }
-    public void pickupReceipt (Costumer costumer, Vehicle vehicle, Agency agency){
+    public void pickupReceipt (Customer customer, Vehicle vehicle, Agency agency){
 
     }
-    public void returnReceipt (Costumer costumer, Vehicle vehicle, Agency agency){
+    public void returnReceipt (Customer customer, Vehicle vehicle, Agency agency){
 
     }
 }
