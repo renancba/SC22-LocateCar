@@ -91,8 +91,12 @@ public class Database {
         }
     }
 
-    public Costumer get(int index) {
+    public Costumer getCustomer(int index) {
         return costumers.get(index);
+    }
+
+    public Agency getAgency(int index) {
+        return agencies.get(index);
     }
 
     // TODO: VALIDAR SE O CASTING ESTÁ FUNCIONANDO
@@ -140,6 +144,14 @@ public class Database {
 
     public List<Costumer> getCostumers() {
         return costumers;
+    }
+
+    public List<Agency> getAgencies(){
+        return agencies;
+    }
+
+    public List<Vehicle> getVehicles(){
+        return vehicles;
     }
 
     public boolean addCostumer(Costumer costumer) { //RN6

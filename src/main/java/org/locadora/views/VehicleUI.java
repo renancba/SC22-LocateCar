@@ -223,18 +223,21 @@ public class VehicleUI {
                 System.out.println(" MODELO: " + (vehicle).getVehicleModel());
                 System.out.println("-----------------------");
                 System.out.println("");
+                working = false;
             } else if (vehicle instanceof Car){
                 System.out.println("------- VEÍCULO -------");
                 System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());
                 System.out.println(" MODELO: " + (vehicle).getVehicleModel());
                 System.out.println("-----------------------");
                 System.out.println("");
+                working = false;
             } else {
                 System.out.println("------- VEÍCULO -------");
                 System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());
                 System.out.println(" MODELO: " + (vehicle).getVehicleModel());
                 System.out.println("-----------------------");
                 System.out.println("");
+                working = false;
             }
         }
     }

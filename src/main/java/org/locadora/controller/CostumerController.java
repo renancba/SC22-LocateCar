@@ -1,6 +1,8 @@
 package org.locadora.controller;
 
 import org.locadora.database.Database;
+import org.locadora.model.Address;
+import org.locadora.model.Telephone;
 import org.locadora.model.costumer.LegalPerson;
 import org.locadora.model.costumer.NaturalPerson;
 import org.locadora.views.CostumerUI;
@@ -8,7 +10,7 @@ import org.locadora.views.CostumerUI;
 public class CostumerController {
     public String paginatedList() {
         Database db = Database.getInstance();
-        return CostumerUI.paginatedList(db.getCostumers());
+        return CostumerUI.listNaturalPerson(db.getCostumers());
     }
 
     public void create() {
@@ -17,9 +19,9 @@ public class CostumerController {
 
     //TODO: TEM COMO DEIXAR MAIS UNIVERSAL PARA NÃO REPETIR CÓDIGO?
 
-    public void saveNaturalPerson(String name, String surname, String cpf,String driverLicense) {
+    public void saveNaturalPerson(String name, String surname, String cpf,String driverLicense, String street,String number,String cep,String city,String state, String ddd, String telephone) {
 
-        NaturalPerson naturalPerson = new NaturalPerson(name, surname, cpf, driverLicense);
+        NaturalPerson naturalPerson = new NaturalPerson(name, surname, cpf, driverLicense, new Telephone(ddd, telephone), new Address(cep,street,number,city,state));
         Database db = Database.getInstance();
 
         if (db.addCostumer(naturalPerson)) {
@@ -59,15 +61,15 @@ public class CostumerController {
     public void view() {
         String option = paginatedList();
         if (option.equals("EDITAR")) {
-            viewContactInfo();
+            viewCustomerInfo();
         }
     }
 
-    public void viewContactInfo() {
+    public void viewCustomerInfo() {
         Database db = Database.getInstance();
         try {
             int index = CostumerUI.getIndex();
-            CostumerUI.view(db.get(index));
+            CostumerUI.view(db.getCustomer(index));
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");

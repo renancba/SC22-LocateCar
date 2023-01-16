@@ -23,7 +23,7 @@ public class Home {
                 case 0 -> {
                     System.out.println("ESCOLHEU CLIENTES");
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR CLIENTE",
-                            "ALTERAR DADOS DE UM CLIENTE", "RETORNAR AO MENU INICIAL");
+                            "ALTERAR DADOS DE UM CLIENTE", "LISTAR CLIENTE", "RETORNAR AO MENU INICIAL");
                     submenuCostumer(option);
 
                 }
@@ -36,7 +36,7 @@ public class Home {
                 case 2 -> {
                     System.out.println("ESCOLHEU AGÊNCIA");
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR AGÊNCIA",
-                            "ALTERAR DADOS DE UMA AGÊNCIA", "BUSCAR AGÊNCIA","RETORNAR AO MENU INICIAL");
+                            "ALTERAR DADOS DE UMA AGÊNCIA", "BUSCAR AGÊNCIA","LISTAR AGÊNCIAS","RETORNAR AO MENU INICIAL");
                     submenuAgency(option);
                 }
                 case 3 -> {
@@ -73,7 +73,12 @@ public class Home {
                     System.out.println("ALTERANDO CLIENTE...");
                     executing = false;
                 }
-                case 2 -> { //retornar ao menu inicial
+                case 2 -> {
+                    System.out.println("LISTAR CLIENTES");
+                    costumerController.view();
+                    executing = false;
+                }
+                case 3 -> { //retornar ao menu inicial
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");
@@ -129,7 +134,11 @@ public class Home {
                     // TODO: NÃO ESTÁ ACHANDO A AGÊNCIA
                     executing = false;
                 }
-                case 3 -> { //retornar ao menu inicial
+                case 3 -> {
+                    agencyController.view();
+                    executing = false;
+                }
+                case 4 -> { //retornar ao menu inicial
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");

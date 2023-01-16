@@ -16,11 +16,22 @@ public class AgencyUI {
         AgencyController agencyController = new AgencyController();
         Integer option;
         String name;
+        String street;
+        String number;
+        String cep;
+        String city;
+        String state;
+
 
         try {
             name = Input.stringNotNullable("NOME DA AGÊNCIA: ", 3);
+            street = Input.stringNotNullable("NOME DA RUA: ", 3);
+            number = Input.stringNotNullable("NÚMERO: ", 3);
+            cep = Input.stringNotNullable("CEP: ", 3);
+            city = Input.stringNotNullable("CIDADE: ", 3);
+            state = Input.stringNotNullable("ESTADO: ", 3);
 
-            agencyController.saveAgency(name);
+            agencyController.saveAgency(name, street, number, cep, city, state);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -34,7 +45,7 @@ public class AgencyUI {
         System.out.println("");
         return index;
     }
-    public static void list(List<Agency> agencies) {
+    public static String list(List<Agency> agencies) {
         int index = 0;
         int tentativas = 0;
         boolean working;
@@ -90,6 +101,7 @@ public class AgencyUI {
             }
 
         } while (working);
+        return "5";
     }
     public static String paginatedList(List<Agency> agencies) {
         boolean working = true;
@@ -182,6 +194,7 @@ public class AgencyUI {
             System.out.println(" ENDEREÇO: " + agency.getAddress());
             System.out.println("-----------------------");
             System.out.println("");
+            working = false;
         }
     }
 }

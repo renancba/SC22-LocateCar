@@ -2,12 +2,14 @@ package org.locadora.views;
 
 
 import org.locadora.controller.CostumerController;
+import org.locadora.model.Telephone;
 import org.locadora.model.costumer.Costumer;
 import org.locadora.model.costumer.LegalPerson;
 import org.locadora.model.costumer.NaturalPerson;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class CostumerUI {
@@ -20,6 +22,13 @@ public class CostumerUI {
         String driverLicense;
         String nickname;
         String cnpj;
+        String street;
+        String number;
+        String cep;
+        String city;
+        String state;
+        String ddd;
+        String telephone;
 
         option = MenuCreator.exec("DIGITE O TIPO DE CLIENTE A SER ADICIONADO","PESSOA FÍSICA", "PESSOA JURÍDICA");
 
@@ -30,8 +39,17 @@ public class CostumerUI {
                     surname = Input.stringNotNullable("SOBRENOME: ", 3);
                     cpf = Input.stringNotNullable("CPF: ", 3);
                     driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);
+                    System.out.println("\nCADASTRO DE ENDEREÇO: ");
+                    street = Input.stringNotNullable("NOME DA RUA: ", 3);
+                    number = Input.stringNotNullable("NÚMERO: ", 3);
+                    cep = Input.stringNotNullable("CEP: ", 3);
+                    city = Input.stringNotNullable("CIDADE: ", 3);
+                    state = Input.stringNotNullable("ESTADO: ", 3);
+                    System.out.println("\nCADASTRO DE TELEFONE: ");
+                    ddd = Input.stringNotNullable("DDD: ", 3);
+                    telephone = Input.stringNotNullable("NÚMERO TELEFONE: ", 3);
 
-                    costumerController.saveNaturalPerson(name, surname, cpf, driverLicense);
+                    costumerController.saveNaturalPerson(name, surname, cpf, driverLicense, cep, street, number, city, state, ddd, telephone);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -60,7 +78,7 @@ public class CostumerUI {
         System.out.println("");
         return index;
     }
-    public static void listNaturalPerson(List<NaturalPerson> naturalPersonList) {
+    public static String listNaturalPerson(List<Costumer> naturalPersonList) {
         int index = 0;
         int tentativas = 0;
         boolean working;
@@ -78,10 +96,10 @@ public class CostumerUI {
                 if (naturalPersonList.size() > 1) {
 
                     System.out.println("");
-                    for (NaturalPerson naturalPerson : naturalPersonList) {
+                    for (Costumer naturalPerson : naturalPersonList) {
                         System.out.println("-------- CLIENTE -------");
                         System.out.println("ID: " + index);
-                        System.out.println("Nome: " + naturalPerson.getName() + " " + naturalPerson.getSurname());
+                        System.out.println("Nome: " + naturalPerson.getName() + " ");
                         System.out.println("------------------------");
                         index++;
                     }
@@ -115,6 +133,7 @@ public class CostumerUI {
             }
 
         } while (working);
+        return "2";
     }
 
     //TODO: RESOLVER LISTA PAGINADA COM CASTING?
@@ -206,14 +225,19 @@ public class CostumerUI {
                 System.out.println("------- CLIENTE -------");
                 System.out.println(" NOME: " + costumer.getName());
                 System.out.println(" SOBRENOME: " + ((NaturalPerson)costumer).getSurname());
+                System.out.println(" CNH: " + ((NaturalPerson) costumer).getDriverLicense());
+                System.out.println(" ENDEREÇO: " + costumer.getAddress());
+                System.out.println(" TELEFONE: " + costumer.getTelephone());
                 System.out.println("-----------------------");
                 System.out.println("");
+                working = false;
             } else {
                 System.out.println("------- CLIENTE -------");
                 System.out.println(" NOME: " + costumer.getName());
                 System.out.println(" NOMEFANTASIA: " + ((LegalPerson)costumer).getNickname());
                 System.out.println("-----------------------");
                 System.out.println("");
+                working = false;
             }
         }
     }
