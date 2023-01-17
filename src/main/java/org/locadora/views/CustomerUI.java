@@ -62,8 +62,19 @@ public class CustomerUI {
                     name = Input.stringNotNullable("NOME: ", 3);
                     nickname = Input.stringNotNullable("NOME FANTASIA: ", 3);
                     cnpj = Input.stringNotNullable("CNPJ: ", 3);
+                    // TODO: NÃO SERIA MELHOR DE FATO TERMOS O ADDRESS UI E SÓ CHAMARMOS O MÉTODO ADD AQUI PARA FICAR LIMPO?
+                    System.out.println("\nCADASTRO DE ENDEREÇO: ");
+                    street = Input.stringNotNullable("NOME DA RUA: ", 3);
+                    number = Input.stringNotNullable("NÚMERO: ", 3);
+                    cep = Input.stringNotNullable("CEP: ", 3);
+                    city = Input.stringNotNullable("CIDADE: ", 3);
+                    state = Input.stringNotNullable("ESTADO: ", 3);
+                    // TODO: MESMA SUGESTÃO PARA O CASO DO TELEFONE (CRIARIAMOS O TELEPHONEUI)
+                    System.out.println("\nCADASTRO DE TELEFONE: ");
+                    ddd = Input.stringNotNullable("DDD: ", 3);
+                    telephone = Input.stringNotNullable("NÚMERO TELEFONE: ", 3);
 
-                    customerController.saveLegalPerson(name, nickname, cnpj);
+                    customerController.saveLegalPerson(name, nickname, cnpj, ddd, telephone, cep, street, number, city, state);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -221,7 +232,7 @@ public class CustomerUI {
     public static void view(Customer customer) {
 
         if (customer instanceof NaturalPerson) {
-            System.out.println("------- CLIENTE -------");
+            System.out.println("------- CLIENTE (PF) -------");
             System.out.println(" NOME: " + customer.getName());
             System.out.println(" SOBRENOME: " + ((NaturalPerson) customer).getSurname());
             System.out.println(" CNH: " + ((NaturalPerson) customer).getDriverLicense());
@@ -230,9 +241,12 @@ public class CustomerUI {
             System.out.println("-----------------------");
             System.out.println("");
         } else {
-            System.out.println("------- CLIENTE -------");
+            System.out.println("------- CLIENTE (PJ) -------");
             System.out.println(" NOME: " + customer.getName());
             System.out.println(" NOMEFANTASIA: " + ((LegalPerson) customer).getNickname());
+            System.out.println(" CNPJ: " + ((LegalPerson) customer).getCnpj());
+            System.out.println(" ENDEREÇO: " + customer.getAddress());
+            System.out.println(" TELEFONE: " + customer.getTelephone());
             System.out.println("-----------------------");
             System.out.println("");
         }

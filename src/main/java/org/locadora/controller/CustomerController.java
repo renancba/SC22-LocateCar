@@ -38,9 +38,9 @@ public class CustomerController {
             System.out.println("");
         }
     }
-    public void saveLegalPerson(String name, String nickname, String cnpj) {
+    public void saveLegalPerson(String name, String nickname, String cnpj, String ddd, String telephone, String cep, String street, String number, String city, String state) {
 
-        LegalPerson legalPerson = new LegalPerson(name, nickname, cnpj);
+        LegalPerson legalPerson = new LegalPerson(name, nickname, cnpj, new Telephone(ddd,telephone), new Address(cep,street,number,city,state));
         Database db = Database.getInstance();
 
         if (db.addCustomer(legalPerson)) {
