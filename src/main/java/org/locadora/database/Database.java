@@ -1,7 +1,4 @@
 package org.locadora.database;
-
-
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.locadora.model.Agency;
@@ -22,8 +19,8 @@ import java.util.List;
 
 public class Database {
 
-    //seria o caso de trabalharmos com generics aqui pra fazer essa leitura independente do tipo?
     private Path dbPath;
+    private DataReader dataReader;
     private List<Costumer> costumers;
     private List<Vehicle> vehicles;
     private List<Agency> agencies;
@@ -31,9 +28,7 @@ public class Database {
 
     private Database() {
         dbPath = Paths.get("src/database/database.json");
-        costumers = new ArrayList<>();
-        vehicles = new ArrayList<>();
-        agencies = new ArrayList<>();
+        this.dataReader = new JSONDataReader(dbPath);
     }
 
     public static Database getInstance() {
@@ -42,53 +37,11 @@ public class Database {
         }
         return instance;
     }
-    //TODO: INICIAR COM CONTATO, VEÍCULO OU AGÊNCIA
 
     public void init() throws IOException {
-        JSONObject costumersObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray costumersArray = (JSONArray) costumersObject.get("costumers");
-        for (Object costumertObject : costumersArray) {
-
-            JSONObject costumer = (JSONObject) costumertObject;
-
-            //CONDIÇÃO SE PESSOA FÍSICA OU PESSOA JURÍDICA
-            //Pessoa Física
-            String name = (String) costumer.get("name");
-            String surname = (String) costumer.get("surname");
-            String cpf = (String) costumer.get("cpf");
-            String driverLicense = (String) costumer.get("driverLicense");
-            Costumer natualPerson = new NaturalPerson(name, surname, cpf, driverLicense);
-            costumers.add(natualPerson);
-
-            //TODO: USEI LEGALPERSON SÓ PARA INSTANCIAR E NÃO DAR ERRO DE EXECUÇÃO
-
-            Costumer legalPerson = new LegalPerson();
-            costumers.add(legalPerson);
-        }
-
-        JSONObject agenciesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray agenciesArray = (JSONArray) costumersObject.get("agencies");
-        for (Object agencyObject : agenciesArray) {
-
-            JSONObject agency = (JSONObject) agencyObject;
-
-            String agencyName = (String) agency.get("name");
-            Agency newAgency = new Agency(agencyName);
-            agencies.add(newAgency);
-        }
-        JSONObject vehiclesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray vehiclesArray = (JSONArray) costumersObject.get("vehicles");
-        for (Object vehicleObject : vehiclesArray) {
-
-            JSONObject vehicle = (JSONObject) vehicleObject;
-
-            String vehicleManufacturer = (String) vehicle.get("manufacturer");
-            String vehicleModel = (String) vehicle.get("model");
-            String vehicleRegPlate = (String) vehicle.get("registration plate");
-            //TODO: USEI MOTORCYCLE SÓ PARA INSTANCIAR E NÃO DAR ERRO DE EXECUÇÃO
-            Vehicle newVehicle = new Motorcycle(vehicleManufacturer, vehicleModel, vehicleRegPlate);
-            vehicles.add(newVehicle);
-        }
+        costumers = dataReader.readCostumers();
+        vehicles = dataReader.readVehicles();
+        agencies = dataReader.readAgencies();
     }
 
     public Costumer getCustomer(int index) {
@@ -183,7 +136,7 @@ public class Database {
     }
 
     public void close() throws IOException {
-        Files.newBufferedWriter(dbPath);
+        Files.newBufferedWriter(dbPath, StandardCharsets.UTF_8);
         JSONArray costumersArray = new JSONArray();
 
         for (Costumer costumer : costumers) {
@@ -204,3 +157,5 @@ public class Database {
         Files.writeString(dbPath, object.toString(), StandardOpenOption.WRITE);
     }
 }
+
+
