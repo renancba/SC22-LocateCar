@@ -24,7 +24,7 @@ interface ObjectFactory {
 }
 
 class JSONObjectFactory implements ObjectFactory {
-    public Costumer createCostumer(JSONObject costumer) {
+    public static Costumer createCostumer(JSONObject costumer) {
         if (costumer.has("cpf")) {
             String name = (String) costumer.get("name");
             String surname = (String) costumer.get("surname");
@@ -37,18 +37,18 @@ class JSONObjectFactory implements ObjectFactory {
             String cnpj = (String) costumer.get("cnpj");
             String companyDriver = (String) costumer.get("companyDriver");
             String driverLicense = (String) costumer.get("driverLicense");
-            return new LegalPerson(name,nickname, cnpj, companyDriver, driverLicense);
+            return new LegalPerson(name, nickname, cnpj, companyDriver, driverLicense);
         }
     }
 
-    public Vehicle createVehicle(JSONObject vehicle) {
+    public static Vehicle createVehicle(JSONObject vehicle) {
         String vehicleManufacturer = (String) vehicle.get("manufacturer");
         String vehicleModel = (String) vehicle.get("model");
         String vehicleRegPlate = (String) vehicle.get("registration plate");
         return new Motorcycle(vehicleManufacturer, vehicleModel, vehicleRegPlate);
     }
 
-    public Agency createAgency(JSONObject agency) {
+    public static Agency createAgency(JSONObject agency) {
         String agencyName = (String) agency.get("name");
         return new Agency(agencyName);
     }

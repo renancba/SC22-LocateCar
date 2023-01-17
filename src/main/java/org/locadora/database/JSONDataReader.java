@@ -36,7 +36,7 @@ class JSONDataReader implements DataReader {
             JSONArray costumersArray = (JSONArray) costumersObject.get("costumers");
             for (Object costumerObject : costumersArray) {
                 JSONObject costumer = (JSONObject) costumerObject;
-                costumers.add(ObjectFactory.createCostumer(costumer));
+                costumers.add(JSONObjectFactory.createCostumer(costumer));
             }
             return costumers;
         } catch (JSONException jex) {
@@ -51,7 +51,7 @@ class JSONDataReader implements DataReader {
             JSONArray vehiclesArray = (JSONArray) vehiclesObject.get("vehicles");
             for (Object vehicleObject : vehiclesArray) {
                 JSONObject vehicle = (JSONObject) vehicleObject;
-                vehicles.add(ObjectFactory.createVehicle(vehicle));
+                vehicles.add(JSONObjectFactory.createVehicle(vehicle));
             }
             return vehicles;
         } catch (JSONException jex) {
@@ -66,7 +66,7 @@ class JSONDataReader implements DataReader {
             JSONArray agenciesArray = (JSONArray) agenciesObject.get("agencies");
             for (Object agencyObject : agenciesArray) {
                 JSONObject agency = (JSONObject) agencyObject;
-                agencies.add(ObjectFactory.createAgency(agency));
+                agencies.add(JSONObjectFactory.createAgency(agency));
             }
             return agencies;
         } catch (JSONException jex) {
