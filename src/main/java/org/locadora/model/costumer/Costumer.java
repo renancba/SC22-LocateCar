@@ -49,6 +49,8 @@ public abstract class Costumer {
         return null;
     }
 
+    public abstract void info();
+
 
 // TODO: SOBRESCREVER EQUALS, HASHCODE E TOSTRING
 

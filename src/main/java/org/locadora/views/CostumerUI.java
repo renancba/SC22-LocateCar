@@ -93,9 +93,8 @@ public class CostumerUI {
     }
 
 
-
-    public static <T extends Costumer> String listNaturalPerson(List<T> costumer){
-    int index = 0;
+    public static <T extends Costumer> String listNaturalPerson(List<T> costumers) {
+        int index = 0;
         int tentativas = 0;
         boolean working;
 
@@ -104,44 +103,32 @@ public class CostumerUI {
 
             try {
 
-                if (costumer.size() == 0) {
+                if (costumers.size() == 0) {
                     System.out.println("NENHUM CLIENTE ENCONTRADO PARA O TERMO INFORMADO.\n");
                     break;
                 }
 
-                if (costumer.size() > 1) {
+                for (T costumer : costumers) {
+                    costumer.info();
+                }
 
-                    System.out.println("");
-                    for (T Entity : costumer) {
-                        System.out.println("-------- CLIENTE -------");
-                        System.out.println("ID: " + index);
-                        System.out.println("Nome: " + Entity.getName() + " ");
-                        System.out.println("------------------------");
-                        index++;
-                    }
-                    System.out.println("");
+                int indexOption = getIndex();
+                if (indexOption > costumers.size()) {
+                    System.out.println("-> Opção inválida\n");
+                    index = 0;
+                    tentativas++;
+                    working = true;
+                    continue;
+                }
 
-                    int indexOption = getIndex();
-                    if (indexOption > costumer.size()) {
-                        System.out.println("-> Opção inválida\n");
-                        index = 0;
-                        tentativas++;
-                        working = true;
-                        continue;
-                    }
-
-                    if (tentativas > 3) {
-                        System.out.println("-> Número de tentativas excedidas");
-                        System.out.println("voltando...\n");
-                        break;
-                    }
-
-                    CostumerUI.view(costumer.get(indexOption));
-
-                } else {
-                    CostumerUI.view(costumer.get(0));
+                if (tentativas > 3) {
+                    System.out.println("-> Número de tentativas excedidas");
+                    System.out.println("voltando...\n");
                     break;
                 }
+
+                costumers.get(indexOption).info();
+
 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage() + "\n");
@@ -231,31 +218,6 @@ public class CostumerUI {
 
         }
         return option;
-    }
-
-    public static void view(Costumer costumer) {
-        boolean working = true;
-
-        while (working) {
-            if (costumer instanceof NaturalPerson) {
-                System.out.println("------- CLIENTE -------");
-                System.out.println(" NOME: " + costumer.getName());
-                System.out.println(" SOBRENOME: " + ((NaturalPerson) costumer).getSurname());
-                System.out.println(" CNH: " + ((NaturalPerson) costumer).getDriverLicense());
-                System.out.println(" ENDEREÇO: " + costumer.getAddress());
-                System.out.println(" TELEFONE: " + costumer.getTelephone());
-                System.out.println("-----------------------");
-                System.out.println("");
-                working = false;
-            } else {
-                System.out.println("------- CLIENTE -------");
-                System.out.println(" NOME: " + costumer.getName());
-                System.out.println(" NOMEFANTASIA: " + ((LegalPerson) costumer).getNickname());
-                System.out.println("-----------------------");
-                System.out.println("");
-                working = false;
-            }
-        }
     }
 }
 

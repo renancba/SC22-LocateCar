@@ -113,6 +113,7 @@ public class Database {
         if (costumers.contains(costumer)) return false;
 
         costumers.add(costumer);
+        System.out.println(costumer);
         return true;
     }
 

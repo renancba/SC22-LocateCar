@@ -43,6 +43,17 @@ public class LegalPerson extends Costumer {
         costumerObject.put("telephone", this.getTelephone());
         return costumerObject;
     }
+
+    public void info(){
+        System.out.println(" NOME: " + this.getName());
+        System.out.println(" NOME FANTASIA: " + this.getNickname());
+        System.out.println(" CNPJ: " + this.getCnpj());
+        System.out.println(" MOTORISTA: " + this.getCompanyDriver());
+        System.out.println(" CNH: " + this.getDriverLicense());
+        System.out.println(" ENDEREÇO: " + this.getAddress());
+        System.out.println(" TELEFONE: " + this.getTelephone());
+    }
+
     public String getCompanyDriver() {
         return companyDriver;
     }

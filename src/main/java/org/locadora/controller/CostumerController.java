@@ -71,7 +71,7 @@ public class CostumerController {
         Database db = Database.getInstance();
         try {
             int index = CostumerUI.getIndex();
-            CostumerUI.view(db.getCustomer(index));
+            db.getCustomer(index).info();
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");

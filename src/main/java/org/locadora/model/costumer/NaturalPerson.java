@@ -39,6 +39,15 @@ public class NaturalPerson extends Costumer {
         costumerObject.put("telephone", this.getTelephone());
         return costumerObject;
     }
+
+    public void info(){
+        System.out.println(" NOME: " + this.getName());
+        System.out.println(" SOBRENOME: " + this.getSurname());
+        System.out.println(" CPF: " + this.getCpf());
+        System.out.println(" CNH: " + this.getDriverLicense());
+        System.out.println(" ENDEREÇO: " + this.getAddress());
+        System.out.println(" TELEFONE: " + this.getTelephone());
+    }
     public String getSurname() {
         return surname;
     }
