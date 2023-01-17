@@ -2,15 +2,12 @@ package org.locadora.views;
 
 
 import org.locadora.controller.CostumerController;
-import org.locadora.model.Telephone;
 import org.locadora.model.costumer.Costumer;
-import org.locadora.model.costumer.LegalPerson;
-import org.locadora.model.costumer.NaturalPerson;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 
-import java.sql.SQLOutput;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CostumerUI {
     public static void add() {
@@ -93,7 +90,7 @@ public class CostumerUI {
     }
 
 
-    public static <T extends Costumer> String listNaturalPerson(List<T> costumers) {
+    public static <T extends Costumer> String ListCostumer(List<T> costumers) {
         int index = 0;
         int tentativas = 0;
         boolean working;
@@ -107,10 +104,13 @@ public class CostumerUI {
                     System.out.println("NENHUM CLIENTE ENCONTRADO PARA O TERMO INFORMADO.\n");
                     break;
                 }
-
+                //Listar os contatos
                 for (T costumer : costumers) {
-                    costumer.info();
+                    costumer.shortInfo();
+                    System.out.println("");
+                    System.out.println("---------------------");
                 }
+
 
                 int indexOption = getIndex();
                 if (indexOption > costumers.size()) {
@@ -127,7 +127,7 @@ public class CostumerUI {
                     break;
                 }
 
-                costumers.get(indexOption).info();
+                costumers.get(indexOption).completeInfo();
 
 
             } catch (Exception ex) {
@@ -141,81 +141,60 @@ public class CostumerUI {
 
     //TODO: RESOLVER LISTA PAGINADA COM CASTING?
 
-    public static String paginatedList(List<Costumer> costumers) {
-        boolean working = true;
-        int ammount = 0;
-        int start = 0;
+    public static <T extends Costumer> String paginatedCostumerList(List<T> costumers, int pageSize, int pageNumber) {
         String option = "";
 
-        while (working) {
-            try {
-                if (ammount == 0) {
-                    ammount = Input.integer("Informe a quantidade de clientes por página: ");
-                    System.out.println("");
-                }
+        // validate input
+        if (pageNumber < 0) pageNumber = 0;
+        if (pageSize < 0) pageSize = 0;
+        if (pageNumber + pageSize > costumers.size()) pageNumber = costumers.size() - pageSize;
+        if (pageNumber < 0 || pageNumber >= costumers.size()) pageNumber = 0;
 
-                if (start < 0 || start > costumers.size()) start = 0;
-                if (ammount < 0) ammount = 0;
-                if (ammount > costumers.size()) ammount = costumers.size();
-                if (start + ammount > costumers.size()) start = costumers.size() - ammount;
+        // paginate the list
+        List<T> paginatedCostumers = costumers.stream()
+                .skip((pageNumber) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
 
-                System.out.println("------ CLIENTES ------");
+        // display the paginated list
+        System.out.println("------ CLIENTES ------");
+        System.out.println("");
+        paginatedCostumers.forEach(Costumer::shortInfo);
+        System.out.println("");
 
-                for (int i = start; i < start + ammount; i++) {
-                    if (i == costumers.size()) break;
-                    if (costumers instanceof NaturalPerson) {
-                        System.out.println("ID: " + i);
-                        System.out.println("NOME: " + costumers.get(i)/* + " " + costumers.get(i).getSurname()*/);
-                        System.out.println("----------------------");
-                    }
-                }
-                System.out.println("");
-
-                boolean better = true;
-
-                while (better) {
-                    if (costumers.size() == 0) {
-                        switch (MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE")) {
-                            case 0 -> {
-                                better = false;
-                                working = false;
-                                option = "VOLTAR";
-                            }
-                            case 1 -> {
-                                add();
-                                better = false;
-                            }
-                            default -> System.out.println(" OPÇÃO INVÁLIDA\n");
-                        }
-                    } else {
-                        switch (MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CLIENTE")) {
-                            case 0 -> {
-                                better = false;
-                                working = false;
-                                option = "VOLTAR";
-                            }
-                            case 1 -> {
-                                start = start + ammount;
-                                better = false;
-                            }
-                            case 2 -> {
-                                start = start - ammount;
-                                better = false;
-                            }
-                            case 3 -> {
-                                better = false;
-                                working = false;
-                                option = "EDITAR";
-                            }
-                            default -> System.out.println(" OPÇÃO INVÁLIDA\n");
-                        }
-                    }
-
-                }
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage() + " VOLTANDO AO MENU PRINCIPAL...");
+        // handle navigation
+        if (costumers.size() == 0) {
+            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE");
+            switch (choice) {
+                case 0:
+                    option = "VOLTAR";
+                    break;
+                case 1:
+                    add();
+                    break;
+                default:
+                    System.out.println("OPÇÃO INVÁLIDA\n");
+                    break;
             }
-
+        } else {
+            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CLIENTE");
+            switch (choice) {
+                case 0:
+                    option = "VOLTAR";
+                    break;
+                case 1:
+                    paginatedCostumerList(costumers, pageSize, pageNumber + pageSize);
+                    break;
+                case 2:
+                    paginatedCostumerList(costumers, pageSize, pageNumber - pageSize);
+                    break;
+                case 3:
+                    option = "EDITAR";
+                    break;
+                default:
+                    System.out.println("OPÇÃO INVÁLIDA\n");
+                    break;
+            }
         }
         return option;
     }

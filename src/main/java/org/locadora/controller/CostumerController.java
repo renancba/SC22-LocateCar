@@ -10,7 +10,7 @@ import org.locadora.views.CostumerUI;
 public class CostumerController {
     public String paginatedList() {
         Database db = Database.getInstance();
-        return CostumerUI.listNaturalPerson(db.getCostumers());
+        return CostumerUI.paginatedCostumerList(db.getCostumers(), 5, 0);
     }
 
     public void create() {
@@ -71,7 +71,7 @@ public class CostumerController {
         Database db = Database.getInstance();
         try {
             int index = CostumerUI.getIndex();
-            db.getCustomer(index).info();
+            db.getCustomer(index).completeInfo();
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");

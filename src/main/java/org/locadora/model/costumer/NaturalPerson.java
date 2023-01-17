@@ -40,14 +40,21 @@ public class NaturalPerson extends Costumer {
         return costumerObject;
     }
 
-    public void info(){
+    public void shortInfo() {
         System.out.println(" NOME: " + this.getName());
         System.out.println(" SOBRENOME: " + this.getSurname());
         System.out.println(" CPF: " + this.getCpf());
+        System.out.println("-------------------------");
+    }
+
+    public void completeInfo() {
+        this.shortInfo();
         System.out.println(" CNH: " + this.getDriverLicense());
         System.out.println(" ENDEREÇO: " + this.getAddress());
         System.out.println(" TELEFONE: " + this.getTelephone());
+        System.out.println("-------------------------");
     }
+
     public String getSurname() {
         return surname;
     }
@@ -71,6 +78,7 @@ public class NaturalPerson extends Costumer {
     public void setDriverLicense(String driverLicense) {
         this.driverLicense = driverLicense;
     }
+
     public String getFullName(String fullname) {
         return this.getName() + this.getSurname();
     }
@@ -90,6 +98,7 @@ public class NaturalPerson extends Costumer {
     public int hashCode() {
         return Objects.hash(surname, cpf, driverLicense);
     }
+
     @Override
     public String toString() {
         return "NaturalPerson{" +

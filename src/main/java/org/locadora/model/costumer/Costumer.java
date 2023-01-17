@@ -49,7 +49,9 @@ public abstract class Costumer {
         return null;
     }
 
-    public abstract void info();
+    public abstract void completeInfo();
+
+    public abstract void shortInfo();
 
 
 // TODO: SOBRESCREVER EQUALS, HASHCODE E TOSTRING
