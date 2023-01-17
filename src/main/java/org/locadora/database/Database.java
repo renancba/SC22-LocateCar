@@ -1,4 +1,5 @@
 package org.locadora.database;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.locadora.model.Agency;
@@ -58,12 +59,12 @@ public class Database {
 
         for (Costumer costumer : costumers) {
             if (costumer instanceof NaturalPerson) {
-                String fullName = costumer.getName() + " " + ((NaturalPerson)costumer).getSurname();
+                String fullName = costumer.getName() + " " + ((NaturalPerson) costumer).getSurname();
                 if (fullName.contains(value)) {
                     matchCostumers.add(costumer);
                 }
             } else {
-                String fullName = costumer.getName() + " " + ((LegalPerson)costumer).getNickname();
+                String fullName = costumer.getName() + " " + ((LegalPerson) costumer).getNickname();
                 if (fullName.contains(value)) {
                     matchCostumers.add(costumer);
                 }
@@ -71,6 +72,7 @@ public class Database {
         }
         return matchCostumers;
     }
+
     public List<Vehicle> searchVehicles(String value) {
         List<Vehicle> matchVehicles = new ArrayList<>();
 
@@ -82,6 +84,7 @@ public class Database {
         }
         return matchVehicles;
     }
+
     public List<Agency> searchAgencies(String value) {
         List<Agency> matchAgencies = new ArrayList<>();
 
@@ -98,11 +101,11 @@ public class Database {
         return costumers;
     }
 
-    public List<Agency> getAgencies(){
+    public List<Agency> getAgencies() {
         return agencies;
     }
 
-    public List<Vehicle> getVehicles(){
+    public List<Vehicle> getVehicles() {
         return vehicles;
     }
 
@@ -112,12 +115,14 @@ public class Database {
         costumers.add(costumer);
         return true;
     }
+
     public boolean addVehicle(Vehicle vehicle) { //RN1
         if (vehicles.contains(vehicle)) return false;
 
         vehicles.add(vehicle);
         return true;
     }
+
     public boolean addAgency(Agency agency) { //RN5
         if (agencies.contains(agency)) return false;
 
@@ -150,9 +155,10 @@ public class Database {
             costumersArray.put(costumerObject);
         }
 
-        JSONObject object = new JSONObject().put("costumers", costumersArray);
-
+        JSONObject object = new JSONObject().put("costumers", costumersArray).put("vehicles", new JSONArray()).put("agencies", new JSONArray());
         Files.writeString(dbPath, object.toString(), StandardOpenOption.WRITE);
+
+
     }
 }
 

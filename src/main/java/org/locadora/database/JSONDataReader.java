@@ -1,5 +1,7 @@
 package org.locadora.database;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.locadora.model.Agency;
 import org.locadora.model.costumer.Costumer;
@@ -26,36 +28,49 @@ class JSONDataReader implements DataReader {
     public JSONDataReader(Path dbPath) {
         this.dbPath = dbPath;
     }
+
     public List<Costumer> readCostumers() throws IOException {
         List<Costumer> costumers = new ArrayList<>();
-        JSONObject costumersObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray costumersArray = (JSONArray) costumersObject.get("costumers");
-        for (Object costumerObject : costumersArray) {
-            JSONObject costumer = (JSONObject) costumerObject;
-            costumers.add(ObjectFactory.createCostumer(costumer));
+        try {
+            JSONObject costumersObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
+            JSONArray costumersArray = (JSONArray) costumersObject.get("costumers");
+            for (Object costumerObject : costumersArray) {
+                JSONObject costumer = (JSONObject) costumerObject;
+                costumers.add(ObjectFactory.createCostumer(costumer));
+            }
+            return costumers;
+        } catch (JSONException jex) {
+            return costumers;
         }
-        return costumers;
     }
 
     public List<Vehicle> readVehicles() throws IOException {
         List<Vehicle> vehicles = new ArrayList<>();
-        JSONObject vehiclesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray vehiclesArray = (JSONArray) vehiclesObject.get("vehicles");
-        for (Object vehicleObject : vehiclesArray) {
-            JSONObject vehicle = (JSONObject) vehicleObject;
-            vehicles.add(ObjectFactory.createVehicle(vehicle));
+        try {
+            JSONObject vehiclesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
+            JSONArray vehiclesArray = (JSONArray) vehiclesObject.get("vehicles");
+            for (Object vehicleObject : vehiclesArray) {
+                JSONObject vehicle = (JSONObject) vehicleObject;
+                vehicles.add(ObjectFactory.createVehicle(vehicle));
+            }
+            return vehicles;
+        } catch (JSONException jex) {
+            return vehicles;
         }
-        return vehicles;
     }
 
     public List<Agency> readAgencies() throws IOException {
         List<Agency> agencies = new ArrayList<>();
-        JSONObject agenciesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-        JSONArray agenciesArray = (JSONArray) agenciesObject.get("agencies");
-        for (Object agencyObject : agenciesArray) {
-            JSONObject agency = (JSONObject) agencyObject;
-            agencies.add(ObjectFactory.createAgency(agency));
+        try {
+            JSONObject agenciesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
+            JSONArray agenciesArray = (JSONArray) agenciesObject.get("agencies");
+            for (Object agencyObject : agenciesArray) {
+                JSONObject agency = (JSONObject) agencyObject;
+                agencies.add(ObjectFactory.createAgency(agency));
+            }
+            return agencies;
+        } catch (JSONException jex) {
+            return agencies;
         }
-        return agencies;
     }
 }

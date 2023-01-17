@@ -31,6 +31,22 @@ public class LegalPerson extends Costumer {
         this.driverLicense = driverLicense;
     }
 
+    public String getCompanyDriver() {
+        return companyDriver;
+    }
+
+    public void setCompanyDriver(String companyDriver) {
+        this.companyDriver = companyDriver;
+    }
+
+    public String getDriverLicense() {
+        return driverLicense;
+    }
+
+    public void setDriverLicense(String driverLicense) {
+        this.driverLicense = driverLicense;
+    }
+
     public String getCnpj() {
         return cnpj;
     }
