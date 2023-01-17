@@ -142,19 +142,16 @@ public class Database {
         Files.newBufferedWriter(dbPath, StandardCharsets.UTF_8);
         JSONArray costumersArray = new JSONArray();
 
+        System.out.println(costumers);
         for (Costumer costumer : costumers) {
-            JSONObject costumerObject = new JSONObject();
-            costumerObject.put("name", costumer.getName());
-            if (costumer instanceof NaturalPerson) {
-                costumerObject.put("surname", ((NaturalPerson) costumer).getSurname());
-            } else {
-                costumerObject.put("surname", ((LegalPerson) costumer).getNickname());
-            }
-            costumerObject.put("address", costumer.getAddress());
-            costumerObject.put("telephone", costumer.getTelephone());
+
+            //Criar um if para null aqui e tratar as excessões
+            JSONObject costumerObject = costumer.toJSONObject();
+            System.out.println(costumer);
             costumersArray.put(costumerObject);
         }
 
+        //Preciso tratar a null pointer aqui
         JSONObject object = new JSONObject().put("costumers", costumersArray).put("vehicles", new JSONArray()).put("agencies", new JSONArray());
         Files.writeString(dbPath, object.toString(), StandardOpenOption.WRITE);
 

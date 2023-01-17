@@ -1,5 +1,6 @@
 package org.locadora.model.costumer;
 
+import org.json.JSONObject;
 import org.locadora.model.Address;
 import org.locadora.model.Telephone;
 
@@ -42,6 +43,10 @@ public abstract class Costumer {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public JSONObject toJSONObject() {
+        return null;
     }
 
 

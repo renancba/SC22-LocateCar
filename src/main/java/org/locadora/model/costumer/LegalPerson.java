@@ -1,6 +1,7 @@
 package org.locadora.model.costumer;
 
 
+import org.json.JSONObject;
 import org.locadora.model.Address;
 import org.locadora.model.Telephone;
 
@@ -31,6 +32,17 @@ public class LegalPerson extends Costumer {
         this.driverLicense = driverLicense;
     }
 
+    public JSONObject toJSONObject() {
+        JSONObject costumerObject = new JSONObject();
+        costumerObject.put("name", this.getName());
+        costumerObject.put("nickname", this.getNickname());
+        costumerObject.put("cnpj", this.getCnpj());
+        costumerObject.put("companyDriver", this.getCompanyDriver());
+        costumerObject.put("driverLicense", this.getDriverLicense());
+        costumerObject.put("address", this.getAddress());
+        costumerObject.put("telephone", this.getTelephone());
+        return costumerObject;
+    }
     public String getCompanyDriver() {
         return companyDriver;
     }
