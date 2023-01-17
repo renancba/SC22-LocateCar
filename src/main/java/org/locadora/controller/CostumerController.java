@@ -19,9 +19,9 @@ public class CostumerController {
 
     //TODO: TEM COMO DEIXAR MAIS UNIVERSAL PARA NÃO REPETIR CÓDIGO?
 
-    public void saveNaturalPerson(String name, String surname, String cpf,String driverLicense, String street,String number,String cep,String city,String state, String ddd, String telephone) {
+    public void saveNaturalPerson(String name, String surname, String cpf, String driverLicense, String street, String number, String cep, String city, String state, String ddd, String telephone) {
 
-        NaturalPerson naturalPerson = new NaturalPerson(name, surname, cpf, driverLicense, new Telephone(ddd, telephone), new Address(cep,street,number,city,state));
+        NaturalPerson naturalPerson = new NaturalPerson(name, surname, cpf, driverLicense, new Telephone(ddd, telephone), new Address(cep, street, number, city, state));
         Database db = Database.getInstance();
 
         if (db.addCostumer(naturalPerson)) {
@@ -38,9 +38,11 @@ public class CostumerController {
             System.out.println("");
         }
     }
-    public void saveLegalPerson(String name, String nickname, String cnpj) {
 
-        LegalPerson legalPerson = new LegalPerson(name, nickname, cnpj);
+    public void saveLegalPerson(String name, String nickname, String cnpj, String companyDriver, String driverLicense,
+                                String cep, String street, String number, String city, String state, String ddd, String telephone) {
+
+        LegalPerson legalPerson = new LegalPerson(name, nickname, cnpj, companyDriver, driverLicense, new Telephone(ddd, telephone), new Address(cep, street, number, city, state));
         Database db = Database.getInstance();
 
         if (db.addCostumer(legalPerson)) {

@@ -35,7 +35,9 @@ class JSONObjectFactory implements ObjectFactory {
             String name = (String) costumer.get("name");
             String nickname = (String) costumer.get("nickname");
             String cnpj = (String) costumer.get("cnpj");
-            return new LegalPerson(name,nickname, cnpj);
+            String companyDriver = (String) costumer.get("companyDriver");
+            String driverLicense = (String) costumer.get("driverLicense");
+            return new LegalPerson(name,nickname, cnpj, companyDriver, driverLicense);
         }
     }
 

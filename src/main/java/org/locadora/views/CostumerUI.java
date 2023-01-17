@@ -19,6 +19,7 @@ public class CostumerUI {
         String name;
         String surname;
         String cpf;
+        String companyDriver;
         String driverLicense;
         String nickname;
         String cnpj;
@@ -30,12 +31,12 @@ public class CostumerUI {
         String ddd;
         String telephone;
 
-        option = MenuCreator.exec("DIGITE O TIPO DE CLIENTE A SER ADICIONADO","PESSOA FÍSICA", "PESSOA JURÍDICA");
+        option = MenuCreator.exec("DIGITE O TIPO DE CLIENTE A SER ADICIONADO", "PESSOA FÍSICA", "PESSOA JURÍDICA");
 
         switch (option) {
             case 0 -> {
                 try {
-                    name = Input.stringNotNullable("NOME: ", 3);
+                    name = Input.stringNotNullable("PRIMEIRO NOME: ", 3);
                     surname = Input.stringNotNullable("SOBRENOME: ", 3);
                     cpf = Input.stringNotNullable("CPF: ", 3);
                     driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);
@@ -61,8 +62,19 @@ public class CostumerUI {
                     name = Input.stringNotNullable("NOME: ", 3);
                     nickname = Input.stringNotNullable("NOME FANTASIA: ", 3);
                     cnpj = Input.stringNotNullable("CNPJ: ", 3);
+                    companyDriver = Input.stringNotNullable("MOTORISTA: ", 3);
+                    driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);
+                    System.out.println("\nCADASTRO DE ENDEREÇO: ");
+                    street = Input.stringNotNullable("NOME DA RUA: ", 3);
+                    number = Input.stringNotNullable("NÚMERO: ", 3);
+                    cep = Input.stringNotNullable("CEP: ", 3);
+                    city = Input.stringNotNullable("CIDADE: ", 3);
+                    state = Input.stringNotNullable("ESTADO: ", 3);
+                    System.out.println("\nCADASTRO DE TELEFONE: ");
+                    ddd = Input.stringNotNullable("DDD: ", 3);
+                    telephone = Input.stringNotNullable("NÚMERO TELEFONE: ", 3);
 
-                    costumerController.saveLegalPerson(name, nickname, cnpj);
+                    costumerController.saveLegalPerson(name, nickname, cnpj, companyDriver, driverLicense, cep, street, number, city, state, ddd, telephone);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -71,6 +83,7 @@ public class CostumerUI {
             }
         }
     }
+
     public static int getIndex() throws Exception {
         int index = 0;
 
@@ -78,6 +91,7 @@ public class CostumerUI {
         System.out.println("");
         return index;
     }
+
     public static String listNaturalPerson(List<Costumer> naturalPersonList) {
         int index = 0;
         int tentativas = 0;
@@ -128,7 +142,7 @@ public class CostumerUI {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex.getMessage()+ "\n");
+                System.out.println(ex.getMessage() + "\n");
                 break;
             }
 
@@ -221,10 +235,10 @@ public class CostumerUI {
         boolean working = true;
 
         while (working) {
-            if(costumer instanceof NaturalPerson) {
+            if (costumer instanceof NaturalPerson) {
                 System.out.println("------- CLIENTE -------");
                 System.out.println(" NOME: " + costumer.getName());
-                System.out.println(" SOBRENOME: " + ((NaturalPerson)costumer).getSurname());
+                System.out.println(" SOBRENOME: " + ((NaturalPerson) costumer).getSurname());
                 System.out.println(" CNH: " + ((NaturalPerson) costumer).getDriverLicense());
                 System.out.println(" ENDEREÇO: " + costumer.getAddress());
                 System.out.println(" TELEFONE: " + costumer.getTelephone());
@@ -234,7 +248,7 @@ public class CostumerUI {
             } else {
                 System.out.println("------- CLIENTE -------");
                 System.out.println(" NOME: " + costumer.getName());
-                System.out.println(" NOMEFANTASIA: " + ((LegalPerson)costumer).getNickname());
+                System.out.println(" NOMEFANTASIA: " + ((LegalPerson) costumer).getNickname());
                 System.out.println("-----------------------");
                 System.out.println("");
                 working = false;

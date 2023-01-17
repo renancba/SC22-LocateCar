@@ -9,20 +9,26 @@ import java.util.Objects;
 public class LegalPerson extends Costumer {
     private String cnpj;
     private String nickname;
+    private String companyDriver;
+    private String driverLicense;
 
     public LegalPerson() {
     }
 
-    public LegalPerson(String name, String nickname, String cnpj, Telephone telephone, Address adress) {
+    public LegalPerson(String name, String nickname, String cnpj, String companyDriver, String driverLicense, Telephone telephone, Address adress) {
         super(name, telephone, adress);
         this.cnpj = cnpj;
         this.nickname = nickname;
+        this.companyDriver = companyDriver;
+        this.driverLicense = driverLicense;
     }
 
-    public LegalPerson(String name, String nickname, String cnpj) {
+    public LegalPerson(String name, String nickname, String cnpj, String companyDriver, String driverLicense) {
         super(name);
         this.nickname = nickname;
         this.cnpj = cnpj;
+        this.companyDriver = companyDriver;
+        this.driverLicense = driverLicense;
     }
 
     public String getCnpj() {

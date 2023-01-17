@@ -5,7 +5,6 @@ import org.locadora.model.Agency;
 import org.locadora.model.costumer.Costumer;
 import org.locadora.model.costumer.LegalPerson;
 import org.locadora.model.costumer.NaturalPerson;
-import org.locadora.model.vehicle.Motorcycle;
 import org.locadora.model.vehicle.Vehicle;
 
 import java.io.IOException;
@@ -119,7 +118,6 @@ public class Database {
         vehicles.add(vehicle);
         return true;
     }
-
     public boolean addAgency(Agency agency) { //RN5
         if (agencies.contains(agency)) return false;
 
