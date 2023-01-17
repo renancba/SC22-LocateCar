@@ -92,8 +92,10 @@ public class CostumerUI {
         return index;
     }
 
-    public static String listNaturalPerson(List<Costumer> naturalPersonList) {
-        int index = 0;
+
+
+    public static <T extends Costumer> String listNaturalPerson(List<T> costumer){
+    int index = 0;
         int tentativas = 0;
         boolean working;
 
@@ -102,25 +104,25 @@ public class CostumerUI {
 
             try {
 
-                if (naturalPersonList.size() == 0) {
+                if (costumer.size() == 0) {
                     System.out.println("NENHUM CLIENTE ENCONTRADO PARA O TERMO INFORMADO.\n");
                     break;
                 }
 
-                if (naturalPersonList.size() > 1) {
+                if (costumer.size() > 1) {
 
                     System.out.println("");
-                    for (Costumer naturalPerson : naturalPersonList) {
+                    for (T Entity : costumer) {
                         System.out.println("-------- CLIENTE -------");
                         System.out.println("ID: " + index);
-                        System.out.println("Nome: " + naturalPerson.getName() + " ");
+                        System.out.println("Nome: " + Entity.getName() + " ");
                         System.out.println("------------------------");
                         index++;
                     }
                     System.out.println("");
 
                     int indexOption = getIndex();
-                    if (indexOption > naturalPersonList.size()) {
+                    if (indexOption > costumer.size()) {
                         System.out.println("-> Opção inválida\n");
                         index = 0;
                         tentativas++;
@@ -134,10 +136,10 @@ public class CostumerUI {
                         break;
                     }
 
-                    CostumerUI.view(naturalPersonList.get(indexOption));
+                    CostumerUI.view(costumer.get(indexOption));
 
                 } else {
-                    CostumerUI.view(naturalPersonList.get(0));
+                    CostumerUI.view(costumer.get(0));
                     break;
                 }
 

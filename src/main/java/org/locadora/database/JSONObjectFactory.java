@@ -25,7 +25,7 @@ interface ObjectFactory {
 
 class JSONObjectFactory implements ObjectFactory {
     public Costumer createCostumer(JSONObject costumer) {
-        if (costumer.get("type").equals("natural")) {
+        if (costumer.has("cpf")) {
             String name = (String) costumer.get("name");
             String surname = (String) costumer.get("surname");
             String cpf = (String) costumer.get("cpf");
