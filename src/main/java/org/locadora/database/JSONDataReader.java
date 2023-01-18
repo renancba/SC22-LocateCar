@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.locadora.model.Agency;
+import org.locadora.model.RentalOperation;
 import org.locadora.model.costumer.Costumer;
 import org.locadora.model.vehicle.Vehicle;
 
@@ -20,6 +21,8 @@ interface DataReader {
     List<Vehicle> readVehicles() throws IOException;
 
     List<Agency> readAgencies() throws IOException;
+
+    List<RentalOperation> readOperations() throws IOException;
 }
 
 class JSONDataReader implements DataReader {
@@ -41,6 +44,21 @@ class JSONDataReader implements DataReader {
             return costumers;
         } catch (JSONException jex) {
             return costumers;
+        }
+    }
+
+    public List<RentalOperation> readOperations() throws IOException {
+        List<RentalOperation> operations = new ArrayList<>();
+        try {
+            JSONObject operationsObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
+            JSONArray operationsArray = (JSONArray) operationsObject.get("operations");
+            for (Object operationObject : operationsArray) {
+                JSONObject costumer = (JSONObject) operationObject;
+                operations.add(JSONObjectFactory.createCostumer(costumer));
+            }
+            return operations;
+        } catch (JSONException jex) {
+            return operations;
         }
     }
 

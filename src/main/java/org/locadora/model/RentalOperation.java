@@ -7,16 +7,16 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class RentalOperation {
+public class RentalOperation<T extends Vehicle> {
     private Costumer costumer;
-    private Vehicle vehicle;
+    private T vehicle;
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal cost;
     private Agency agency;
 
-    public RentalOperation(Costumer costumer, Vehicle vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
-        if (startDate.isAfter(endDate)) {
+    public RentalOperation(Costumer costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
+        if (isActive()) {
             throw new IllegalArgumentException("A data de locação deve ser maior do que a data de entrega");
         }
         this.costumer = costumer;
@@ -27,11 +27,20 @@ public class RentalOperation {
         calculateCost();
     }
 
+    public RentalOperation(Costumer costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost) {
+        this.costumer = costumer;
+        this.vehicle = vehicle;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.agency = agency;
+        this.cost = cost;
+    }
+
     private void calculateCost() {
         long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
         BigDecimal rentalFee = vehicle.getRentalFee();
 
-        if(days > 5) {
+        if (days > 5) {
             // 10% de desconto para locações acima de 5 dias
             rentalFee = rentalFee.multiply(new BigDecimal("0.9"));
         }
@@ -47,11 +56,21 @@ public class RentalOperation {
         this.costumer = costumer;
     }
 
-    public Vehicle getVehicle() {
+    public T getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(Vehicle vehicle) {
+    public void returnVehicle() {
+        LocalDate returnDate = LocalDate.now();
+        if (returnDate.isAfter(endDate)) {
+            long lateDays = Duration.between(endDate.atStartOfDay(), returnDate.atStartOfDay()).toDays();
+            BigDecimal lateFee = new BigDecimal("5").multiply(new BigDecimal(lateDays));
+            cost = cost.add(lateFee);
+        }
+        vehicle.setAvaible(true);
+    }
+
+    public void setVehicle(T vehicle) {
         this.vehicle = vehicle;
     }
 
@@ -67,8 +86,9 @@ public class RentalOperation {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void updateEndDate(LocalDate newEndDate) {
+        this.endDate = newEndDate;
+        calculateCost();
     }
 
     public BigDecimal getCost() {
@@ -81,5 +101,21 @@ public class RentalOperation {
 
     public void setAgency(Agency agency) {
         this.agency = agency;
+    }
+
+    public boolean isActive() {
+        return LocalDate.now().isAfter(startDate) && LocalDate.now().isBefore(endDate);
+    }
+
+    @Override
+    public String toString() {
+        return "RentalOperation{" +
+                "costumer=" + costumer +
+                ", vehicle=" + vehicle +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", cost=" + cost +
+                ", agency=" + agency +
+                '}';
     }
 }

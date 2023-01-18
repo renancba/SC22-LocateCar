@@ -3,6 +3,7 @@ package org.locadora.database;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.locadora.model.Agency;
+import org.locadora.model.RentalOperation;
 import org.locadora.model.costumer.Costumer;
 import org.locadora.model.costumer.LegalPerson;
 import org.locadora.model.costumer.NaturalPerson;
@@ -24,6 +25,7 @@ public class Database {
     private List<Costumer> costumers;
     private List<Vehicle> vehicles;
     private List<Agency> agencies;
+    private List<RentalOperation> operations;
     private static Database instance;
 
     private Database() {
@@ -42,6 +44,7 @@ public class Database {
         costumers = dataReader.readCostumers();
         vehicles = dataReader.readVehicles();
         agencies = dataReader.readAgencies();
+        operations = dataReader.readOperations();
     }
 
     public Costumer getCustomer(int index) {
@@ -124,6 +127,12 @@ public class Database {
     public boolean addAgency(Agency agency) { //RN5
         if (agencies.contains(agency)) return false;
         agencies.add(agency);
+        return true;
+    }
+
+    public boolean addOperation(RentalOperation operation) { //RN5
+        if (operations.contains(operation)) return false;
+        operations.add(operation);
         return true;
     }
 
