@@ -177,7 +177,7 @@ public class CostumerUI {
                     break;
             }
         } else {
-            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CLIENTE");
+            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CLIENTE", "ADICIONAR CLIENTE");
             switch (choice) {
                 case 0:
                     option = "VOLTAR";
@@ -190,6 +190,9 @@ public class CostumerUI {
                     break;
                 case 3:
                     option = "EDITAR";
+                    break;
+                case 4:
+                    add();
                     break;
                 default:
                     System.out.println("OPÇÃO INVÁLIDA\n");

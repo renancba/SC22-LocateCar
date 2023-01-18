@@ -109,13 +109,13 @@ public class RentalOperation<T extends Vehicle> {
 
     @Override
     public String toString() {
-        return "RentalOperation{" +
-                "costumer=" + costumer +
-                ", vehicle=" + vehicle +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", cost=" + cost +
-                ", agency=" + agency +
-                '}';
+        return "--------------------------" +
+                "Cliente:" + costumer +
+                ", Veículo:" + vehicle +
+                ", Locação:" + startDate +
+                ", Devolução:" + endDate +
+                ", Custo:" + cost +
+                ", Agência:" + agency;
+
     }
 }
