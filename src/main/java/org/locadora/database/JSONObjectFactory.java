@@ -55,12 +55,13 @@ class JSONObjectFactory {
         // Criar uma agencia a partir das informações da Agency
         Agency agency = createAgency((JSONObject) operation.get("agency"));
 
+        Integer contrato = (Integer) operation.get("id");
         LocalDate startDate = (LocalDate) operation.get("startDate");
         LocalDate endDate = (LocalDate) operation.get("endDate");
         BigDecimal cost = new BigDecimal((Double) operation.get("cost"));
 
 
-        return new RentalOperation(costumer, vehicle, startDate, endDate, agency, cost);
+        return new RentalOperation(contrato, costumer, vehicle, startDate, endDate, agency, cost);
     }
 
 

@@ -2,11 +2,11 @@ package org.locadora.views;
 
 import org.locadora.controller.OperationController;
 import org.locadora.model.RentalOperation;
-import org.locadora.model.costumer.Costumer;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +47,17 @@ public class OperationUI {
         return index;
     }
 
+    public static <T> List<T> pagination(List<T> list, int pageSize, int pageNumber) {
+        List<T> pagination;
+
+        pagination = list.stream()
+                .skip((pageNumber) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+
+        return pagination;
+    }
+
     public static String OptionMenu(List<RentalOperation> operations, int pageSize, int pageNumber) {
         String option = "";
 
@@ -70,10 +81,10 @@ public class OperationUI {
                     option = "VOLTAR";
                     break;
                 case 1:
-                    paginatedList(operations, pageSize, pageNumber + pageSize);
+                    List(operations, pageSize, pageNumber + pageSize);
                     break;
                 case 2:
-                    paginatedList(operations, pageSize, pageNumber - pageSize);
+                    List(operations, pageSize, pageNumber - pageSize);
                     break;
                 case 3:
                     option = "EDITAR";
@@ -90,8 +101,8 @@ public class OperationUI {
         return option;
     }
 
-    public static String paginatedList(List<RentalOperation> operations, int pageSize) {
-        int pageNumber = 0;
+    public static String List(List<RentalOperation> operations, int pageSize, int pageNumber) {
+        String option = "";
 
         // validate input
         if (pageNumber < 0) pageNumber = 0;
@@ -100,10 +111,7 @@ public class OperationUI {
         if (pageNumber < 0 || pageNumber >= operations.size()) pageNumber = 0;
 
         // paginate the list
-        List<RentalOperation> paginatedOperations = operations.stream()
-                .skip((pageNumber) * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+        List<RentalOperation> paginatedOperations = pagination(operations, pageSize, pageNumber);
 
         // display the paginated list
         System.out.println("------ OPERAÇÕES ------");
@@ -112,6 +120,63 @@ public class OperationUI {
         System.out.println("--------------------------");
 
         // handle navigation
+
+        if (operations.size() == 0) {
+            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR OPERACAO");
+            switch (choice) {
+                case 0:
+                    option = "VOLTAR";
+                    break;
+                case 1:
+                    add();
+                    break;
+                default:
+                    System.out.println("OPÇÃO INVÁLIDA\n");
+                    break;
+            }
+        } else if(operations.size() > pageSize) {
+            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
+            switch (choice) {
+                case 0:
+                    option = "VOLTAR";
+                    break;
+                case 1:
+                    List(operations, pageSize, pageNumber + pageSize);
+                    break;
+                case 2:
+                    List(operations, pageSize, pageNumber - pageSize);
+                    break;
+                case 3:
+                    option = "EDITAR";
+                    break;
+                case 4:
+                    add();
+                    break;
+                default:
+                    System.out.println("OPÇÃO INVÁLIDA\n");
+                    break;
+            }
+
+        }else{
+            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
+            switch (choice) {
+                case 0:
+                    option = "VOLTAR";
+                    break;
+                case 2:
+                    option = "EDITAR";
+                    break;
+                case 3:
+                    add();
+                    break;
+                default:
+                    System.out.println("OPÇÃO INVÁLIDA\n");
+                    break;
+            }
+
+        }
+
+
 
         return OptionMenu(operations, pageSize, pageNumber);
     }

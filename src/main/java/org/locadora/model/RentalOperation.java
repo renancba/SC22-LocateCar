@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 
 public class RentalOperation<T extends Vehicle> {
+    private Integer contrato;
     private Costumer costumer;
     private T vehicle;
     private LocalDate startDate;
@@ -24,16 +25,18 @@ public class RentalOperation<T extends Vehicle> {
         this.startDate = startDate;
         this.endDate = endDate;
         this.agency = agency;
+        this.contrato = (int)(Math.random() * 200) + 1;
         calculateCost();
     }
 
-    public RentalOperation(Costumer costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost) {
+    public RentalOperation(Integer id, Costumer costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost) {
         this.costumer = costumer;
         this.vehicle = vehicle;
         this.startDate = startDate;
         this.endDate = endDate;
         this.agency = agency;
         this.cost = cost;
+        this.contrato = id;
     }
 
     private void calculateCost() {
