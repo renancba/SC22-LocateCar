@@ -4,9 +4,9 @@ Projeto do modulo 3 do Santander coders
 Lista para não esquecer
 
 Listar todas as operações
-[] permitir que o usuário navegue entre as páginas caso o numero de operações supere a quantidade por página informada
-[] permitir que o usuário adicione uma nova operacao
-[] permitir que o usuário Exiba mais informações sobre uma operação
+[X] permitir que o usuário navegue entre as páginas caso o numero de operações supere a quantidade por página informada
+[X] permitir que o usuário adicione uma nova operacao
+[X] permitir que o usuário Exiba mais informações sobre uma operação
 
 Pesquisar operacao por id de operação
 [x] Cadastrar um id (contrato) para operação.

@@ -4,6 +4,7 @@ import org.locadora.controller.OperationController;
 import org.locadora.model.RentalOperation;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
+import org.locadora.utils.Pagination;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,16 +48,6 @@ public class OperationUI {
         return index;
     }
 
-    public static <T> List<T> pagination(List<T> list, int pageSize, int pageNumber) {
-        List<T> pagination;
-
-        pagination = list.stream()
-                .skip((pageNumber) * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
-
-        return pagination;
-    }
 
     public static String OptionMenu(List<RentalOperation> operations, int pageSize, int pageNumber) {
         String option = "";
@@ -103,15 +94,7 @@ public class OperationUI {
 
     public static String List(List<RentalOperation> operations, int pageSize, int pageNumber) {
         String option = "";
-
-        // validate input
-        if (pageNumber < 0) pageNumber = 0;
-        if (pageSize < 0) pageSize = 0;
-        if (pageNumber + pageSize > operations.size()) pageNumber = operations.size() - pageSize;
-        if (pageNumber < 0 || pageNumber >= operations.size()) pageNumber = 0;
-
-        // paginate the list
-        List<RentalOperation> paginatedOperations = pagination(operations, pageSize, pageNumber);
+        List<RentalOperation> paginatedOperations = Pagination.exec(operations, pageSize, pageNumber);
 
         // display the paginated list
         System.out.println("------ OPERAÇÕES ------");
@@ -134,7 +117,7 @@ public class OperationUI {
                     System.out.println("OPÇÃO INVÁLIDA\n");
                     break;
             }
-        } else if(operations.size() > pageSize) {
+        } else if (operations.size() > pageSize) {
             int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
             switch (choice) {
                 case 0:
@@ -157,7 +140,7 @@ public class OperationUI {
                     break;
             }
 
-        }else{
+        } else {
             int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
             switch (choice) {
                 case 0:
@@ -177,41 +160,26 @@ public class OperationUI {
         }
 
 
-
         return OptionMenu(operations, pageSize, pageNumber);
     }
 
-    public static String searchOperation(List<RentalOperation> operations, int pageSize, int pageNumber) {
-        int index = 0;
-        int tentativas = 0;
+    public static String searchBy(String param) {
+        String option = null;
         boolean working;
-
-        if (pageNumber < 0) pageNumber = 0;
-        if (pageSize < 0) pageSize = 0;
-        if (pageNumber + pageSize > operations.size()) pageNumber = operations.size() - pageSize;
-        if (pageNumber < 0 || pageNumber >= operations.size()) pageNumber = 0;
 
         do {
             working = false;
-
             try {
-
-                if (operations.size() == 0) {
-                    System.out.println("NENHUMA OPERACAO ENCONTRADA PARA O TERMO INFORMADO.\n");
-                    break;
-                }
-
-                operations.forEach(RentalOperation::toString);
-
-                return OptionMenu(operations, pageSize, pageNumber);
+                option = Input.stringNotNullable("INFORME O " + param + ": ", 3);
 
             } catch (Exception ex) {
-                System.out.println(ex.getMessage() + "\n");
-                break;
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
             }
 
         } while (working);
-        return "2";
+
+        return option;
     }
 
 }
