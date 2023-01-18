@@ -221,4 +221,12 @@ public class OperationUI {
         return date;
 
     }
+
+    public static Agency returnVehicle(RentalOperation operation) {
+        // Operação retorna uma agencia
+        //caso a agencia nao seja
+
+        //caso a agencia seja diferente da informada, buscar na lsta paginada de agencias por um id e retornar para o controller
+        return operation.getLocationAgency();
+    }
 }

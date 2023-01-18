@@ -66,11 +66,9 @@ public class OperationController {
     }
 
     public void returVehicle(RentalOperation operation) {
-
-        //Verificar se está retornando na mesma agencia
-        // se nao, pedir o numero da nova agencia
-        //criar a ui mas mockar enquanto isso
-        operation.returnVehicle(operation.getLocationAgency());
+        Agency agency = OperationUI.returnVehicle(operation);
+        Agency returnAgency = operation.getLocationAgency().equals(agency) ? operation.getLocationAgency() : agency;
+        operation.returnVehicle(returnAgency);
 
     }
 

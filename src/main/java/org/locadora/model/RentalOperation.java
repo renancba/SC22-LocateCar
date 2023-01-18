@@ -97,9 +97,9 @@ public class RentalOperation<T extends Vehicle> {
     }
 
     public void returnVehicle(Agency agency) {
-        if(!concluido){
+        if (!concluido) {
 
-        LocalDate returnDate = LocalDate.now();
+            LocalDate returnDate = LocalDate.now();
             if (returnDate.isAfter(endDate)) {
                 long lateDays = Duration.between(endDate.atStartOfDay(), returnDate.atStartOfDay()).toDays();
                 BigDecimal lateFee = new BigDecimal("5").multiply(new BigDecimal(lateDays));
@@ -108,7 +108,7 @@ public class RentalOperation<T extends Vehicle> {
 
             this.returnAgency = agency;
 
-            if(!LocationAgency.equals(agency)){
+            if (!LocationAgency.equals(agency)) {
                 // mudar carro para a nova agencia
             }
 
