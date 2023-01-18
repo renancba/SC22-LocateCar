@@ -21,9 +21,7 @@ public class RentalOperation<T extends Vehicle> {
     private boolean concluido = false;
 
     public RentalOperation(Costumer costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
-        if (isActive()) {
-            throw new IllegalArgumentException("A data de locação deve ser maior do que a data de entrega");
-        }
+
         this.costumer = costumer;
         this.vehicle = vehicle;
         this.startDate = startDate;
@@ -45,7 +43,8 @@ public class RentalOperation<T extends Vehicle> {
 
     private void calculateCost() {
         long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-        BigDecimal rentalFee = vehicle.getRentalFee();
+//        BigDecimal rentalFee = vehicle.getRentalFee();
+        BigDecimal rentalFee = new BigDecimal("45");
 
         if (days > 5) {
             // 10% de desconto para locações acima de 5 dias
@@ -87,10 +86,6 @@ public class RentalOperation<T extends Vehicle> {
         return LocationAgency;
     }
 
-    public boolean isActive() {
-        return LocalDate.now().isAfter(startDate) && LocalDate.now().isBefore(endDate);
-    }
-
     public void updateEndDate(LocalDate newEndDate) {
         this.endDate = newEndDate;
         calculateCost();
@@ -121,13 +116,14 @@ public class RentalOperation<T extends Vehicle> {
 
     @Override
     public String toString() {
-        return "--------------------------" +
-                "Cliente:" + costumer +
-                ", Veículo:" + vehicle +
-                ", Locação:" + startDate +
-                ", Devolução:" + endDate +
-                ", Custo:" + cost +
-                ", Agência:" + LocationAgency;
+        return "--------------------------\n" +
+                "\n Cliente: " + costumer.getName() +
+                "\n  Cpf: " + costumer.get() +
+                "\n Veículo: " + vehicle +
+                "\n Locação: " + startDate +
+                "\n Devolução: " + endDate +
+                "\n Custo: " + cost +
+                "\n Agência: " + LocationAgency;
 
     }
 }

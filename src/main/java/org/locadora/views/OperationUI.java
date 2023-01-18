@@ -7,13 +7,16 @@ import org.locadora.model.RentalOperation;
 import org.locadora.model.costumer.NaturalPerson;
 import org.locadora.model.vehicle.Car;
 import org.locadora.model.vehicle.Vehicle;
+import org.locadora.utils.GetLocalDateFromString;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 import org.locadora.utils.Pagination;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class OperationUI {
@@ -30,14 +33,18 @@ public class OperationUI {
         *        *
         * */
 
-            String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO", 3);
-            LocalDate startDate = LocalDate.parse(startDateString);
 
-            String endDateString = Input.stringNotNullable("DATA DA ENTREGA", 3);
-            LocalDate endDate = LocalDate.parse(endDateString);
+            String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO (dd/mm/aaaa)", 3);
+            LocalDate startDate = GetLocalDateFromString.Convert(startDateString);
+
+            String endDateString = Input.stringNotNullable("DATA DA ENTREGA (dd/mm/aaaa)", 3);
+            LocalDate endDate = GetLocalDateFromString.Convert(endDateString);
+
+            NaturalPerson person = new NaturalPerson("Washington", "Ferreira", "23044797829", "321654987");
+
 
             //mocking ome info
-            operationController.save(new NaturalPerson(), new Agency(), new Car(), startDate, endDate);
+            operationController.save(person, new Agency("São Paulo"), new Car("Nissan", "Versa", "Qnr668"), startDate, endDate);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -104,7 +111,9 @@ public class OperationUI {
         // display the paginated list
         System.out.println("------ OPERAÇÕES ------");
         System.out.println("");
-        paginatedOperations.forEach(RentalOperation::toString);
+        for (RentalOperation operation: paginatedOperations){
+            System.out.println(operation.toString());
+        }
         System.out.println("--------------------------");
 
         // handle navigation

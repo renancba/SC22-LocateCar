@@ -42,8 +42,7 @@ public class Home {
                 }
                 case 3 -> {
                     System.out.println("ESCOLHEU ALUGUEL E DEVOLUÇÃO");
-                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO",
-                            "DEVOLVER VEÍCULO", "GERAR COMPROVANTE","RETORNAR AO MENU INICIAL");
+                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS", "PESQUISAR NUMERO DO CONTRATO" ,"RETORNAR AO MENU INICIAL");
                     submenuRent(option);
                 }
                 case 4 -> {
@@ -54,9 +53,6 @@ public class Home {
                 default -> System.out.println("OPÇÃO INVÁLIDA");
             }
         }
-
-
-
     }
 
     // TODO: NÃO SOUBE EXATAMENTE SE ESSES SUBMENUS ENTRARIAM AQUI. CONTINUAR IMPLEMENTANDO.
