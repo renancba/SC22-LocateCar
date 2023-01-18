@@ -18,7 +18,7 @@ public class OperationController {
     public void save(Costumer costumer, Agency agency, Vehicle vehicle, LocalDate startDate, LocalDate endDate) {
 
         Database db = Database.getInstance();
-        RentalOperation operation = new RentalOperation(costumer,vehicle,  startDate, endDate, agency);
+        RentalOperation operation = new RentalOperation(costumer, vehicle, startDate, endDate, agency);
 
         if (db.addOperation(operation)) {
             System.out.println("");
@@ -35,12 +35,13 @@ public class OperationController {
         }
 
     }
-    public String list(){
+
+    public String list() {
         Database db = Database.getInstance();
         return OperationUI.List(db.getOperations(), 5, 0);
     }
 
-    public void ListAll(){
+    public void ListAll() {
         String options = list();
 
         if (options.equals("EDITAR")) {
@@ -57,6 +58,17 @@ public class OperationController {
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");
         }
+    }
+
+    public void extendReturnDate(RentalOperation operation) {
+
+        // criar uma ui que pega as informações de nova data
+        LocalDate newDate = OperationUI.getDate();
+        operation.updateEndDate(newDate);
+    }
+
+    public void returVehicle() {
+
     }
 
 

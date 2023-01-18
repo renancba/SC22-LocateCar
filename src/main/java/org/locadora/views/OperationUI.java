@@ -36,7 +36,7 @@ public class OperationUI {
             LocalDate endDate = LocalDate.parse(endDateString);
 
             //mocking ome info
-            operationController.save( new NaturalPerson(), new Agency(), new Car(), startDate, endDate);
+            operationController.save(new NaturalPerson(), new Agency(), new Car(), startDate, endDate);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -44,6 +44,7 @@ public class OperationUI {
         }
 
     }
+
     public static int getIndex() throws Exception {
         int index = 0;
 
@@ -51,6 +52,7 @@ public class OperationUI {
         System.out.println("");
         return index;
     }
+
     public static String OptionMenu(List<RentalOperation> operations, int pageSize, int pageNumber) {
         String option = "";
 
@@ -93,6 +95,7 @@ public class OperationUI {
         }
         return option;
     }
+
     public static String List(List<RentalOperation> operations, int pageSize, int pageNumber) {
         String option = "";
         List<RentalOperation> paginatedOperations = Pagination.exec(operations, pageSize, pageNumber);
@@ -165,6 +168,7 @@ public class OperationUI {
     }
 
     public static void view(RentalOperation operation) {
+        OperationController operationController = new OperationController();
         boolean working = true;
 
         while (working) {
@@ -172,19 +176,19 @@ public class OperationUI {
             System.out.println("");
             operation.toString();
 
-            int option = MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "EXTENDER DEVOLUÇÃO", "EDITAR MOTORISTA", "REALIZAR DEVOLUÇÃO");
+            int option = MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "EXTENDER DEVOLUÇÃO", "REALIZAR DEVOLUÇÃO");
 
             switch (option) {
                 case 0 -> {
                     working = false;
                 }
-                case 1 -> {};
-                case 2 -> {};
-
+                case 1 -> operationController.extendReturnDate(operation);
+                case 2 -> operationController.returVehicle(operation);
                 default -> System.out.println("-> Opção inválida \n");
             }
         }
     }
+
     public static String searchBy(String param) {
         String option = null;
         boolean working;
@@ -202,5 +206,19 @@ public class OperationUI {
         } while (working);
 
         return option;
+    }
+
+    public static LocalDate getDate() {
+        LocalDate date = null;
+        try {
+            String endDateString = Input.stringNotNullable("DATA DA ENTREGA", 3);
+            date = LocalDate.parse(endDateString);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("voltando...\n");
+        }
+        return date;
+
     }
 }
