@@ -35,4 +35,29 @@ public class OperationController {
         }
 
     }
+    public String list(){
+        Database db = Database.getInstance();
+        return OperationUI.List(db.getOperations(), 5, 0);
+    }
+
+    public void ListAll(){
+        String options = list();
+
+        if (options.equals("EDITAR")) {
+            viewOperationInfo();
+        }
+    }
+
+    public void viewOperationInfo() {
+        Database db = Database.getInstance();
+        try {
+            int index = OperationUI.getIndex();
+            OperationUI.view(db.getOperation(index));
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");
+        }
+    }
+
+
 }

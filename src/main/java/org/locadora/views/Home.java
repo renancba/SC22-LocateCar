@@ -3,6 +3,7 @@ package org.locadora.views;
 
 import org.locadora.controller.AgencyController;
 import org.locadora.controller.CostumerController;
+import org.locadora.controller.OperationController;
 import org.locadora.controller.VehicleController;
 import org.locadora.utils.MenuCreator;
 
@@ -147,22 +148,30 @@ public class Home {
         }
     }
     public static void submenuRent (Integer option){
+
+        OperationController operationController = new OperationController();
         boolean executing = true;
         while (executing){
             switch (option) {
                 case 0 -> {
-                    System.out.println("ALUGANDO VEÍCULO");
+                    System.out.println("LOCAR UM VEÍCULO");
+                    operationController.create();
                     executing = false;
                 }
                 case 1 -> {
-                    System.out.println("DEVOLVENDO VEÍCULO...");
+                    System.out.println("LISTAR CONTRATOS");
+                    operationController.listAll();
                     executing = false;
                 }
                 case 2 -> {
-                    System.out.println("GERANDO COMPROVANTE");
+                    System.out.println("PESQUISAR POR NUMERO DE CONTRATO");
                     executing = false;
                 }
-                case 3 -> { //retornar ao menu inicial
+                case 3 -> {
+                    System.out.println("PESQUISAR POR NOME DO CLIENTE");
+                    executing = false;
+                }
+                case 4 -> { //retornar ao menu inicial
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");

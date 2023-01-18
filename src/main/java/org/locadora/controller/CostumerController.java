@@ -71,6 +71,10 @@ public class CostumerController {
         Database db = Database.getInstance();
         try {
             int index = CostumerUI.getIndex();
+
+
+
+
             db.getCustomer(index).completeInfo();
 
         } catch (Exception ex) {

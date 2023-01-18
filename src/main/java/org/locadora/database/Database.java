@@ -51,6 +51,10 @@ public class Database {
         return costumers.get(index);
     }
 
+    public RentalOperation getOperation(int index) {
+        return getOperations().get(index);
+    }
+
     public Agency getAgency(int index) {
         return agencies.get(index);
     }
@@ -110,6 +114,10 @@ public class Database {
 
     public List<Vehicle> getVehicles() {
         return vehicles;
+    }
+
+    public List<RentalOperation> getOperations() {
+        return operations;
     }
 
     public boolean addCostumer(Costumer costumer) { //RN6
