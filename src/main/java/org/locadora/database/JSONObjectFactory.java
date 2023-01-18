@@ -13,22 +13,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-interface ObjectFactory {
-    static Costumer createCostumer(JSONObject costumer) {
-        return null;
-    }
-
-    static Vehicle createVehicle(JSONObject vehicle) {
-        return null;
-    }
-
-    static Agency createAgency(JSONObject agency) {
-        return null;
-    }
-}
-
-class JSONObjectFactory implements ObjectFactory {
-    public static Costumer createCostumer(JSONObject costumer) {
+class JSONObjectFactory {
+    public Costumer createCostumer(JSONObject costumer) {
         if (costumer.has("cpf")) {
             String name = (String) costumer.get("name");
             String surname = (String) costumer.get("surname");
@@ -45,20 +31,20 @@ class JSONObjectFactory implements ObjectFactory {
         }
     }
 
-    public static Vehicle createVehicle(JSONObject vehicle) {
+    public Vehicle createVehicle(JSONObject vehicle) {
         String vehicleManufacturer = (String) vehicle.get("manufacturer");
         String vehicleModel = (String) vehicle.get("model");
         String vehicleRegPlate = (String) vehicle.get("registration plate");
         return new Motorcycle(vehicleManufacturer, vehicleModel, vehicleRegPlate);
     }
 
-    public static Agency createAgency(JSONObject agency) {
+    public Agency createAgency(JSONObject agency) {
         String agencyName = (String) agency.get("name");
         return new Agency(agencyName);
     }
 
 
-    public static RentalOperation createOperation(JSONObject operation) {
+    public RentalOperation createOperation(JSONObject operation) {
 
         //Criar um costumer a partir das informações do costumer
         Costumer costumer = createCostumer((JSONObject) operation.get("costumer"));
@@ -71,7 +57,7 @@ class JSONObjectFactory implements ObjectFactory {
 
         LocalDate startDate = (LocalDate) operation.get("startDate");
         LocalDate endDate = (LocalDate) operation.get("endDate");
-        BigDecimal cost = new BigDecimal((Double) operation.get("cost")) ;
+        BigDecimal cost = new BigDecimal((Double) operation.get("cost"));
 
 
         return new RentalOperation(costumer, vehicle, startDate, endDate, agency, cost);
