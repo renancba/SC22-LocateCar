@@ -61,13 +61,16 @@ public class OperationController {
     }
 
     public void extendReturnDate(RentalOperation operation) {
-
-        // criar uma ui que pega as informações de nova data
         LocalDate newDate = OperationUI.getDate();
         operation.updateEndDate(newDate);
     }
 
-    public void returVehicle() {
+    public void returVehicle(RentalOperation operation) {
+
+        //Verificar se está retornando na mesma agencia
+        // se nao, pedir o numero da nova agencia
+        //criar a ui mas mockar enquanto isso
+        operation.returnVehicle(operation.getAgency());
 
     }
 
