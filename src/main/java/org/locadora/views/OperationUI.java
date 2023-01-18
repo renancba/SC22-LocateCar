@@ -1,5 +1,6 @@
 package org.locadora.views;
 
+import org.locadora.controller.AgencyController;
 import org.locadora.controller.OperationController;
 import org.locadora.model.Agency;
 import org.locadora.model.RentalOperation;
@@ -223,10 +224,30 @@ public class OperationUI {
     }
 
     public static Agency returnVehicle(RentalOperation operation) {
+        AgencyController agencyController = new AgencyController();
         // Operação retorna uma agencia
-        //caso a agencia nao seja
+        boolean working = true;
+        Agency agency = null;
 
+        while (working) {
+            System.out.println("------- AGENCIA LOCADORA -------");
+            System.out.println("");
+            operation.getLocationAgency();
+
+            int option = MenuCreator.exec("A DEVOLUÇÃO SERÁ NA MESMA AGÊNCIA?", "SIM", "NÃO", "VOLTAR");
+
+            switch (option) {
+                case 0 -> {
+                    working = false;
+                }
+                case 1 -> agency = operation.getLocationAgency();
+//                case 2 ->  agency = agencyController.view();
+                default -> System.out.println("-> Opção inválida \n");
+            }
+        }
+        System.out.println();
+        //caso a agencia nao seja
         //caso a agencia seja diferente da informada, buscar na lsta paginada de agencias por um id e retornar para o controller
-        return operation.getLocationAgency();
+        return agency;
     }
 }

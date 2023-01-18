@@ -11,14 +11,14 @@ public class Input {
 
         boolean isInvalid;
 
-        do{
+        do {
             isInvalid = false;
 
             try {
                 System.out.print(mensagem);
                 option = new Scanner(System.in).nextInt();
 
-            }catch (Exception ex) {
+            } catch (Exception ex) {
                 tentadas += 1;
                 System.out.printf("-> Opção inválida" + "\n\n");
                 if (tentadas < 3) {
@@ -28,10 +28,11 @@ public class Input {
                 throw new Exception("-> Multiplas tentativas incorretas");
             }
 
-        }while (isInvalid);
+        } while (isInvalid);
 
         return option;
     }
+
     //TODO: FAZER VALIDAÇÃO
     public static String string(String nomeDoCampo) {
         System.out.printf("POR FAVOR, INFORME O %s\n", nomeDoCampo);

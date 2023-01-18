@@ -160,7 +160,7 @@ public class Home {
                 }
                 case 1 -> {
                     System.out.println("LISTAR CONTRATOS");
-                    operationController.listAll();
+                    operationController.list();
                     executing = false;
                 }
                 case 2 -> {
