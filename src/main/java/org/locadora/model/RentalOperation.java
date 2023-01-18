@@ -14,7 +14,9 @@ public class RentalOperation<T extends Vehicle> {
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal cost;
-    private Agency agency;
+    private Agency LocationAgency;
+
+    private Agency returnAgency;
 
     private boolean concluido = false;
 
@@ -26,7 +28,7 @@ public class RentalOperation<T extends Vehicle> {
         this.vehicle = vehicle;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.agency = agency;
+        this.LocationAgency = agency;
         this.contrato = (int) (Math.random() * 200) + 1;
         calculateCost();
     }
@@ -36,7 +38,7 @@ public class RentalOperation<T extends Vehicle> {
         this.vehicle = vehicle;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.agency = agency;
+        this.LocationAgency = agency;
         this.cost = cost;
         this.contrato = id;
     }
@@ -61,8 +63,6 @@ public class RentalOperation<T extends Vehicle> {
         return vehicle;
     }
 
-
-
     public Integer getContrato() {
         return contrato;
     }
@@ -79,14 +79,12 @@ public class RentalOperation<T extends Vehicle> {
         return endDate;
     }
 
-
-
     public BigDecimal getCost() {
         return cost;
     }
 
-    public Agency getAgency() {
-        return agency;
+    public Agency getLocationAgency() {
+        return LocationAgency;
     }
 
     public boolean isActive() {
@@ -99,16 +97,26 @@ public class RentalOperation<T extends Vehicle> {
     }
 
     public void returnVehicle(Agency agency) {
+        if(!concluido){
+
         LocalDate returnDate = LocalDate.now();
-        if (returnDate.isAfter(endDate)) {
-            long lateDays = Duration.between(endDate.atStartOfDay(), returnDate.atStartOfDay()).toDays();
-            BigDecimal lateFee = new BigDecimal("5").multiply(new BigDecimal(lateDays));
-            cost = cost.add(lateFee);
+            if (returnDate.isAfter(endDate)) {
+                long lateDays = Duration.between(endDate.atStartOfDay(), returnDate.atStartOfDay()).toDays();
+                BigDecimal lateFee = new BigDecimal("5").multiply(new BigDecimal(lateDays));
+                cost = cost.add(lateFee);
+            }
+
+            this.returnAgency = agency;
+
+            if(!LocationAgency.equals(agency)){
+                // mudar carro para a nova agencia
+            }
+
+            this.concluido = true;
+            vehicle.setAvaible(true);
         }
 
-        //Verificar se está sendo entregue na mesma agencia que foi retirado, se nao, setar agencia de entrega e mudar o veículo de agencia.
-        this.concluido = true;
-        vehicle.setAvaible(true);
+        System.out.println("Esta locação ja se encontra concluida");
     }
 
     @Override
@@ -119,7 +127,7 @@ public class RentalOperation<T extends Vehicle> {
                 ", Locação:" + startDate +
                 ", Devolução:" + endDate +
                 ", Custo:" + cost +
-                ", Agência:" + agency;
+                ", Agência:" + LocationAgency;
 
     }
 }

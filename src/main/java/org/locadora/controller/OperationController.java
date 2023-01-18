@@ -70,7 +70,7 @@ public class OperationController {
         //Verificar se está retornando na mesma agencia
         // se nao, pedir o numero da nova agencia
         //criar a ui mas mockar enquanto isso
-        operation.returnVehicle(operation.getAgency());
+        operation.returnVehicle(operation.getLocationAgency());
 
     }
 
