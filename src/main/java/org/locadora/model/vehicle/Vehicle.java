@@ -11,6 +11,7 @@ public abstract class Vehicle {
     protected String registrationPlate;
     protected Boolean isAvaible;
     protected BigDecimal rentalFee;
+
     protected List<Agency> agencyList;
 
     public Vehicle(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
@@ -57,5 +58,4 @@ public abstract class Vehicle {
 
     public abstract BigDecimal getRentalFee();
 
-    public abstract double getPricePerDay();
 }
