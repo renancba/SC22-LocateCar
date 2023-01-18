@@ -118,7 +118,7 @@ public class RentalOperation<T extends Vehicle> {
     public String toString() {
         return "--------------------------\n" +
                 "\n Cliente: " + costumer.getName() +
-                "\n  Cpf: " + costumer.get() +
+//                "\n  Cpf: " + costumer.completeInfo() +
                 "\n Veículo: " + vehicle +
                 "\n Locação: " + startDate +
                 "\n Devolução: " + endDate +
