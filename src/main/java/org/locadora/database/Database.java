@@ -111,22 +111,18 @@ public class Database {
 
     public boolean addCostumer(Costumer costumer) { //RN6
         if (costumers.contains(costumer)) return false;
-
         costumers.add(costumer);
-        System.out.println(costumer);
         return true;
     }
 
     public boolean addVehicle(Vehicle vehicle) { //RN1
         if (vehicles.contains(vehicle)) return false;
-
         vehicles.add(vehicle);
         return true;
     }
 
     public boolean addAgency(Agency agency) { //RN5
         if (agencies.contains(agency)) return false;
-
         agencies.add(agency);
         return true;
     }
@@ -148,7 +144,6 @@ public class Database {
 
             //Criar um if para null aqui e tratar as excessões
             JSONObject costumerObject = costumer.toJSONObject();
-            System.out.println(costumer);
             costumersArray.put(costumerObject);
         }
 

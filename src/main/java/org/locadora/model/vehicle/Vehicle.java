@@ -56,4 +56,6 @@ public abstract class Vehicle {
     }
 
     public abstract BigDecimal getRentalFee();
+
+    public abstract double getPricePerDay();
 }
