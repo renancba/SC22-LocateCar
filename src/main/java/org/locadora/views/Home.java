@@ -16,32 +16,28 @@ public class Home {
 
         while (executing) {
 
-            option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CLIENTES", "VEÍCULOS",
-                    "AGÊNCIAS", "ALUGUEL E DEVOLUÇÃO", "SAIR");
+            option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "SAIR", "CLIENTES", "VEÍCULOS",
+                    "AGÊNCIAS", "ALUGUEL E DEVOLUÇÃO");
 
 
             switch (option) {
                 case 0 -> {
-                    System.out.println("ESCOLHEU CLIENTES");
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR CLIENTE",
                             "LISTAR CLIENTES", "ALTERAR DADOS DE UM CLIENTE", "RETORNAR AO MENU INICIAL");
                     submenuCustomer(option);
 
                 }
                 case 1 -> {
-                    System.out.println("ESCOLHEU VEÍCULOS");
-                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR VEÍCULO",
+                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR VEÍCULO", "LISTAR VEÍCULOS",
                             "ALTERAR DADOS DE UM VEÍCULO", "BUSCAR VEÍCULO","RETORNAR AO MENU INICIAL");
                     submenuVehicle(option);
                 }
                 case 2 -> {
-                    System.out.println("ESCOLHEU AGÊNCIA");
-                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR AGÊNCIA",
-                            "ALTERAR DADOS DE UMA AGÊNCIA", "BUSCAR AGÊNCIA","LISTAR AGÊNCIAS","RETORNAR AO MENU INICIAL");
+                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR AGÊNCIA", "LISTAR AGÊNCIAS",
+                            "ALTERAR DADOS DE UMA AGÊNCIA", "BUSCAR AGÊNCIA","RETORNAR AO MENU INICIAL");
                     submenuAgency(option);
                 }
                 case 3 -> {
-                    System.out.println("ESCOLHEU ALUGUEL E DEVOLUÇÃO");
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS", "PESQUISAR NUMERO DO CONTRATO" ,"RETORNAR AO MENU INICIAL");
                     submenuRent(option);
                 }
@@ -61,22 +57,20 @@ public class Home {
         boolean executing = true;
         while (executing){
             switch (option) {
-                case 0 -> {
-                    System.out.println("CADASTRANDO CLIENTE...");
+                case 0 -> { // CADASTRAR
                     customerController.create();
                     executing = false;
                 }
-                case 1 -> {
-                    System.out.println("LISTAR CLIENTES");
+                case 1 -> { // LISTAR
                     customerController.view();
                     executing = false;
 
                 }
-                case 2 -> {
+                case 2 -> { // ALTERAR
                     System.out.println("ALTERANDO CLIENTE...");
                     executing = false;
                 }
-                case 3 -> { //retornar ao menu inicial
+                case 3 -> { // RETORNAR AO MENU INICIAL
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");
@@ -84,26 +78,29 @@ public class Home {
         }
     }
     public static void submenuVehicle (Integer option){
-        VehicleController vehicleController = new VehicleController();
+        VehicleUI vehicleUI = new VehicleUI();
         boolean executing = true;
         while (executing){
             switch (option) {
-                case 0 -> {
-                    System.out.println("CADASTRANDO VEÍCULO...");
-                    vehicleController.create();
+                case 0 -> { // CADASTRAR
+                    vehicleUI.add();
                     executing = false;
                 }
-                case 1 -> {
-                    System.out.println("ALTERANDO VEÍCULO...");
+                case 1 -> { // LISTAR
+                    System.out.println("LISTANDO VEÍCULO...");
+                    vehicleUI.list(null); //TODO: CHECAR ISSO AQUI
                     executing = false;
                 }
-                case 2 -> {
+                case 2 -> { // ALTERAR
+                    System.out.println("ALTERANDO VEÍCULO..."); // TODO: CRIAR UM ALTERAR VEÍCULO
+                    executing = false;
+                }
+                case 3 -> {
                     System.out.println("BUSCANDO VEÍCULO");
-                    vehicleController.search(null);
+                    vehicleUI.search();
                     executing = false;
                 }
-                // TODO: CRIAR NOVO CASE COM LISTA DE VEÍCULOS, NÃO EXIBIR OS DADOS COMPLETOS NA LISTA GERAL
-                case 3 -> { //retornar ao menu inicial
+                case 4 -> { // RETORNAR AO MENU INICIAL
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");

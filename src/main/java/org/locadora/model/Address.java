@@ -23,7 +23,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return  street + ", " + number + " - " + cep + ", " + city + " - " + state;
+        return  "CEP: " + cep + ", " + street + " - " + number + ", " + city + " - " + state;
     }
 
 

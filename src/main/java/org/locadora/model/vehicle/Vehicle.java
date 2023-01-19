@@ -60,11 +60,7 @@ public abstract class Vehicle {
 
     @Override
     public String toString() {
-        return "Vehicle{" +
-                "vehicleManufacturer='" + vehicleManufacturer + '\'' +
-                ", vehicleModel='" + vehicleModel + '\'' +
-                ", registrationPlate='" + registrationPlate + '\'' +
-                ", rentalFee=" + rentalFee +
-                '}';
+        return "FABRICANTE: " + vehicleManufacturer + "MODELO: " + vehicleModel + "PLACA: " + registrationPlate +
+               "TAXA DE ALUGUEL: " + rentalFee;
     }
 }

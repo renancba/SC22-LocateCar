@@ -87,7 +87,6 @@ public class VehicleUI {
                 }
 
                 if (vehicles.size() > 1) {
-
                     System.out.println("");
                     for (Vehicle vehicle : vehicles) {
                         System.out.println("-------- VEÍCULO -------");
