@@ -2,6 +2,7 @@ package org.locadora.model;
 
 import org.locadora.model.vehicle.Vehicle;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,11 +10,11 @@ public class Agency<T extends Vehicle> {
     private Integer id;
     private String name;
     private Address address;
-
     private List<T> vehicles;
 
-    // adicionar atributo de data
-    // adicionar atributo de horário
+    public Agency() {
+        this.vehicles = new ArrayList<>();
+    }
 
     public Agency(String name) {
         this.name = name;
