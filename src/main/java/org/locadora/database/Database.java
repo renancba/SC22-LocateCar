@@ -67,12 +67,12 @@ public class Database {
 
         for (Customer customer : customers) {
             if (customer instanceof NaturalPerson) {
-                String fullName = customer.getName() + " " + ((NaturalPerson)customer).getSurname();
+                String fullName = customer.getName() + " " + ((NaturalPerson) customer).getSurname();
                 if (fullName.contains(value)) {
                     matchCustomers.add(customer);
                 }
             } else {
-                String fullName = customer.getName() + " " + ((LegalPerson)customer).getNickname();
+                String fullName = customer.getName() + " " + ((LegalPerson) customer).getNickname();
                 if (fullName.contains(value)) {
                     matchCustomers.add(customer);
                 }
@@ -105,6 +105,13 @@ public class Database {
         return matchAgencies;
     }
 
+    public Agency getAgency(Integer id) {
+        return agencies.stream()
+                .filter(agency -> agency.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
     public List<Customer> getCustomers() {
         return customers;
     }
@@ -122,6 +129,7 @@ public class Database {
         customers.add(customer);
         return true;
     }
+
     public List<RentalOperation> getOperations() {
         return operations;
     }
@@ -162,7 +170,7 @@ public class Database {
             costumersArray.put(costumerObject);
         }
 
-        for(Agency agency: agencies){
+        for (Agency agency : agencies) {
             JSONObject agencieObject = agency.toJSONObject();
             agenciesArray.put(agencieObject);
         }
