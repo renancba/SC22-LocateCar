@@ -1,23 +1,14 @@
 {
   "vehicles": [],
-  "costumers": [
+  "agencies": [],
+  "customers": [
     {
-      "address": "asdasd, asdasd - asdasd, asdasd - asdasd",
-      "surname": "asdasd",
-      "name": "asdasd",
-      "cpf": "asdasd",
-      "driverLicense": "asdasd",
-      "telephone": " (asdasd) asdasd"
-    },
-    {
-      "companyDriver": "asdasdasdasd",
-      "address": "asdasd, asdasd - asdasd, asdasd - asdasd",
-      "name": "asdasda",
-      "nickname": "asdasd",
-      "driverLicense": "asdasd",
-      "telephone": " (asdasd) asdasdasdasdasd",
-      "cnpj": "asdasd"
+      "address": "05570200, Rua Bento de barros - 200, São Paulo - SP",
+      "surname": "Ferreira",
+      "name": "Washington",
+      "cpf": "23044797829",
+      "driverLicense": "321321",
+      "telephone": " (11) 963642358"
     }
-  ],
-  "agencies": []
+  ]
 }

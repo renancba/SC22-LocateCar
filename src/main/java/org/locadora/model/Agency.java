@@ -1,10 +1,15 @@
 package org.locadora.model;
 
+import org.locadora.model.vehicle.Vehicle;
+
+import java.util.List;
 import java.util.Objects;
 
 public class Agency {
     private String name;
     private Address address;
+
+    private List<Vehicle> vehicles;
 
     // adicionar atributo de data
     // adicionar atributo de horário

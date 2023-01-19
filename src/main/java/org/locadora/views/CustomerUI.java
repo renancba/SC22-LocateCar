@@ -163,8 +163,7 @@ public class CustomerUI {
                 .collect(Collectors.toList());
 
         // display the paginated list
-        System.out.println("------ CLIENTES ------");
-        System.out.println("");
+        System.out.println("------- CLIENTES -------");
         paginatedCustomers.forEach(Customer::shortInfo);
         System.out.println("");
 

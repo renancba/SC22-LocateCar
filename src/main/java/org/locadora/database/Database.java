@@ -165,7 +165,7 @@ public class Database {
         }
 
         //Preciso tratar a null pointer aqui
-        JSONObject object = new JSONObject().put("costumers", costumersArray).put("vehicles", new JSONArray()).put("agencies", new JSONArray());
+        JSONObject object = new JSONObject().put("customers", costumersArray).put("vehicles", new JSONArray()).put("agencies", new JSONArray());
         Files.writeString(dbPath, object.toString(), StandardOpenOption.WRITE);
 
 
