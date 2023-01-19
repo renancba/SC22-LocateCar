@@ -50,13 +50,14 @@ public class AgencyController {
         }
     }
 
-    public void edit(String option, Agency agency) throws Exception {
+    public void edit(String option, Agency agency, int index) throws Exception {
         Database db = Database.getInstance();
         switch (option) {
             case "name" -> Input.stringNotNullable("INFORME UMA NOVA NOME: ", 3);
             case "address" -> agency.setAddress(InputAddress.exec(""));
         }
 
+        db.getAgencies().set(index, agency);
     }
 
 //    public void search(String value) {
@@ -72,7 +73,8 @@ public class AgencyController {
         Database db = Database.getInstance();
         try {
             int index = GetIndex.exec();
-            AgencyUI.viewAgency(db.getAgency(index));
+            AgencyUI.viewAgency(db.getAgency(index), index);
+
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");

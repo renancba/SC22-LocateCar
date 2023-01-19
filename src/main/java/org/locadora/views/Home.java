@@ -124,13 +124,13 @@ public class Home {
                 }
                 case 2 -> {
                     System.out.println("BUSCANDO AGÊNCIA");
-                    agencyController.search(null);
+//                    agencyController.search(null);
                     // TODO: NÃO ESTÁ ACHANDO A AGÊNCIA
                     executing = false;
                 }
                 case 3 -> {
                     // TODO: CRIAR LISTA DE AGÊNCIAS, NÃO EXIBIR OS DADOS COMPLETOS NA LISTA GERAL
-                    agencyController.view();
+//                    agencyController.view();
                     executing = false;
                 }
                 case 4 -> { //retornar ao menu inicial

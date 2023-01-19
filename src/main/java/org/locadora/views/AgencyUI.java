@@ -100,7 +100,7 @@ public class AgencyUI {
         return option;
     }
 
-    public static void viewAgency(Agency agency) {
+    public static void viewAgency(Agency agency, int index) {
         AgencyController agencyController = new AgencyController();
         boolean working = true;
         try {
@@ -117,8 +117,8 @@ public class AgencyUI {
                     }
 //                case 1 -> /*Cadastrar veículo*/;
 //                case 2 -> /*Listar Veículos*/
-                    case 3 -> agencyController.edit("name", agency);
-                    case 4 -> agencyController.edit("address", agency);
+                    case 3 -> agencyController.edit("name", agency, index);
+                    case 4 -> agencyController.edit("address", agency, index);
                     default -> System.out.println("-> Opção inválida \n");
                 }
             }
