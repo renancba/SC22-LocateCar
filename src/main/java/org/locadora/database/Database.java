@@ -105,7 +105,7 @@ public class Database {
         return matchAgencies;
     }
 
-    public Agency getAgency(Integer id) {
+    public Agency searchByAgencyId(Integer id) {
         return agencies.stream()
                 .filter(agency -> agency.getId().equals(id))
                 .findFirst()
