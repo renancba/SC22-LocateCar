@@ -1,6 +1,7 @@
 package org.locadora.model.customer;
 
 
+import org.json.JSONObject;
 import org.locadora.model.Address;
 import org.locadora.model.Telephone;
 
@@ -9,20 +10,70 @@ import java.util.Objects;
 public class LegalPerson extends Customer {
     private String cnpj;
     private String nickname;
+    private String companyDriver;
+    private String driverLicense;
 
     public LegalPerson() {
     }
 
-    public LegalPerson(String name, String nickname, String cnpj, Telephone telephone, Address adress) {
+    public LegalPerson(String name, String nickname, String cnpj, String companyDriver, String driverLicense, Telephone telephone, Address adress) {
         super(name, telephone, adress);
         this.cnpj = cnpj;
         this.nickname = nickname;
+        this.companyDriver = companyDriver;
+        this.driverLicense = driverLicense;
     }
 
-    public LegalPerson(String name, String nickname, String cnpj) {
+    public LegalPerson(String name, String nickname, String cnpj, String companyDriver, String driverLicense) {
         super(name);
         this.nickname = nickname;
         this.cnpj = cnpj;
+        this.companyDriver = companyDriver;
+        this.driverLicense = driverLicense;
+    }
+
+    public JSONObject toJSONObject() {
+        JSONObject costumerObject = new JSONObject();
+        costumerObject.put("name", this.getName());
+        costumerObject.put("nickname", this.getNickname());
+        costumerObject.put("cnpj", this.getCnpj());
+        costumerObject.put("companyDriver", this.getCompanyDriver());
+        costumerObject.put("driverLicense", this.getDriverLicense());
+        costumerObject.put("address", this.getAddress());
+        costumerObject.put("telephone", this.getTelephone());
+        return costumerObject;
+    }
+
+    public void shortInfo() {
+        System.out.println(" RAZÃO SOCIAL: " + this.getName());
+        System.out.println(" NOME FANTASIA: " + this.getNickname());
+        System.out.println(" CNPJ: " + this.getCnpj());
+        System.out.println("-------------------------");
+    }
+
+    public void completeInfo() {
+        this.shortInfo();
+        System.out.println(" MOTORISTA: " + this.getCompanyDriver());
+        System.out.println(" CNH: " + this.getDriverLicense());
+        System.out.println(" ENDEREÇO: " + this.getAddress());
+        System.out.println(" TELEFONE: " + this.getTelephone());
+        System.out.println("-------------------------");
+    }
+
+    public String getCompanyDriver() {
+        return companyDriver;
+    }
+
+    public void setCompanyDriver(String companyDriver) {
+        this.companyDriver = companyDriver;
+    }
+
+    public String getDriverLicense() {
+        return driverLicense;
+    }
+
+    public void setDriverLicense(String driverLicense) {
+        this.driverLicense = driverLicense;
     }
 
     public String getCnpj() {

@@ -10,7 +10,7 @@ import org.locadora.views.CustomerUI;
 public class CustomerController {
     public String paginatedList() {
         Database db = Database.getInstance();
-        return CustomerUI.listNaturalPerson(db.getCustomers());
+        return CostumerUI.listNaturalPerson(db.getCostumers());
     }
 
     public void create() {
@@ -19,9 +19,9 @@ public class CustomerController {
 
     //TODO: TEM COMO DEIXAR MAIS UNIVERSAL PARA NÃO REPETIR CÓDIGO?
 
-    public void saveNaturalPerson(String name, String surname, String cpf,String driverLicense, String street,String number,String cep,String city,String state, String ddd, String telephone) {
+    public void saveNaturalPerson(String name, String surname, String cpf, String driverLicense, String street, String number, String cep, String city, String state, String ddd, String telephone) {
 
-        NaturalPerson naturalPerson = new NaturalPerson(name, surname, cpf, driverLicense, new Telephone(ddd, telephone), new Address(cep,street,number,city,state));
+        NaturalPerson naturalPerson = new NaturalPerson(name, surname, cpf, driverLicense, new Telephone(ddd, telephone), new Address(cep, street, number, city, state));
         Database db = Database.getInstance();
 
         if (db.addCustomer(naturalPerson)) {
@@ -69,7 +69,7 @@ public class CustomerController {
         Database db = Database.getInstance();
         try {
             int index = CustomerUI.getIndex();
-            CustomerUI.view(db.getCustomer(index));
+            db.getCustomer(index).completeInfo();
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");

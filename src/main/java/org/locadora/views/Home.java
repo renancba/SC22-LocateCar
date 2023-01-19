@@ -3,6 +3,7 @@ package org.locadora.views;
 
 import org.locadora.controller.AgencyController;
 import org.locadora.controller.CustomerController;
+import org.locadora.controller.OperationController;
 import org.locadora.controller.VehicleController;
 import org.locadora.utils.MenuCreator;
 
@@ -23,8 +24,8 @@ public class Home {
                 case 0 -> {
                     System.out.println("ESCOLHEU CLIENTES");
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR CLIENTE",
-                            "ALTERAR DADOS DE UM CLIENTE", "LISTAR CLIENTE", "RETORNAR AO MENU INICIAL");
-                    submenuCustomer(option);
+                            "LISTAR CLIENTES", "ALTERAR DADOS DE UM CLIENTE", "RETORNAR AO MENU INICIAL");
+                    submenuCostumer(option);
 
                 }
                 case 1 -> {
@@ -41,8 +42,7 @@ public class Home {
                 }
                 case 3 -> {
                     System.out.println("ESCOLHEU ALUGUEL E DEVOLUÇÃO");
-                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO",
-                            "DEVOLVER VEÍCULO", "GERAR COMPROVANTE","RETORNAR AO MENU INICIAL");
+                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS", "PESQUISAR NUMERO DO CONTRATO" ,"RETORNAR AO MENU INICIAL");
                     submenuRent(option);
                 }
                 case 4 -> {
@@ -53,9 +53,6 @@ public class Home {
                 default -> System.out.println("OPÇÃO INVÁLIDA");
             }
         }
-
-
-
     }
 
     // TODO: NÃO SOUBE EXATAMENTE SE ESSES SUBMENUS ENTRARIAM AQUI. CONTINUAR IMPLEMENTANDO.
@@ -70,13 +67,13 @@ public class Home {
                     executing = false;
                 }
                 case 1 -> {
-                    System.out.println("ALTERANDO CLIENTE...");
+                    System.out.println("LISTAR CLIENTES");
+                    costumerController.view();
                     executing = false;
+
                 }
                 case 2 -> {
-                    System.out.println("LISTAR CLIENTES");
-                    customerController.view();
-                    // TODO: CRIAR LISTA DE CLIENTES, NÃO EXIBIR OS DADOS COMPLETOS NA LISTA GERAL
+                    System.out.println("ALTERANDO CLIENTE...");
                     executing = false;
                 }
                 case 3 -> { //retornar ao menu inicial
@@ -149,22 +146,30 @@ public class Home {
         }
     }
     public static void submenuRent (Integer option){
+
+        OperationController operationController = new OperationController();
         boolean executing = true;
         while (executing){
             switch (option) {
                 case 0 -> {
-                    System.out.println("ALUGANDO VEÍCULO");
+                    System.out.println("LOCAR UM VEÍCULO");
+                    operationController.create();
                     executing = false;
                 }
                 case 1 -> {
-                    System.out.println("DEVOLVENDO VEÍCULO...");
+                    System.out.println("LISTAR CONTRATOS");
+                    operationController.list();
                     executing = false;
                 }
                 case 2 -> {
-                    System.out.println("GERANDO COMPROVANTE");
+                    System.out.println("PESQUISAR POR NUMERO DE CONTRATO");
                     executing = false;
                 }
-                case 3 -> { //retornar ao menu inicial
+                case 3 -> {
+                    System.out.println("PESQUISAR POR NOME DO CLIENTE");
+                    executing = false;
+                }
+                case 4 -> { //retornar ao menu inicial
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");

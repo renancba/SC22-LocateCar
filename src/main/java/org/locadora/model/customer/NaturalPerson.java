@@ -1,5 +1,6 @@
 package org.locadora.model.customer;
 
+import org.json.JSONObject;
 import org.locadora.model.Address;
 import org.locadora.model.Telephone;
 
@@ -28,6 +29,32 @@ public class NaturalPerson extends Customer {
         this.driverLicense = driverLicense;
     }
 
+    public JSONObject toJSONObject() {
+        JSONObject costumerObject = new JSONObject();
+        costumerObject.put("name", this.getName());
+        costumerObject.put("surname", this.getSurname());
+        costumerObject.put("cpf", this.getCpf());
+        costumerObject.put("driverLicense", this.getDriverLicense());
+        costumerObject.put("address", this.getAddress());
+        costumerObject.put("telephone", this.getTelephone());
+        return costumerObject;
+    }
+
+    public void shortInfo() {
+        System.out.println(" NOME: " + this.getName());
+        System.out.println(" SOBRENOME: " + this.getSurname());
+        System.out.println(" CPF: " + this.getCpf());
+        System.out.println("-------------------------");
+    }
+
+    public void completeInfo() {
+        this.shortInfo();
+        System.out.println(" CNH: " + this.getDriverLicense());
+        System.out.println(" ENDEREÇO: " + this.getAddress());
+        System.out.println(" TELEFONE: " + this.getTelephone());
+        System.out.println("-------------------------");
+    }
+
     public String getSurname() {
         return surname;
     }
@@ -51,6 +78,7 @@ public class NaturalPerson extends Customer {
     public void setDriverLicense(String driverLicense) {
         this.driverLicense = driverLicense;
     }
+
     public String getFullName(String fullname) {
         return this.getName() + this.getSurname();
     }
@@ -70,6 +98,7 @@ public class NaturalPerson extends Customer {
     public int hashCode() {
         return Objects.hash(surname, cpf, driverLicense);
     }
+
     @Override
     public String toString() {
         return "NaturalPerson{" +

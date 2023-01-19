@@ -1,5 +1,6 @@
 package org.locadora.model.customer;
 
+import org.json.JSONObject;
 import org.locadora.model.Address;
 import org.locadora.model.Telephone;
 
@@ -43,6 +44,14 @@ public abstract class Customer {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public JSONObject toJSONObject() {
+        return null;
+    }
+
+    public abstract void completeInfo();
+
+    public abstract void shortInfo();
 
 
 // TODO: SOBRESCREVER EQUALS, HASHCODE E TOSTRING

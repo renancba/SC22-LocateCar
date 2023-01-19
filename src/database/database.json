@@ -1,1 +1,23 @@
-{"customers":[{"address":"STREET, 128 - CEP, CITY - STATE","surname":"BRUNO PROJETOO","name":"LTDA BRUNO","telephone":" (11) 9911888754"}]}
+{
+  "vehicles": [],
+  "costumers": [
+    {
+      "address": "asdasd, asdasd - asdasd, asdasd - asdasd",
+      "surname": "asdasd",
+      "name": "asdasd",
+      "cpf": "asdasd",
+      "driverLicense": "asdasd",
+      "telephone": " (asdasd) asdasd"
+    },
+    {
+      "companyDriver": "asdasdasdasd",
+      "address": "asdasd, asdasd - asdasd, asdasd - asdasd",
+      "name": "asdasda",
+      "nickname": "asdasd",
+      "driverLicense": "asdasd",
+      "telephone": " (asdasd) asdasdasdasdasd",
+      "cnpj": "asdasd"
+    }
+  ],
+  "agencies": []
+}

@@ -8,16 +8,19 @@ import org.locadora.model.customer.NaturalPerson;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 
+import java.sql.SQLOutput;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class CustomerUI {
+public class CostumerUI {
     public static void add() {
         CustomerController customerController = new CustomerController();
-        AddressUI addressUI = new AddressUI();
+       // AddressUI addressUI = new AddressUI();
         Integer option;
         String name;
         String surname;
         String cpf;
+        String companyDriver;
         String driverLicense;
         String nickname;
         String cnpj;
@@ -29,12 +32,12 @@ public class CustomerUI {
         String ddd;
         String telephone;
 
-        option = MenuCreator.exec("DIGITE O TIPO DE CLIENTE A SER ADICIONADO","PESSOA FÍSICA", "PESSOA JURÍDICA");
+        option = MenuCreator.exec("DIGITE O TIPO DE CLIENTE A SER ADICIONADO", "PESSOA FÍSICA", "PESSOA JURÍDICA");
 
         switch (option) {
             case 0 -> {
                 try {
-                    name = Input.stringNotNullable("NOME: ", 3);
+                    name = Input.stringNotNullable("PRIMEIRO NOME: ", 3);
                     surname = Input.stringNotNullable("SOBRENOME: ", 3);
                     cpf = Input.stringNotNullable("CPF: ", 3);
                     driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);
@@ -62,19 +65,19 @@ public class CustomerUI {
                     name = Input.stringNotNullable("NOME: ", 3);
                     nickname = Input.stringNotNullable("NOME FANTASIA: ", 3);
                     cnpj = Input.stringNotNullable("CNPJ: ", 3);
-                    // TODO: NÃO SERIA MELHOR DE FATO TERMOS O ADDRESS UI E SÓ CHAMARMOS O MÉTODO ADD AQUI PARA FICAR LIMPO?
+                    companyDriver = Input.stringNotNullable("MOTORISTA: ", 3);
+                    driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);
                     System.out.println("\nCADASTRO DE ENDEREÇO: ");
                     street = Input.stringNotNullable("NOME DA RUA: ", 3);
                     number = Input.stringNotNullable("NÚMERO: ", 3);
                     cep = Input.stringNotNullable("CEP: ", 3);
                     city = Input.stringNotNullable("CIDADE: ", 3);
                     state = Input.stringNotNullable("ESTADO: ", 3);
-                    // TODO: MESMA SUGESTÃO PARA O CASO DO TELEFONE (CRIARIAMOS O TELEPHONEUI)
                     System.out.println("\nCADASTRO DE TELEFONE: ");
                     ddd = Input.stringNotNullable("DDD: ", 3);
                     telephone = Input.stringNotNullable("NÚMERO TELEFONE: ", 3);
 
-                    customerController.saveLegalPerson(name, nickname, cnpj, ddd, telephone, cep, street, number, city, state);
+                    customerController.saveLegalPerson(name, nickname, cnpj, companyDriver, driverLicense, cep, street, number, city, state, ddd, telephone);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -83,6 +86,7 @@ public class CustomerUI {
             }
         }
     }
+
     public static int getIndex() throws Exception {
         int index = 0;
 
@@ -90,7 +94,9 @@ public class CustomerUI {
         System.out.println("");
         return index;
     }
-    public static String listNaturalPerson(List<Customer> naturalPersonList) {
+
+
+    public static <T extends Customer> String ListCustomer(List<T> customers) {
         int index = 0;
         int tentativas = 0;
         boolean working;
@@ -100,47 +106,38 @@ public class CustomerUI {
 
             try {
 
-                if (naturalPersonList.size() == 0) {
+                if (customers.size() == 0) {
                     System.out.println("NENHUM CLIENTE ENCONTRADO PARA O TERMO INFORMADO.\n");
                     break;
                 }
-
-                if (naturalPersonList.size() > 1) {
-
+                //Listar os contatos
+                for (T costumer : costumers) {
+                    costumer.shortInfo();
                     System.out.println("");
-                    for (Customer naturalPerson : naturalPersonList) {
-                        System.out.println("-------- CLIENTE -------");
-                        System.out.println("ID: " + index);
-                        System.out.println("Nome: " + naturalPerson.getName() + " ");
-                        System.out.println("------------------------");
-                        index++;
-                    }
-                    System.out.println("");
+                    System.out.println("---------------------");
+                }
 
-                    int indexOption = getIndex();
-                    if (indexOption > naturalPersonList.size()) {
-                        System.out.println("-> Opção inválida\n");
-                        index = 0;
-                        tentativas++;
-                        working = true;
-                        continue;
-                    }
 
-                    if (tentativas > 3) {
-                        System.out.println("-> Número de tentativas excedidas");
-                        System.out.println("voltando...\n");
-                        break;
-                    }
+                int indexOption = getIndex();
+                if (indexOption > costumers.size()) {
+                    System.out.println("-> Opção inválida\n");
+                    index = 0;
+                    tentativas++;
+                    working = true;
+                    continue;
+                }
 
-                    CustomerUI.view(naturalPersonList.get(indexOption));
-
-                } else {
-                    CustomerUI.view(naturalPersonList.get(0));
+                if (tentativas > 3) {
+                    System.out.println("-> Número de tentativas excedidas");
+                    System.out.println("voltando...\n");
                     break;
                 }
 
+                costumers.get(indexOption).completeInfo();
+
+
             } catch (Exception ex) {
-                System.out.println(ex.getMessage()+ "\n");
+                System.out.println(ex.getMessage() + "\n");
                 break;
             }
 
@@ -148,108 +145,67 @@ public class CustomerUI {
         return "2";
     }
 
-    //TODO: RESOLVER LISTA PAGINADA COM CASTING? NÃO CONSIGO ACESSAR O INDEX QUANDO FAÇO CASTING PRA ACESSAR O GETSURNAME
+    //TODO: RESOLVER LISTA PAGINADA COM CASTING?
 
-    public static String paginatedList(List<Customer> customers) {
-        boolean working = true;
-        int ammount = 0;
-        int start = 0;
+    public static <T extends Costumer> String paginatedCostumerList(List<T> costumers, int pageSize, int pageNumber) {
         String option = "";
 
-        while (working) {
-            try {
-                if (ammount == 0) {
-                    ammount = Input.integer("Informe a quantidade de clientes por página: ");
-                    System.out.println("");
-                }
+        // validate input
+        if (pageNumber < 0) pageNumber = 0;
+        if (pageSize < 0) pageSize = 0;
+        if (pageNumber + pageSize > costumers.size()) pageNumber = costumers.size() - pageSize;
+        if (pageNumber < 0 || pageNumber >= costumers.size()) pageNumber = 0;
 
-                if (start < 0 || start > customers.size()) start = 0;
-                if (ammount < 0) ammount = 0;
-                if (ammount > customers.size()) ammount = customers.size();
-                if (start + ammount > customers.size()) start = customers.size() - ammount;
+        // paginate the list
+        List<T> paginatedCostumers = costumers.stream()
+                .skip((pageNumber) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
 
-                System.out.println("------ CLIENTES ------");
+        // display the paginated list
+        System.out.println("------ CLIENTES ------");
+        System.out.println("");
+        paginatedCostumers.forEach(Costumer::shortInfo);
+        System.out.println("");
 
-                for (int i = start; i < start + ammount; i++) {
-                    if (i == customers.size()) break;
-                    if (customers instanceof NaturalPerson) {
-                        System.out.println("ID: " + i);
-                        System.out.println("NOME: " + customers.get(i)/* + " " + customers.get(i).getSurname()*/);
-                        System.out.println("----------------------");
-                    }
-                }
-                System.out.println("");
-
-                boolean better = true;
-
-                while (better) {
-                    if (customers.size() == 0) {
-                        switch (MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE")) {
-                            case 0 -> {
-                                better = false;
-                                working = false;
-                                option = "VOLTAR";
-                            }
-                            case 1 -> {
-                                add();
-                                better = false;
-                            }
-                            default -> System.out.println(" OPÇÃO INVÁLIDA\n");
-                        }
-                    } else {
-                        switch (MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CLIENTE")) {
-                            case 0 -> {
-                                better = false;
-                                working = false;
-                                option = "VOLTAR";
-                            }
-                            case 1 -> {
-                                start = start + ammount;
-                                better = false;
-                            }
-                            case 2 -> {
-                                start = start - ammount;
-                                better = false;
-                            }
-                            case 3 -> {
-                                better = false;
-                                working = false;
-                                option = "EDITAR";
-                            }
-                            default -> System.out.println(" OPÇÃO INVÁLIDA\n");
-                        }
-                    }
-
-                }
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage() + " VOLTANDO AO MENU PRINCIPAL...");
+        // handle navigation
+        if (costumers.size() == 0) {
+            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE");
+            switch (choice) {
+                case 0:
+                    option = "VOLTAR";
+                    break;
+                case 1:
+                    add();
+                    break;
+                default:
+                    System.out.println("OPÇÃO INVÁLIDA\n");
+                    break;
             }
-
+        } else {
+            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CLIENTE", "ADICIONAR CLIENTE");
+            switch (choice) {
+                case 0:
+                    option = "VOLTAR";
+                    break;
+                case 1:
+                    paginatedCostumerList(costumers, pageSize, pageNumber + pageSize);
+                    break;
+                case 2:
+                    paginatedCostumerList(costumers, pageSize, pageNumber - pageSize);
+                    break;
+                case 3:
+                    option = "EDITAR";
+                    break;
+                case 4:
+                    add();
+                    break;
+                default:
+                    System.out.println("OPÇÃO INVÁLIDA\n");
+                    break;
+            }
         }
         return option;
-    }
-
-    public static void view(Customer customer) {
-
-        if (customer instanceof NaturalPerson) {
-            System.out.println("------- CLIENTE (PF) -------");
-            System.out.println(" NOME: " + customer.getName());
-            System.out.println(" SOBRENOME: " + ((NaturalPerson) customer).getSurname());
-            System.out.println(" CNH: " + ((NaturalPerson) customer).getDriverLicense());
-            System.out.println(" ENDEREÇO: " + customer.getAddress());
-            System.out.println(" TELEFONE: " + customer.getTelephone());
-            System.out.println("-----------------------");
-            System.out.println("");
-        } else {
-            System.out.println("------- CLIENTE (PJ) -------");
-            System.out.println(" NOME: " + customer.getName());
-            System.out.println(" NOMEFANTASIA: " + ((LegalPerson) customer).getNickname());
-            System.out.println(" CNPJ: " + ((LegalPerson) customer).getCnpj());
-            System.out.println(" ENDEREÇO: " + customer.getAddress());
-            System.out.println(" TELEFONE: " + customer.getTelephone());
-            System.out.println("-----------------------");
-            System.out.println("");
-        }
     }
 }
 
