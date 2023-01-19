@@ -2,43 +2,37 @@ package org.locadora.model;
 
 import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
-
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class RentalOperation<T extends Vehicle> {
-    private Integer contrato;
-    private Customer customer;
+public class RentalOperation<T extends Vehicle, C extends Customer> {
+    private Integer rentalID;
+    private C customer;
     private T vehicle;
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal cost;
-    private Agency LocationAgency;
+    private Agency agency;
 
-    private Agency returnAgency;
+    private boolean isOver;
 
-    private boolean concluido = false;
 
-    public RentalOperation(Customer customer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
-
-        this.customer = customer;
-        this.vehicle = vehicle;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.LocationAgency = agency;
-        this.contrato = (int) (Math.random() * 200) + 1;
+    public RentalOperation(C costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
+        this(0,costumer, vehicle, startDate, endDate, agency, new BigDecimal(0.9), false);
+        this.rentalID = (int) (Math.random() * 200) + 1;
         calculateCost();
     }
 
-    public RentalOperation(Integer id, Customer customer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost) {
-        this.customer = customer;
+    public RentalOperation(Integer rentalID, C costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost, boolean isOver) {
+       this.rentalID = rentalID;
+        this.customer = costumer;
         this.vehicle = vehicle;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.LocationAgency = agency;
+        this.agency = agency;
         this.cost = cost;
-        this.contrato = id;
+        this.isOver = isOver;
     }
 
     private void calculateCost() {
@@ -62,12 +56,12 @@ public class RentalOperation<T extends Vehicle> {
         return vehicle;
     }
 
-    public Integer getContrato() {
-        return contrato;
+    public Integer getRentalID() {
+        return rentalID;
     }
 
-    public boolean isConcluido() {
-        return concluido;
+    public boolean isOver() {
+        return isOver;
     }
 
     public LocalDate getStartDate() {
@@ -82,8 +76,8 @@ public class RentalOperation<T extends Vehicle> {
         return cost;
     }
 
-    public Agency getLocationAgency() {
-        return LocationAgency;
+    public Agency getAgency() {
+        return agency;
     }
 
     public void updateEndDate(LocalDate newEndDate) {
@@ -92,7 +86,7 @@ public class RentalOperation<T extends Vehicle> {
     }
 
     public void returnVehicle(Agency agency) {
-        if (!concluido) {
+        if (!isOver) {
 
             LocalDate returnDate = LocalDate.now();
             if (returnDate.isAfter(endDate)) {
@@ -101,13 +95,7 @@ public class RentalOperation<T extends Vehicle> {
                 cost = cost.add(lateFee);
             }
 
-            this.returnAgency = agency;
-
-            if (!LocationAgency.equals(agency)) {
-                // mudar carro para a nova agencia
-            }
-
-            this.concluido = true;
+            this.isOver = true;
             vehicle.setAvaible(true);
         }
 
@@ -123,7 +111,7 @@ public class RentalOperation<T extends Vehicle> {
                 "\n Locação: " + startDate +
                 "\n Devolução: " + endDate +
                 "\n Custo: " + cost +
-                "\n Agência: " + LocationAgency;
+                "\n Agência: " + agency;
 
     }
 }

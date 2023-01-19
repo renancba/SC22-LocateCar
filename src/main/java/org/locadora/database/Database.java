@@ -112,6 +112,13 @@ public class Database {
                 .orElse(null);
     }
 
+    public RentalOperation getRentalOperation(Integer id) {
+        return operations.stream()
+                .filter(operation -> operation.getRentalID().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
     public List<Customer> getCustomers() {
         return customers;
     }

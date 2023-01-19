@@ -67,8 +67,7 @@ public class OperationController {
 
     public void returVehicle(RentalOperation operation) {
         Agency agency = OperationUI.returnVehicle(operation);
-        Agency returnAgency = operation.getLocationAgency().equals(agency) ? operation.getLocationAgency() : agency;
-        operation.returnVehicle(returnAgency);
+        operation.returnVehicle(agency);
 
     }
 

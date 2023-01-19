@@ -241,7 +241,7 @@ public class OperationUI {
         while (working) {
             System.out.println("------- AGENCIA LOCADORA -------");
             System.out.println("");
-            operation.getLocationAgency();
+            operation.getAgency();
 
             int option = MenuCreator.exec("A DEVOLUÇÃO SERÁ NA MESMA AGÊNCIA?", "SIM", "NÃO", "VOLTAR");
 
@@ -249,7 +249,7 @@ public class OperationUI {
                 case 0 -> {
                     working = false;
                 }
-                case 1 -> agency = operation.getLocationAgency();
+                case 1 -> agency = operation.getAgency();
 //                case 2 ->  agency = agencyController.view();
                 default -> System.out.println("-> Opção inválida \n");
             }

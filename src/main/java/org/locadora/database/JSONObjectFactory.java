@@ -94,7 +94,6 @@ class JSONObjectFactory {
         return newAgency;
     }
 
-
     public RentalOperation createOperation(JSONObject operation) {
 
         //Criar um costumer a partir das informações do costumer
@@ -110,9 +109,10 @@ class JSONObjectFactory {
         LocalDate startDate = (LocalDate) operation.get("startDate");
         LocalDate endDate = (LocalDate) operation.get("endDate");
         BigDecimal cost = new BigDecimal((Double) operation.get("cost"));
+        boolean isOver = (boolean) operation.get("isOver");
 
 
-        return new RentalOperation(contrato, customer, vehicle, startDate, endDate, agency, cost);
+        return new RentalOperation(contrato, customer, vehicle, startDate, endDate, agency, cost, isOver);
     }
 
 
