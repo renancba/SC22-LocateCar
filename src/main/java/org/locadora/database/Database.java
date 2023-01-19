@@ -98,7 +98,7 @@ public class Database {
 
         for (Agency agency : agencies) {
             String fullName = agency.getName() + " " + agency.getAddress();
-            if (fullName.contains(value)) {
+            if (fullName.toUpperCase().contains(value)) {
                 matchAgencies.add(agency);
             }
         }

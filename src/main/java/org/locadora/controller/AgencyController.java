@@ -51,7 +51,7 @@ public class AgencyController {
 
     public void foundList(List<Agency> foundAgencies) {
         if (foundAgencies.size() > 1) {
-            if (AgencyUI.list(foundAgencies, 5, 0).equals("EDITAR")) {
+            if (AgencyUI.list(foundAgencies, 5, 0).equals("exibir")) {
                 viewAgency();
             }
         } else {
@@ -97,7 +97,7 @@ public class AgencyController {
                 }
             } else if (option == "name") {
                 String param = Input.stringNotNullable("INFORME O NOME DA AGÊNCIA OU O LOGRADOURO", 3);
-                List<Agency> foundAgencies = db.searchAgencies(param);
+                List<Agency> foundAgencies = db.searchAgencies(param.toUpperCase());
 
                 if (foundAgencies.size() > 0) {
                     agencies = foundAgencies;

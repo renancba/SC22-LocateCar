@@ -15,15 +15,27 @@
     },
     {
       "address": {
-        "zipcode": "zxczxc",
-        "number": "zxczxc",
-        "city": "zxczxc",
-        "street": "zxczxc",
-        "state": "zxczxc"
+        "zipcode": "05569030",
+        "number": "535",
+        "city": "São Paulo",
+        "street": "Rua Frei Vital de frescarolo",
+        "state": "SP"
       },
-      "name": "zxczxc",
+      "name": "São Paulo",
       "vehicles": [],
       "id": 187
+    },
+    {
+      "address": {
+        "zipcode": "08870200",
+        "number": "200",
+        "city": "São Paulo",
+        "street": "Rua bento de barros",
+        "state": "sp"
+      },
+      "name": "Taboão",
+      "vehicles": [],
+      "id": 112
     }
   ],
   "customers": [
