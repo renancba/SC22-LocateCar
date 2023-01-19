@@ -5,18 +5,15 @@ import org.locadora.model.vehicle.Vehicle;
 import java.util.List;
 import java.util.Objects;
 
-public class Agency {
+public class Agency<T extends Vehicle> {
+    private Integer id;
     private String name;
     private Address address;
 
-    private List<Vehicle> vehicles;
+    private List<T> vehicles;
 
     // adicionar atributo de data
     // adicionar atributo de horário
-
-
-    public Agency() {
-    }
 
     public Agency(String name) {
         this.name = name;
@@ -41,6 +38,14 @@ public class Agency {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public void addVehicle(T vehicle) {
+        this.vehicles.add(vehicle);
+    }
+
+    public List<T> getVehicles() {
+        return this.vehicles;
     }
 
     @Override
