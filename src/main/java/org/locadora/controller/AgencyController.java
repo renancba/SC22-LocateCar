@@ -8,8 +8,8 @@ import org.locadora.utils.GetIndex;
 import org.locadora.utils.Input;
 import org.locadora.utils.InputAddress;
 import org.locadora.views.AgencyUI;
-import org.locadora.views.OperationUI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AgencyController {
@@ -40,12 +40,18 @@ public class AgencyController {
 
     public String list() {
         Database db = Database.getInstance();
-        return AgencyUI.List(db.getAgencies(), 5, 0);
+        return AgencyUI.list(db.getAgencies(), 5, 0);
     }
 
     public void listAll() {
         String option = list();
         if (option.equals("EDITAR")) {
+            viewAgency();
+        }
+    }
+
+    public void foundList(List<Agency> foundAgencies) {
+        if (AgencyUI.list(foundAgencies, 5, 0).equals("EDITAR")) {
             viewAgency();
         }
     }
@@ -60,19 +66,41 @@ public class AgencyController {
         db.getAgencies().set(index, agency);
     }
 
-//    public void search(String value) {
-//        Database db = Database.getInstance();
-//        if (value != null) {
-//            AgencyUI.list(db.searchAgencies(value));
-//        } else {
-//            AgencyUI.search();
-//        }
-//    }
+    public void search(String value) throws Exception {
+        Database db = Database.getInstance();
+        List<Agency> agencies = new ArrayList<>();
+
+        try {
+            String option = AgencyUI.searchBy();
+
+            if (option == "codigo") {
+                int agencyId = GetIndex.exec("Informe o código da agência");
+                Agency agency = db.searchByAgencyId(agencyId);
+
+                if (agency != null) {
+                    agencies.add(agency);
+                }
+            } else if (option == "name") {
+                String param = Input.stringNotNullable("INFORME O NOME DA AGÊNCIA OU O LOGRADOURO", 3);
+                List<Agency> foundAgencies = db.searchAgencies(param);
+
+                if (foundAgencies.size() > 0) {
+                    agencies = foundAgencies;
+                }
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("voltando...\n");
+        } finally {
+            foundList(agencies);
+        }
+    }
 
     public void viewAgency() {
         Database db = Database.getInstance();
         try {
-            int index = GetIndex.exec();
+            int index = GetIndex.exec("DIGITE O ID QUE DESEJA EXIBIR: ");
             AgencyUI.viewAgency(db.getAgency(index), index);
 
 

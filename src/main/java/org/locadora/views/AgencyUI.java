@@ -2,10 +2,8 @@ package org.locadora.views;
 
 
 import org.locadora.controller.AgencyController;
-import org.locadora.controller.OperationController;
 import org.locadora.model.Address;
 import org.locadora.model.Agency;
-import org.locadora.model.RentalOperation;
 import org.locadora.utils.Input;
 import org.locadora.utils.InputAddress;
 import org.locadora.utils.MenuCreator;
@@ -29,74 +27,83 @@ public class AgencyUI {
         }
     }
 
-    public static String List(List<Agency> agencies, int pageSize, int pageNumber) {
+    public static String list(List<Agency> agencies, int pageSize, int pageNumber) {
         String option = "";
-        List<Agency> paginatedAgencies = Pagination.exec(agencies, pageSize, pageNumber);
+
+        boolean working = true;
+
+        try {
+            while (working) {
+                List<Agency> paginatedAgencies = Pagination.exec(agencies, pageSize, pageNumber);
 
 
-        System.out.println("------ OPERAÇÕES ------");
-        System.out.println("");
-        for (Agency agency : paginatedAgencies) {
-            System.out.println(agency.toString());
+                System.out.println("------ OPERAÇÕES ------");
+                System.out.println("");
+                for (Agency agency : paginatedAgencies) {
+                    System.out.println(agency.toString());
+                }
+                System.out.println("--------------------------");
+
+                if (agencies.size() == 0) {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR OPERACAO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            add();
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+                } else if (agencies.size() > pageSize) {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            list(agencies, pageSize, pageNumber + pageSize);
+                            break;
+                        case 2:
+                            list(agencies, pageSize, pageNumber - pageSize);
+                            break;
+                        case 3:
+                            working = false;
+                            break;
+                        case 4:
+                            add();
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+
+                } else {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 2:
+                            option = "EDITAR";
+                            break;
+                        case 3:
+                            add();
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            working = false;
+            System.out.println(ex.getMessage());
+            System.out.println("voltando...\n");
         }
-        System.out.println("--------------------------");
 
-        // handle navigation
-
-        if (agencies.size() == 0) {
-            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR OPERACAO");
-            switch (choice) {
-                case 0:
-                    option = "VOLTAR";
-                    break;
-                case 1:
-                    add();
-                    break;
-                default:
-                    System.out.println("OPÇÃO INVÁLIDA\n");
-                    break;
-            }
-        } else if (agencies.size() > pageSize) {
-            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
-            switch (choice) {
-                case 0:
-                    option = "VOLTAR";
-                    break;
-                case 1:
-                    List(agencies, pageSize, pageNumber + pageSize);
-                    break;
-                case 2:
-                    List(agencies, pageSize, pageNumber - pageSize);
-                    break;
-                case 3:
-                    option = "EDITAR";
-                    break;
-                case 4:
-                    add();
-                    break;
-                default:
-                    System.out.println("OPÇÃO INVÁLIDA\n");
-                    break;
-            }
-
-        } else {
-            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
-            switch (choice) {
-                case 0:
-                    option = "VOLTAR";
-                    break;
-                case 2:
-                    option = "EDITAR";
-                    break;
-                case 3:
-                    add();
-                    break;
-                default:
-                    System.out.println("OPÇÃO INVÁLIDA\n");
-                    break;
-            }
-
-        }
         return option;
     }
 
@@ -128,10 +135,24 @@ public class AgencyUI {
         }
     }
 
+    public static String searchBy() {
+        String response = "";
+        boolean working = true;
+        try {
+            while (working) {
 
-//    public static void search() {
-//        AgencyController agencyController = new AgencyController();
-//        String term = Input.string("DIGITE O NOME OU PARTE DO NOME DA AGÊNCIA OU LOGRADOURO: ");
+                int option = MenuCreator.exec("COMO GOSTARIA DE REALIZAR A PESQUISA? ", "VOLTAR", "CODIGO DA AGENCIA", "NOME/LOGRADOURO");
+                switch (option) {
+                    case 0 -> working = false;
+                    case 1 -> response = "codigo";
+                    case 2 -> response = "name";
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("voltando...\n");
+        }
+        return response;
 //        agencyController.search(term.toUpperCase());
-//    }
+    }
 }
