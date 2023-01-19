@@ -25,7 +25,7 @@ public class Home {
                     System.out.println("ESCOLHEU CLIENTES");
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR CLIENTE",
                             "LISTAR CLIENTES", "ALTERAR DADOS DE UM CLIENTE", "RETORNAR AO MENU INICIAL");
-                    submenuCostumer(option);
+                    submenuCustomer(option);
 
                 }
                 case 1 -> {
@@ -68,7 +68,7 @@ public class Home {
                 }
                 case 1 -> {
                     System.out.println("LISTAR CLIENTES");
-                    costumerController.view();
+                    customerController.view();
                     executing = false;
 
                 }

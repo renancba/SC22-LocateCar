@@ -12,7 +12,7 @@ import java.sql.SQLOutput;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CostumerUI {
+public class CustomerUI {
     public static void add() {
         CustomerController customerController = new CustomerController();
        // AddressUI addressUI = new AddressUI();
@@ -77,7 +77,7 @@ public class CostumerUI {
                     ddd = Input.stringNotNullable("DDD: ", 3);
                     telephone = Input.stringNotNullable("NÚMERO TELEFONE: ", 3);
 
-                    customerController.saveLegalPerson(name, nickname, cnpj, companyDriver, driverLicense, cep, street, number, city, state, ddd, telephone);
+                    customerController.saveLegalPerson(name, nickname, cnpj,/* companyDriver, driverLicense,*/ cep, street, number, city, state, ddd, telephone);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -111,15 +111,15 @@ public class CostumerUI {
                     break;
                 }
                 //Listar os contatos
-                for (T costumer : costumers) {
-                    costumer.shortInfo();
+                for (T customer : customers) {
+                    customer.shortInfo();
                     System.out.println("");
                     System.out.println("---------------------");
                 }
 
 
                 int indexOption = getIndex();
-                if (indexOption > costumers.size()) {
+                if (indexOption > customers.size()) {
                     System.out.println("-> Opção inválida\n");
                     index = 0;
                     tentativas++;
@@ -133,7 +133,7 @@ public class CostumerUI {
                     break;
                 }
 
-                costumers.get(indexOption).completeInfo();
+                customers.get(indexOption).completeInfo();
 
 
             } catch (Exception ex) {
@@ -147,17 +147,17 @@ public class CostumerUI {
 
     //TODO: RESOLVER LISTA PAGINADA COM CASTING?
 
-    public static <T extends Costumer> String paginatedCostumerList(List<T> costumers, int pageSize, int pageNumber) {
+    public static <T extends Customer> String paginatedCostumerList(List<T> customers, int pageSize, int pageNumber) {
         String option = "";
 
         // validate input
         if (pageNumber < 0) pageNumber = 0;
         if (pageSize < 0) pageSize = 0;
-        if (pageNumber + pageSize > costumers.size()) pageNumber = costumers.size() - pageSize;
-        if (pageNumber < 0 || pageNumber >= costumers.size()) pageNumber = 0;
+        if (pageNumber + pageSize > customers.size()) pageNumber = customers.size() - pageSize;
+        if (pageNumber < 0 || pageNumber >= customers.size()) pageNumber = 0;
 
         // paginate the list
-        List<T> paginatedCostumers = costumers.stream()
+        List<T> paginatedCustomers = customers.stream()
                 .skip((pageNumber) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
@@ -165,11 +165,11 @@ public class CostumerUI {
         // display the paginated list
         System.out.println("------ CLIENTES ------");
         System.out.println("");
-        paginatedCostumers.forEach(Costumer::shortInfo);
+        paginatedCustomers.forEach(Customer::shortInfo);
         System.out.println("");
 
         // handle navigation
-        if (costumers.size() == 0) {
+        if (customers.size() == 0) {
             int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE");
             switch (choice) {
                 case 0:
@@ -189,10 +189,10 @@ public class CostumerUI {
                     option = "VOLTAR";
                     break;
                 case 1:
-                    paginatedCostumerList(costumers, pageSize, pageNumber + pageSize);
+                    paginatedCostumerList(customers, pageSize, pageNumber + pageSize);
                     break;
                 case 2:
-                    paginatedCostumerList(costumers, pageSize, pageNumber - pageSize);
+                    paginatedCostumerList(customers, pageSize, pageNumber - pageSize);
                     break;
                 case 3:
                     option = "EDITAR";

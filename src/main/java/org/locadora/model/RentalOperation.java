@@ -1,6 +1,6 @@
 package org.locadora.model;
 
-import org.locadora.model.costumer.Costumer;
+import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
 
 import java.math.BigDecimal;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 public class RentalOperation<T extends Vehicle> {
     private Integer contrato;
-    private Costumer costumer;
+    private Customer customer;
     private T vehicle;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -20,9 +20,9 @@ public class RentalOperation<T extends Vehicle> {
 
     private boolean concluido = false;
 
-    public RentalOperation(Costumer costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
+    public RentalOperation(Customer customer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
 
-        this.costumer = costumer;
+        this.customer = customer;
         this.vehicle = vehicle;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -31,8 +31,8 @@ public class RentalOperation<T extends Vehicle> {
         calculateCost();
     }
 
-    public RentalOperation(Integer id, Costumer costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost) {
-        this.costumer = costumer;
+    public RentalOperation(Integer id, Customer customer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost) {
+        this.customer = customer;
         this.vehicle = vehicle;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -54,8 +54,8 @@ public class RentalOperation<T extends Vehicle> {
         cost = rentalFee.multiply(new BigDecimal(days));
     }
 
-    public Costumer getCostumer() {
-        return costumer;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public T getVehicle() {
@@ -117,7 +117,7 @@ public class RentalOperation<T extends Vehicle> {
     @Override
     public String toString() {
         return "--------------------------\n" +
-                "\n Cliente: " + costumer.getName() +
+                "\n Cliente: " + customer.getName() +
 //                "\n  Cpf: " + costumer.completeInfo() +
                 "\n Veículo: " + vehicle +
                 "\n Locação: " + startDate +

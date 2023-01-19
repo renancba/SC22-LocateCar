@@ -5,7 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.locadora.model.Agency;
 import org.locadora.model.RentalOperation;
-import org.locadora.model.costumer.Costumer;
+import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
 
 import java.io.IOException;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 interface DataReader {
-    List<Costumer> readCostumers() throws IOException;
+    List<Customer> readCustomers() throws IOException;
 
     List<Vehicle> readVehicles() throws IOException;
 
@@ -35,18 +35,18 @@ class JSONDataReader implements DataReader {
         this.objectFactory = new JSONObjectFactory();
     }
 
-    public List<Costumer> readCostumers() throws IOException {
-        List<Costumer> costumers = new ArrayList<>();
+    public List<Customer> readCustomers() throws IOException {
+        List<Customer> customers = new ArrayList<>();
         try {
-            JSONObject costumersObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-            JSONArray costumersArray = (JSONArray) costumersObject.get("costumers");
-            for (Object costumerObject : costumersArray) {
-                JSONObject costumer = (JSONObject) costumerObject;
-                costumers.add(objectFactory.createCostumer(costumer));
+            JSONObject customersObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
+            JSONArray customersArray = (JSONArray) customersObject.get("customers");
+            for (Object customerObject : customersArray) {
+                JSONObject customer = (JSONObject) customerObject;
+                customers.add(objectFactory.createCustomer(customer));
             }
-            return costumers;
+            return customers;
         } catch (JSONException jex) {
-            return costumers;
+            return customers;
         }
     }
 

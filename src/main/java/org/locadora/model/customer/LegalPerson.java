@@ -16,20 +16,21 @@ public class LegalPerson extends Customer {
     public LegalPerson() {
     }
 
-    public LegalPerson(String name, String nickname, String cnpj, String companyDriver, String driverLicense, Telephone telephone, Address adress) {
+    public LegalPerson(String name, String nickname, String cnpj, /*String companyDriver, String driverLicense,*/ Telephone telephone, Address adress) {
         super(name, telephone, adress);
         this.cnpj = cnpj;
         this.nickname = nickname;
-        this.companyDriver = companyDriver;
-        this.driverLicense = driverLicense;
+        /*this.companyDriver = companyDriver;
+        this.driverLicense = driverLicense;*/
     }
 
-    public LegalPerson(String name, String nickname, String cnpj, String companyDriver, String driverLicense) {
+    public LegalPerson(String name, String nickname, String cnpj/*, String companyDriver, String driverLicense*/) {
         super(name);
         this.nickname = nickname;
         this.cnpj = cnpj;
-        this.companyDriver = companyDriver;
-        this.driverLicense = driverLicense;
+
+        /*this.companyDriver = companyDriver;
+        this.driverLicense = driverLicense;*/
     }
 
     public JSONObject toJSONObject() {

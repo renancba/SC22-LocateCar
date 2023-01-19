@@ -3,9 +3,9 @@ package org.locadora.database;
 import org.json.JSONObject;
 import org.locadora.model.Agency;
 import org.locadora.model.RentalOperation;
-import org.locadora.model.costumer.Costumer;
-import org.locadora.model.costumer.LegalPerson;
-import org.locadora.model.costumer.NaturalPerson;
+import org.locadora.model.customer.Customer;
+import org.locadora.model.customer.LegalPerson;
+import org.locadora.model.customer.NaturalPerson;
 import org.locadora.model.vehicle.Motorcycle;
 import org.locadora.model.vehicle.Vehicle;
 
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 
 class JSONObjectFactory {
-    public Costumer createCostumer(JSONObject costumer) {
+    public Customer createCustomer(JSONObject costumer) {
         if (costumer.has("cpf")) {
             String name = (String) costumer.get("name");
             String surname = (String) costumer.get("surname");
@@ -27,7 +27,7 @@ class JSONObjectFactory {
             String cnpj = (String) costumer.get("cnpj");
             String companyDriver = (String) costumer.get("companyDriver");
             String driverLicense = (String) costumer.get("driverLicense");
-            return new LegalPerson(name, nickname, cnpj, companyDriver, driverLicense);
+            return new LegalPerson(name, nickname, cnpj/*, companyDriver, driverLicense*/);
         }
     }
 
@@ -47,7 +47,7 @@ class JSONObjectFactory {
     public RentalOperation createOperation(JSONObject operation) {
 
         //Criar um costumer a partir das informações do costumer
-        Costumer costumer = createCostumer((JSONObject) operation.get("costumer"));
+        Customer customer = createCustomer((JSONObject) operation.get("customer"));
 
         // Criar um carro a partir das informações do vehicle
         Vehicle vehicle = createVehicle((JSONObject) operation.get("vehicle"));
@@ -61,7 +61,7 @@ class JSONObjectFactory {
         BigDecimal cost = new BigDecimal((Double) operation.get("cost"));
 
 
-        return new RentalOperation(contrato, costumer, vehicle, startDate, endDate, agency, cost);
+        return new RentalOperation(contrato, customer, vehicle, startDate, endDate, agency, cost);
     }
 
 

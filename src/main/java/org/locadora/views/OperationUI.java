@@ -4,7 +4,7 @@ import org.locadora.controller.AgencyController;
 import org.locadora.controller.OperationController;
 import org.locadora.model.Agency;
 import org.locadora.model.RentalOperation;
-import org.locadora.model.costumer.NaturalPerson;
+import org.locadora.model.customer.NaturalPerson;
 import org.locadora.model.vehicle.Car;
 import org.locadora.model.vehicle.Vehicle;
 import org.locadora.utils.GetLocalDateFromString;
