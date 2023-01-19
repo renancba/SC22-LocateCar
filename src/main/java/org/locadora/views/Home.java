@@ -27,16 +27,16 @@ public class Home {
                 }
                 case 2 -> {
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR VEÍCULO", "LISTAR VEÍCULOS",
-                            "ALTERAR DADOS DE UM VEÍCULO", "BUSCAR VEÍCULO","RETORNAR AO MENU INICIAL");
+                            "ALTERAR DADOS DE UM VEÍCULO", "BUSCAR VEÍCULO", "RETORNAR AO MENU INICIAL");
                     submenuVehicle(option);
                 }
                 case 3 -> {
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR AGÊNCIA", "LISTAR AGÊNCIAS",
-                            "ALTERAR DADOS DE UMA AGÊNCIA", "BUSCAR AGÊNCIA","RETORNAR AO MENU INICIAL");
+                            "BUSCAR AGÊNCIA", "RETORNAR AO MENU INICIAL");
                     submenuAgency(option);
                 }
                 case 4 -> {
-                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS", "PESQUISAR NUMERO DO CONTRATO" ,"RETORNAR AO MENU INICIAL");
+                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS", "PESQUISAR NUMERO DO CONTRATO", "RETORNAR AO MENU INICIAL");
                     submenuRent(option);
                 }
                 case 0 -> {
@@ -50,17 +50,17 @@ public class Home {
     }
 
     // TODO: NÃO SOUBE EXATAMENTE SE ESSES SUBMENUS ENTRARIAM AQUI. CONTINUAR IMPLEMENTANDO.
-    public static void submenuCustomer(Integer option){
+    public static void submenuCustomer(Integer option) {
         CustomerUI customerUI = new CustomerUI();
         boolean executing = true;
-        while (executing){
+        while (executing) {
             switch (option) {
                 case 0 -> { // CADASTRAR
                     customerUI.add();
                     executing = false;
                 }
                 case 1 -> { // LISTAR
-                    customerUI.paginatedCustomerList(null, 5,0);
+                    customerUI.paginatedCustomerList(null, 5, 0);
                     executing = false;
 
                 }
@@ -75,10 +75,11 @@ public class Home {
             }
         }
     }
-    public static void submenuVehicle (Integer option){
+
+    public static void submenuVehicle(Integer option) {
         VehicleUI vehicleUI = new VehicleUI();
         boolean executing = true;
-        while (executing){
+        while (executing) {
             switch (option) {
                 case 0 -> { // CADASTRAR
                     vehicleUI.add();
@@ -105,46 +106,44 @@ public class Home {
             }
         }
     }
-    public static void submenuAgency (Integer option){
+
+    public static void submenuAgency(Integer option) {
         AgencyController agencyController = new AgencyController();
         boolean executing = true;
-        while (executing){
+        while (executing) {
             switch (option) {
                 case 0 -> {
                     System.out.println("CADASTRANDO AGÊNCIA...");
                     agencyController.create();
                     executing = false;
-
                 }
+
                 case 1 -> {
-                    System.out.println("ALTERANDO AGÊNCIA...");
-                    // TODO: CRIAR ALTERAÇÃO DE DADOS DA AGÊNCIA.
+                    System.out.println("LISTANDO AGENCIAS...");
+                    agencyController.listAll();
                     executing = false;
-
                 }
+
                 case 2 -> {
                     System.out.println("BUSCANDO AGÊNCIA");
-//                    agencyController.search(null);
-                    // TODO: NÃO ESTÁ ACHANDO A AGÊNCIA
+                    agencyController.search();
                     executing = false;
                 }
+
                 case 3 -> {
-                    // TODO: CRIAR LISTA DE AGÊNCIAS, NÃO EXIBIR OS DADOS COMPLETOS NA LISTA GERAL
-//                    agencyController.view();
-                    executing = false;
-                }
-                case 4 -> { //retornar ao menu inicial
+                    //retornar ao menu inicial
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");
             }
         }
     }
-    public static void submenuRent (Integer option){
+
+    public static void submenuRent(Integer option) {
 
         OperationController operationController = new OperationController();
         boolean executing = true;
-        while (executing){
+        while (executing) {
             switch (option) {
                 case 0 -> {
                     System.out.println("LOCAR UM VEÍCULO");

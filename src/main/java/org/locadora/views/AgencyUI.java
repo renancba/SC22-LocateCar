@@ -45,7 +45,7 @@ public class AgencyUI {
                 System.out.println("--------------------------");
 
                 if (agencies.size() == 0) {
-                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR OPERACAO");
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR AGÊNCIA");
                     switch (choice) {
                         case 0:
                             working = false;
@@ -58,7 +58,7 @@ public class AgencyUI {
                             break;
                     }
                 } else if (agencies.size() > pageSize) {
-                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR AGÊNCIA", "ADICIONAR AGÊNCIA");
                     switch (choice) {
                         case 0:
                             working = false;
@@ -70,6 +70,7 @@ public class AgencyUI {
                             list(agencies, pageSize, pageNumber - pageSize);
                             break;
                         case 3:
+                            option = "exibir";
                             working = false;
                             break;
                         case 4:
@@ -81,15 +82,16 @@ public class AgencyUI {
                     }
 
                 } else {
-                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR OPERACAO", "ADICIONAR OPERACAO");
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR AGÊNCIA", "ADICIONAR AGÊNCIA");
                     switch (choice) {
                         case 0:
                             working = false;
                             break;
-                        case 2:
-                            option = "EDITAR";
+                        case 1:
+                            option = "exibir";
+                            working = false;
                             break;
-                        case 3:
+                        case 2:
                             add();
                             break;
                         default:
@@ -107,7 +109,7 @@ public class AgencyUI {
         return option;
     }
 
-    public static void viewAgency(Agency agency, int index) {
+    public static void viewAgency(Agency agency) {
         AgencyController agencyController = new AgencyController();
         boolean working = true;
         try {
@@ -116,16 +118,15 @@ public class AgencyUI {
                 System.out.println("");
                 agency.toString();
 
-                int option = MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "CADASTRAR VEÍCULO", "LISTAR VEICULOS", "EDITAR NOME", "EDITAR ENDERECO");
 
-                switch (option) {
+                switch (MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "CADASTRAR VEÍCULO", "LISTAR VEICULOS", "EDITAR NOME", "EDITAR ENDERECO")) {
                     case 0 -> {
                         working = false;
                     }
 //                case 1 -> /*Cadastrar veículo*/;
 //                case 2 -> /*Listar Veículos*/
-                    case 3 -> agencyController.edit("name", agency, index);
-                    case 4 -> agencyController.edit("address", agency, index);
+                    case 3 -> agencyController.edit("name", agency);
+                    case 4 -> agencyController.edit("address", agency);
                     default -> System.out.println("-> Opção inválida \n");
                 }
             }
@@ -144,8 +145,14 @@ public class AgencyUI {
                 int option = MenuCreator.exec("COMO GOSTARIA DE REALIZAR A PESQUISA? ", "VOLTAR", "CODIGO DA AGENCIA", "NOME/LOGRADOURO");
                 switch (option) {
                     case 0 -> working = false;
-                    case 1 -> response = "codigo";
-                    case 2 -> response = "name";
+                    case 1 -> {
+                        response = "codigo";
+                        working = false;
+                    }
+                    case 2 -> {
+                        response = "name";
+                        working = false;
+                    }
                 }
             }
         } catch (Exception ex) {

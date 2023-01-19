@@ -158,6 +158,19 @@ public class Database {
         operations.add(operation);
         return true;
     }
+    public boolean updateAgency(Agency updatedAgency) {
+        boolean agencyExists = false;
+
+        for (int i = 0; i < agencies.size(); i++) {
+            if (agencies.get(i).getId().equals(updatedAgency.getId())) {
+                agencies.set(i, updatedAgency);
+                agencyExists = true;
+                break;
+            }
+        }
+        return agencyExists;
+    }
+
 
     public void deleteAll() {
         customers.clear();

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AgencyController {
-    //TODO: SÓ ESTÁ SENDO SALVA COM O NOME. ADICIONAR ADDRESS
     public void create() {
         AgencyUI.add();
     }
@@ -45,28 +44,44 @@ public class AgencyController {
 
     public void listAll() {
         String option = list();
-        if (option.equals("EDITAR")) {
+        if (option.equals("exibir")) {
             viewAgency();
         }
     }
 
     public void foundList(List<Agency> foundAgencies) {
-        if (AgencyUI.list(foundAgencies, 5, 0).equals("EDITAR")) {
-            viewAgency();
+        if (foundAgencies.size() > 1) {
+            if (AgencyUI.list(foundAgencies, 5, 0).equals("EDITAR")) {
+                viewAgency();
+            }
+        } else {
+            AgencyUI.viewAgency(foundAgencies.get(0));
         }
     }
 
-    public void edit(String option, Agency agency, int index) throws Exception {
+    public void edit(String option, Agency agency) throws Exception {
         Database db = Database.getInstance();
         switch (option) {
-            case "name" -> Input.stringNotNullable("INFORME UMA NOVA NOME: ", 3);
+            case "name" -> agency.setName(Input.stringNotNullable("INFORME UM NOVO NOME: ", 3));
             case "address" -> agency.setAddress(InputAddress.exec(""));
         }
 
-        db.getAgencies().set(index, agency);
+        if (db.updateAgency(agency)) {
+            System.out.println("");
+            System.out.println("-----------------");
+            System.out.println("| AGÊNCIA ATUALIZADA COM SUCESSO|");
+            System.out.println("-----------------");
+            System.out.println("");
+        } else {
+            System.out.println("");
+            System.out.println("----------------------");
+            System.out.println("| ERRO AO ATUALIZAR AGENDA. TENTE NOVAMENTE MAIS TARDE |");
+            System.out.println("----------------------");
+            System.out.println("");
+        }
     }
 
-    public void search(String value) throws Exception {
+    public void search() {
         Database db = Database.getInstance();
         List<Agency> agencies = new ArrayList<>();
 
@@ -74,7 +89,7 @@ public class AgencyController {
             String option = AgencyUI.searchBy();
 
             if (option == "codigo") {
-                int agencyId = GetIndex.exec("Informe o código da agência");
+                int agencyId = GetIndex.exec("INFORME O CÓDIGO DA AGÊNCIA: ");
                 Agency agency = db.searchByAgencyId(agencyId);
 
                 if (agency != null) {
@@ -101,7 +116,7 @@ public class AgencyController {
         Database db = Database.getInstance();
         try {
             int index = GetIndex.exec("DIGITE O ID QUE DESEJA EXIBIR: ");
-            AgencyUI.viewAgency(db.getAgency(index), index);
+            AgencyUI.viewAgency(db.getAgency(index));
 
 
         } catch (Exception ex) {

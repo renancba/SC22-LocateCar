@@ -3,15 +3,27 @@
   "agencies": [
     {
       "address": {
-        "zipcode": "qweqwe",
-        "number": "qweqwe",
-        "city": "qweqwe",
-        "street": "qweqwe",
-        "state": "qweqwe"
+        "zipcode": "05570200",
+        "number": "200",
+        "city": "São Paulo",
+        "street": "Rua bento de barros",
+        "state": "SP"
       },
-      "name": "qweqwe",
+      "name": "Taboão da serra",
       "vehicles": [],
       "id": 108
+    },
+    {
+      "address": {
+        "zipcode": "zxczxc",
+        "number": "zxczxc",
+        "city": "zxczxc",
+        "street": "zxczxc",
+        "state": "zxczxc"
+      },
+      "name": "zxczxc",
+      "vehicles": [],
+      "id": 187
     }
   ],
   "customers": [
