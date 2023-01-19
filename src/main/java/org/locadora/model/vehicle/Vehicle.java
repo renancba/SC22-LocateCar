@@ -58,4 +58,13 @@ public abstract class Vehicle {
 
     public abstract BigDecimal getRentalFee();
 
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "vehicleManufacturer='" + vehicleManufacturer + '\'' +
+                ", vehicleModel='" + vehicleModel + '\'' +
+                ", registrationPlate='" + registrationPlate + '\'' +
+                ", rentalFee=" + rentalFee +
+                '}';
+    }
 }
