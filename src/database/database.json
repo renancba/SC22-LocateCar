@@ -1,25 +1,14 @@
 {
   "vehicles": [],
-  "agencies": [
-    {
-      "address": {
-        "zipcode": "asdasd",
-        "number": "asdasd",
-        "city": "asdasd",
-        "street": "asdasd",
-        "state": "asdasda"
-      },
-      "name": "asdasd",
-      "vehicles": [],
-      "id": 180
-    }
-  ],
+  "agencies": [],
   "customers": [
     {
+      "address": "05570200, Rua Bento de barros - 200, São Paulo - SP",
       "surname": "Ferreira",
       "name": "Washington",
       "cpf": "23044797829",
-      "driverLicense": "321321"
+      "driverLicense": "321321",
+      "telephone": " (11) 963642358"
     }
   ]
 }

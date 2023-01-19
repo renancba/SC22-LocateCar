@@ -35,6 +35,9 @@ public class LegalPerson extends Customer {
 
     public JSONObject toJSONObject() {
         JSONObject costumerObject = new JSONObject();
+        JSONObject addressObject = new JSONObject();
+        JSONObject telephoneObject = new JSONObject();
+
         costumerObject.put("name", this.getName());
         costumerObject.put("nickname", this.getNickname());
         costumerObject.put("cnpj", this.getCnpj());
@@ -42,6 +45,17 @@ public class LegalPerson extends Customer {
         costumerObject.put("driverLicense", this.getDriverLicense());
         costumerObject.put("address", this.getAddress());
         costumerObject.put("telephone", this.getTelephone());
+
+        costumerObject.put("address", addressObject);
+        addressObject.put("zipcode", address.getZipcode());
+        addressObject.put("street", address.getStreet());
+        addressObject.put("number", address.getNumber());
+        addressObject.put("city", address.getCity());
+        addressObject.put("state", address.getState());
+
+        costumerObject.put("telephone", telephoneObject);
+        telephoneObject.put("zipcode", telephone.getDdd());
+        telephoneObject.put("street", telephone.getNumber());
         return costumerObject;
     }
 

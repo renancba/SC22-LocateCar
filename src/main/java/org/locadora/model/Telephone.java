@@ -40,4 +40,8 @@ public class Telephone {
     public int hashCode() {
         return Objects.hash(ddd, number);
     }
+
+    public String getNumber() {
+        return number;
+    }
 }
