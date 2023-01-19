@@ -157,9 +157,7 @@ public class Database {
         JSONArray costumersArray = new JSONArray();
         JSONArray agenciesArray = new JSONArray();
 
-        System.out.println(customers);
         for (Customer costumer : customers) {
-            //Criar um if para null aqui e tratar as excessões
             JSONObject costumerObject = costumer.toJSONObject();
             costumersArray.put(costumerObject);
         }

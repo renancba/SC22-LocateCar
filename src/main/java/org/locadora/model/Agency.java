@@ -10,11 +10,6 @@ import java.util.Objects;
 
 public class Agency<T extends Vehicle> {
     private Integer id;
-
-    public Integer getId() {
-        return id;
-    }
-
     private String name;
     private Address address;
     private List<T> vehicles;
@@ -31,6 +26,14 @@ public class Agency<T extends Vehicle> {
         this.id = (int) (Math.random() * 200) + 1;
         this.name = name;
         this.address = address;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
@@ -66,25 +69,26 @@ public class Agency<T extends Vehicle> {
     }
 
     public JSONObject toJSONObject() {
-        JSONObject costumerObject = new JSONObject();
-        JSONObject addressObject = new JSONObject();
+        JSONObject agencyObject = new JSONObject();
+        JSONArray vehiclesArray = new JSONArray();
 
-        costumerObject.put("id", this.getId());
-        costumerObject.put("name", this.getName());
-
-        costumerObject.put("address", addressObject);
-        addressObject.put("zipcode", address.getZipcode());
-        addressObject.put("street", address.getStreet());
-        addressObject.put("number", address.getNumber());
-        addressObject.put("city", address.getCity());
-        addressObject.put("state", address.getState());
-
-        costumerObject.put("vehicles", vehicles);
+        agencyObject.put("id", this.getId());
+        agencyObject.put("name", this.getName());
 
 
+        if (address != null) {
+            agencyObject.put("address", address.toJSONObject());
+        }
+        agencyObject.put("vehicles", vehiclesArray);
 
-        return costumerObject;
+        if (vehicles != null) {
+            for (T vehicle : vehicles) {
+                JSONObject vehicleObject = vehicle.toJSONObject();
+                vehiclesArray.put(vehicleObject);
+            }
+        }
 
+        return agencyObject;
     }
 
     @Override

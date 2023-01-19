@@ -1,6 +1,8 @@
 package org.locadora.model;
 
 
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 public class Address {
@@ -36,6 +38,16 @@ public class Address {
 
     public String getState() {
         return state;
+    }
+
+    public JSONObject toJSONObject() {
+        JSONObject addressObject = new JSONObject();
+        addressObject.put("zipcode", zipcode);
+        addressObject.put("street", street);
+        addressObject.put("number", number);
+        addressObject.put("city", city);
+        addressObject.put("state", state);
+        return addressObject;
     }
 
     @Override

@@ -10,52 +10,39 @@ import java.util.Objects;
 public class LegalPerson extends Customer {
     private String cnpj;
     private String nickname;
-    private String companyDriver;
-    private String driverLicense;
 
     public LegalPerson() {
     }
 
-    public LegalPerson(String name, String nickname, String cnpj, /*String companyDriver, String driverLicense,*/ Telephone telephone, Address adress) {
+    public LegalPerson(String name, String nickname, String cnpj, Telephone telephone, Address adress) {
         super(name, telephone, adress);
         this.cnpj = cnpj;
         this.nickname = nickname;
-        /*this.companyDriver = companyDriver;
-        this.driverLicense = driverLicense;*/
     }
 
-    public LegalPerson(String name, String nickname, String cnpj/*, String companyDriver, String driverLicense*/) {
+    public LegalPerson(String name, String nickname, String cnpj) {
         super(name);
         this.nickname = nickname;
         this.cnpj = cnpj;
 
-        /*this.companyDriver = companyDriver;
-        this.driverLicense = driverLicense;*/
     }
+
 
     public JSONObject toJSONObject() {
         JSONObject costumerObject = new JSONObject();
-        JSONObject addressObject = new JSONObject();
-        JSONObject telephoneObject = new JSONObject();
 
         costumerObject.put("name", this.getName());
         costumerObject.put("nickname", this.getNickname());
         costumerObject.put("cnpj", this.getCnpj());
-        costumerObject.put("companyDriver", this.getCompanyDriver());
-        costumerObject.put("driverLicense", this.getDriverLicense());
-        costumerObject.put("address", this.getAddress());
-        costumerObject.put("telephone", this.getTelephone());
 
-        costumerObject.put("address", addressObject);
-        addressObject.put("zipcode", address.getZipcode());
-        addressObject.put("street", address.getStreet());
-        addressObject.put("number", address.getNumber());
-        addressObject.put("city", address.getCity());
-        addressObject.put("state", address.getState());
+        if (address != null) {
+            costumerObject.put("address", address.toJSONObject());
 
-        costumerObject.put("telephone", telephoneObject);
-        telephoneObject.put("zipcode", telephone.getDdd());
-        telephoneObject.put("street", telephone.getNumber());
+        }
+        if (telephone != null) {
+            costumerObject.put("telephone", telephone.toJSONObject());
+        }
+
         return costumerObject;
     }
 
@@ -68,28 +55,11 @@ public class LegalPerson extends Customer {
 
     public void completeInfo() {
         this.shortInfo();
-        System.out.println(" MOTORISTA: " + this.getCompanyDriver());
-        System.out.println(" CNH: " + this.getDriverLicense());
         System.out.println(" ENDEREÇO: " + this.getAddress());
         System.out.println(" TELEFONE: " + this.getTelephone());
         System.out.println("-------------------------");
     }
 
-    public String getCompanyDriver() {
-        return companyDriver;
-    }
-
-    public void setCompanyDriver(String companyDriver) {
-        this.companyDriver = companyDriver;
-    }
-
-    public String getDriverLicense() {
-        return driverLicense;
-    }
-
-    public void setDriverLicense(String driverLicense) {
-        this.driverLicense = driverLicense;
-    }
 
     public String getCnpj() {
         return cnpj;

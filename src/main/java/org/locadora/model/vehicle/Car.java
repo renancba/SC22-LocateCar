@@ -1,6 +1,9 @@
 package org.locadora.model.vehicle;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.math.BigDecimal;
 
 public class Car extends Vehicle {
@@ -10,6 +13,16 @@ public class Car extends Vehicle {
     public Car(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
         super(vehicleManufacturer, vehicleModel, registrationPlate);
         super.rentalFee = new BigDecimal(150);
+    }
+
+    public JSONObject toJSONObject() {
+        JSONObject vehicleObject = new JSONObject();
+        vehicleObject.put("vehicleManufacturer", vehicleManufacturer);
+        vehicleObject.put("vehicleModel", vehicleModel);
+        vehicleObject.put("registrationPlate", registrationPlate);
+        vehicleObject.put("isAvaible", isAvaible);
+        vehicleObject.put("rentalFee", rentalFee);
+        return vehicleObject;
     }
 
     @Override

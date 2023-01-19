@@ -31,24 +31,19 @@ public class NaturalPerson extends Customer {
 
     public JSONObject toJSONObject() {
         JSONObject costumerObject = new JSONObject();
-        JSONObject addressObject = new JSONObject();
-        JSONObject telephoneObject = new JSONObject();
 
         costumerObject.put("name", this.getName());
         costumerObject.put("surname", this.getSurname());
         costumerObject.put("cpf", this.getCpf());
         costumerObject.put("driverLicense", this.getDriverLicense());
 
-        costumerObject.put("address", addressObject);
-        addressObject.put("zipcode", address.getZipcode());
-        addressObject.put("street", address.getStreet());
-        addressObject.put("number", address.getNumber());
-        addressObject.put("city", address.getCity());
-        addressObject.put("state", address.getState());
+        if (address != null) {
+            costumerObject.put("address", address.toJSONObject());
 
-        costumerObject.put("telephone", telephoneObject);
-        telephoneObject.put("zipcode", telephone.getDdd());
-        telephoneObject.put("street", telephone.getNumber());
+        }
+        if (telephone != null) {
+            costumerObject.put("telephone", telephone.toJSONObject());
+        }
 
         return costumerObject;
     }

@@ -1,5 +1,7 @@
 package org.locadora.model;
 
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 public class Telephone {
@@ -22,6 +24,14 @@ public class Telephone {
     public void setDdd(String ddd) {
         this.ddd = ddd;
     }
+
+    public JSONObject toJSONObject() {
+        JSONObject telephoneObject = new JSONObject();
+        telephoneObject.put("ddd", ddd);
+        telephoneObject.put("number", number);
+        return telephoneObject;
+    }
+
 
     @Override
     public String toString() {

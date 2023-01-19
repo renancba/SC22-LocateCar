@@ -1,5 +1,6 @@
 package org.locadora.model.vehicle;
 
+import org.json.JSONObject;
 import org.locadora.model.Agency;
 
 import java.math.BigDecimal;
@@ -12,7 +13,6 @@ public abstract class Vehicle {
     protected Boolean isAvaible;
     protected BigDecimal rentalFee;
 
-    protected List<Agency> agencyList;
 
     public Vehicle(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
         this.vehicleManufacturer = vehicleManufacturer;
@@ -57,6 +57,8 @@ public abstract class Vehicle {
     }
 
     public abstract BigDecimal getRentalFee();
+
+    public abstract JSONObject toJSONObject();
 
     @Override
     public String toString() {
