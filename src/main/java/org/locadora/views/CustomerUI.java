@@ -3,12 +3,9 @@ package org.locadora.views;
 
 import org.locadora.controller.CustomerController;
 import org.locadora.model.customer.Customer;
-import org.locadora.model.customer.LegalPerson;
-import org.locadora.model.customer.NaturalPerson;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,9 +40,9 @@ public class CustomerUI {
                     driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);
                     // TODO: NÃO SERIA MELHOR DE FATO TERMOS O ADDRESS UI E SÓ CHAMARMOS O MÉTODO ADD AQUI PARA FICAR LIMPO?
                     System.out.println("\nCADASTRO DE ENDEREÇO: ");
+                    cep = Input.stringNotNullable("CEP: ", 3);
                     street = Input.stringNotNullable("NOME DA RUA: ", 3);
                     number = Input.stringNotNullable("NÚMERO: ", 3);
-                    cep = Input.stringNotNullable("CEP: ", 3);
                     city = Input.stringNotNullable("CIDADE: ", 3);
                     state = Input.stringNotNullable("ESTADO: ", 3);
                     // TODO: MESMA SUGESTÃO PARA O CASO DO TELEFONE (CRIARIAMOS O TELEPHONEUI)
@@ -65,12 +62,12 @@ public class CustomerUI {
                     name = Input.stringNotNullable("NOME: ", 3);
                     nickname = Input.stringNotNullable("NOME FANTASIA: ", 3);
                     cnpj = Input.stringNotNullable("CNPJ: ", 3);
-                    companyDriver = Input.stringNotNullable("MOTORISTA: ", 3);
-                    driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);
+/*                  companyDriver = Input.stringNotNullable("MOTORISTA: ", 3);
+                    driverLicense = Input.stringNotNullable("HABILITAÇÃO: ", 3);*/
                     System.out.println("\nCADASTRO DE ENDEREÇO: ");
+                    cep = Input.stringNotNullable("CEP: ", 3);
                     street = Input.stringNotNullable("NOME DA RUA: ", 3);
                     number = Input.stringNotNullable("NÚMERO: ", 3);
-                    cep = Input.stringNotNullable("CEP: ", 3);
                     city = Input.stringNotNullable("CIDADE: ", 3);
                     state = Input.stringNotNullable("ESTADO: ", 3);
                     System.out.println("\nCADASTRO DE TELEFONE: ");
@@ -147,7 +144,7 @@ public class CustomerUI {
 
     //TODO: RESOLVER LISTA PAGINADA COM CASTING?
 
-    public static <T extends Customer> String paginatedCostumerList(List<T> customers, int pageSize, int pageNumber) {
+    public static <T extends Customer> String paginatedCustomerList(List<T> customers, int pageSize, int pageNumber) {
         String option = "";
 
         // validate input
@@ -188,10 +185,10 @@ public class CustomerUI {
                     option = "VOLTAR";
                     break;
                 case 1:
-                    paginatedCostumerList(customers, pageSize, pageNumber + pageSize);
+                    paginatedCustomerList(customers, pageSize, pageNumber + pageSize);
                     break;
                 case 2:
-                    paginatedCostumerList(customers, pageSize, pageNumber - pageSize);
+                    paginatedCustomerList(customers, pageSize, pageNumber - pageSize);
                     break;
                 case 3:
                     option = "EDITAR";

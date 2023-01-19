@@ -2,9 +2,7 @@ package org.locadora.views;
 
 
 import org.locadora.controller.AgencyController;
-import org.locadora.controller.CustomerController;
 import org.locadora.controller.OperationController;
-import org.locadora.controller.VehicleController;
 import org.locadora.utils.MenuCreator;
 
 public class Home {
@@ -53,16 +51,16 @@ public class Home {
 
     // TODO: NÃO SOUBE EXATAMENTE SE ESSES SUBMENUS ENTRARIAM AQUI. CONTINUAR IMPLEMENTANDO.
     public static void submenuCustomer(Integer option){
-        CustomerController customerController = new CustomerController();
+        CustomerUI customerUI = new CustomerUI();
         boolean executing = true;
         while (executing){
             switch (option) {
                 case 0 -> { // CADASTRAR
-                    customerController.create();
+                    customerUI.add();
                     executing = false;
                 }
                 case 1 -> { // LISTAR
-                    customerController.view();
+                    customerUI.paginatedCustomerList(null, 5,0);
                     executing = false;
 
                 }
@@ -88,7 +86,7 @@ public class Home {
                 }
                 case 1 -> { // LISTAR
                     System.out.println("LISTANDO VEÍCULO...");
-                    vehicleUI.list(null); //TODO: CHECAR ISSO AQUI
+                    vehicleUI.paginatedList(null); //TODO: FAZER METODO PAGINADO COMO O DA CUSTOMER E ADICIONAR AQUI
                     executing = false;
                 }
                 case 2 -> { // ALTERAR

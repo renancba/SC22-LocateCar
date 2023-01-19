@@ -10,7 +10,7 @@ import org.locadora.views.CustomerUI;
 public class CustomerController {
     public String paginatedList() {
         Database db = Database.getInstance();
-        return CustomerUI.paginatedCostumerList(db.getCustomers(),5,0);
+        return CustomerUI.paginatedCustomerList(db.getCustomers(),5,0);
     }
 
     public void create() {
