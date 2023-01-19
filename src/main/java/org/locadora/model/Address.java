@@ -4,26 +4,43 @@ package org.locadora.model;
 import java.util.Objects;
 
 public class Address {
-    private String cep;
+    private String zipcode;
     private String street;
     private String number;
     private String city;
     private String state;
 
-    public Address() {
-    }
-
-    public Address(String cep, String street, String number, String city, String state) {
-        this.cep = cep;
+    public Address(String zipcode, String street, String number, String city, String state) {
+        this.zipcode = zipcode;
         this.street = street;
         this.number = number;
         this.city = city;
         this.state = state;
     }
 
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
     @Override
     public String toString() {
-        return  "CEP: " + cep + ", " + street + " - " + number + ", " + city + " - " + state;
+        return "CEP: " + zipcode + ", " + street + " - " + number + ", " + city + " - " + state;
     }
 
 
@@ -32,11 +49,11 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(cep, address.cep) && Objects.equals(street, address.street) && Objects.equals(number, address.number) && Objects.equals(city, address.city) && Objects.equals(state, address.state);
+        return Objects.equals(zipcode, address.zipcode) && Objects.equals(street, address.street) && Objects.equals(number, address.number) && Objects.equals(city, address.city) && Objects.equals(state, address.state);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cep, street, number, city, state);
+        return Objects.hash(zipcode, street, number, city, state);
     }
 }

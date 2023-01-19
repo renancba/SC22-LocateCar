@@ -19,6 +19,7 @@ public class AgencyController {
         return AgencyUI.list(db.getAgencies());
     }
     public void saveAgency(String name, String street,String number,String cep,String city,String state) {
+
         Agency agency = new Agency(name, new Address(street, number, cep, city, state));
         Database db = Database.getInstance();
 

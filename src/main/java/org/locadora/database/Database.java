@@ -155,17 +155,22 @@ public class Database {
     public void close() throws IOException {
         Files.newBufferedWriter(dbPath, StandardCharsets.UTF_8);
         JSONArray costumersArray = new JSONArray();
+        JSONArray agenciesArray = new JSONArray();
 
         System.out.println(customers);
         for (Customer costumer : customers) {
-
             //Criar um if para null aqui e tratar as excessões
             JSONObject costumerObject = costumer.toJSONObject();
             costumersArray.put(costumerObject);
         }
 
+        for(Agency agency: agencies){
+            JSONObject agencieObject = agency.toJSONObject();
+            agenciesArray.put(agencieObject);
+        }
+
         //Preciso tratar a null pointer aqui
-        JSONObject object = new JSONObject().put("customers", costumersArray).put("vehicles", new JSONArray()).put("agencies", new JSONArray());
+        JSONObject object = new JSONObject().put("customers", costumersArray).put("vehicles", new JSONArray()).put("agencies", agenciesArray);
         Files.writeString(dbPath, object.toString(), StandardOpenOption.WRITE);
 
 

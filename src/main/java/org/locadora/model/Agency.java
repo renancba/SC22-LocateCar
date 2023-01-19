@@ -1,5 +1,7 @@
 package org.locadora.model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.locadora.model.vehicle.Vehicle;
 
 import java.util.ArrayList;
@@ -8,6 +10,11 @@ import java.util.Objects;
 
 public class Agency<T extends Vehicle> {
     private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
     private String name;
     private Address address;
     private List<T> vehicles;
@@ -21,6 +28,7 @@ public class Agency<T extends Vehicle> {
     }
 
     public Agency(String name, Address address) {
+        this.id = (int) (Math.random() * 200) + 1;
         this.name = name;
         this.address = address;
     }
@@ -57,6 +65,28 @@ public class Agency<T extends Vehicle> {
         return Objects.equals(name, agency.name) && Objects.equals(address, agency.address);
     }
 
+    public JSONObject toJSONObject() {
+        JSONObject costumerObject = new JSONObject();
+        JSONObject addressObject = new JSONObject();
+
+        costumerObject.put("id", this.getId());
+        costumerObject.put("name", this.getName());
+
+        costumerObject.put("address", addressObject);
+        addressObject.put("zipcode", address.getZipcode());
+        addressObject.put("street", address.getStreet());
+        addressObject.put("number", address.getNumber());
+        addressObject.put("city", address.getCity());
+        addressObject.put("state", address.getState());
+
+        costumerObject.put("vehicles", vehicles);
+
+
+
+        return costumerObject;
+
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, address);
@@ -69,5 +99,7 @@ public class Agency<T extends Vehicle> {
                 ", address=" + address +
                 '}';
     }
+
+
 }
 

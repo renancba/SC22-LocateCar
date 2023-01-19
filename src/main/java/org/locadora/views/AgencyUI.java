@@ -1,8 +1,6 @@
 package org.locadora.views;
 
 
-
-
 import org.locadora.controller.AgencyController;
 import org.locadora.model.Agency;
 import org.locadora.utils.Input;
@@ -15,21 +13,14 @@ public class AgencyUI {
     public static void add() {
         AgencyController agencyController = new AgencyController();
         Integer option;
-        String name;
-        String street;
-        String number;
-        String cep;
-        String city;
-        String state;
-
 
         try {
-            name = Input.stringNotNullable("NOME DA AGÊNCIA: ", 3);
-            street = Input.stringNotNullable("NOME DA RUA: ", 3);
-            number = Input.stringNotNullable("NÚMERO: ", 3);
-            cep = Input.stringNotNullable("CEP: ", 3);
-            city = Input.stringNotNullable("CIDADE: ", 3);
-            state = Input.stringNotNullable("ESTADO: ", 3);
+            String name = Input.stringNotNullable("NOME DA AGÊNCIA: ", 3);
+            String street = Input.stringNotNullable("NOME DA RUA: ", 3);
+            String number = Input.stringNotNullable("NÚMERO: ", 3);
+            String cep = Input.stringNotNullable("CEP: ", 3);
+            String city = Input.stringNotNullable("CIDADE: ", 3);
+            String state = Input.stringNotNullable("ESTADO: ", 3);
 
             agencyController.saveAgency(name, street, number, cep, city, state);
 
@@ -38,6 +29,7 @@ public class AgencyUI {
             System.out.println("voltando...\n");
         }
     }
+
     public static int getIndex() throws Exception {
         int index = 0;
 
@@ -45,6 +37,7 @@ public class AgencyUI {
         System.out.println("");
         return index;
     }
+
     public static String list(List<Agency> agencies) {
         int index = 0;
         int tentativas = 0;
@@ -96,13 +89,14 @@ public class AgencyUI {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex.getMessage()+ "\n");
+                System.out.println(ex.getMessage() + "\n");
                 break;
             }
 
         } while (working);
         return "5";
     }
+
     public static String paginatedList(List<Agency> agencies) {
         boolean working = true;
         int ammount = 0;
@@ -180,11 +174,13 @@ public class AgencyUI {
         }
         return option;
     }
+
     public static void search() {
         AgencyController agencyController = new AgencyController();
         String term = Input.string("DIGITE O NOME OU PARTE DO NOME DA AGÊNCIA OU LOGRADOURO: ");
         agencyController.search(term.toUpperCase());
     }
+
     public static void view(Agency agency) {
 
         System.out.println("------- AGÊNCIA -------");

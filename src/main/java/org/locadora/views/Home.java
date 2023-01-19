@@ -17,31 +17,31 @@ public class Home {
         while (executing) {
 
             option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "SAIR", "CLIENTES", "VEÍCULOS",
-                    "AGÊNCIAS", "ALUGUEL E DEVOLUÇÃO");
+                    "AGÊNCIAS", "LOCAÇÕES");
 
 
             switch (option) {
-                case 0 -> {
+                case 1 -> {
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR CLIENTE",
                             "LISTAR CLIENTES", "ALTERAR DADOS DE UM CLIENTE", "RETORNAR AO MENU INICIAL");
                     submenuCustomer(option);
 
                 }
-                case 1 -> {
+                case 2 -> {
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR VEÍCULO", "LISTAR VEÍCULOS",
                             "ALTERAR DADOS DE UM VEÍCULO", "BUSCAR VEÍCULO","RETORNAR AO MENU INICIAL");
                     submenuVehicle(option);
                 }
-                case 2 -> {
+                case 3 -> {
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR AGÊNCIA", "LISTAR AGÊNCIAS",
                             "ALTERAR DADOS DE UMA AGÊNCIA", "BUSCAR AGÊNCIA","RETORNAR AO MENU INICIAL");
                     submenuAgency(option);
                 }
-                case 3 -> {
+                case 4 -> {
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS", "PESQUISAR NUMERO DO CONTRATO" ,"RETORNAR AO MENU INICIAL");
                     submenuRent(option);
                 }
-                case 4 -> {
+                case 0 -> {
                     System.out.println("ENCERRANDO APLICAÇÃO");
                     executing = false;
                 }
