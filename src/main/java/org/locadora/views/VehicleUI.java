@@ -14,9 +14,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class VehicleUI {
-    public static void add() {
+    public static void add(Agency agency) {
         VehicleController vehicleController = new VehicleController();
-        AgencyController agencyController = new AgencyController();
 
         Integer option;
         String vehicleManufacturer;
@@ -25,10 +24,6 @@ public class VehicleUI {
         BigDecimal rentalFee;
 
         try {
-
-            System.out.println("PARA QUAL AGÊNCIA DESEJA CADASTRAR O VEÍCULO?");
-            Agency agency = agencyController.searchById();
-
 
             option = MenuCreator.exec("DIGITE O TIPO DE VEÍCULO A SER ADICIONADO", "MOTO", "CARRO", "CAMINHÃO");
 

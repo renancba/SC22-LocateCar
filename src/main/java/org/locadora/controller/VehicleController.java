@@ -7,15 +7,24 @@ import org.locadora.model.vehicle.Car;
 import org.locadora.model.vehicle.Motorcycle;
 import org.locadora.model.vehicle.Truck;
 import org.locadora.model.vehicle.Vehicle;
+import org.locadora.views.AgencyUI;
 import org.locadora.views.VehicleUI;
 
 import java.math.BigDecimal;
 
 
 public class VehicleController {
-    // TODO: INSTANCIAR CAMINHÃO, MOTO OU CARRO
     public void create() {
-        VehicleUI.add();
+        try {
+            AgencyController agencyController = new AgencyController();
+            System.out.println("PARA QUAL AGÊNCIA DESEJA CADASTRAR O VEÍCULO?");
+            Agency agency = agencyController.searchById();
+            VehicleUI.add(agency);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("voltando...\n");
+        }
+
     }
 
     public void saveMotorcycle(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity, Agency agency) {

@@ -130,7 +130,7 @@ public class AgencyUI {
                     case 0 -> {
                         working = false;
                     }
-//                case 1 -> /*Cadastrar veículo*/;
+                    case 1 -> VehicleUI.add(agency);
 //                case 2 -> /*Listar Veículos*/
                     case 3 -> agencyController.edit("name", agency);
                     case 4 -> agencyController.edit("address", agency);
