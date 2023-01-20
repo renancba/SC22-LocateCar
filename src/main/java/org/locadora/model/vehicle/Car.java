@@ -1,20 +1,16 @@
 package org.locadora.model.vehicle;
 
-
-import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.math.BigDecimal;
 
 public class Car extends Vehicle {
 
-    private Boolean automatic;
-    public Car() {
-    }
+    private String numberOfDoors;
 
-    public Car(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
-        super(vehicleManufacturer, vehicleModel, registrationPlate);
-        super.rentalFee = new BigDecimal(150);
+    public Car(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String numberOfDoors) {
+        super(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee);
+        this.numberOfDoors = numberOfDoors;
+        super.rentalFee = rentalFee;
     }
 
     public JSONObject toJSONObject() {
@@ -29,7 +25,7 @@ public class Car extends Vehicle {
 
     @Override
     public BigDecimal getRentalFee() {
-        return super.rentalFee = new BigDecimal(150);
+        return super.rentalFee;
     }
 
     @Override

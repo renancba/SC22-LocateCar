@@ -8,14 +8,16 @@ import org.locadora.model.vehicle.Truck;
 import org.locadora.model.vehicle.Vehicle;
 import org.locadora.views.VehicleUI;
 
+import java.math.BigDecimal;
+
 
 public class VehicleController {
     // TODO: INSTANCIAR CAMINHÃO, MOTO OU CARRO
     public void create() {
         VehicleUI.add();
     }
-    public void saveMotorcycle(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
-        Motorcycle motorcycle = new Motorcycle(vehicleManufacturer, vehicleModel, registrationPlate);
+    public void saveMotorcycle(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity) {
+        Motorcycle motorcycle = new Motorcycle(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, cylinderCapacity);
         Database db = Database.getInstance();
 
         if (db.addVehicle(motorcycle)) {
@@ -32,7 +34,7 @@ public class VehicleController {
             System.out.println("");
         }
     }
-    public void saveCar(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
+    public void saveCar(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity) {
         Vehicle vehicle = new Car();
         Database db = Database.getInstance();
 
@@ -50,7 +52,7 @@ public class VehicleController {
             System.out.println("");
         }
     }
-    public void saveTruck(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
+    public void saveTruck(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity) {
         Vehicle vehicle = new Truck();
         Database db = Database.getInstance();
 

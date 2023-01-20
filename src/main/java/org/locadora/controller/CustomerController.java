@@ -2,24 +2,16 @@ package org.locadora.controller;
 
 import org.locadora.database.Database;
 import org.locadora.model.Address;
-import org.locadora.model.Agency;
 import org.locadora.model.Telephone;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.customer.LegalPerson;
 import org.locadora.model.customer.NaturalPerson;
-import org.locadora.utils.GetIndex;
 import org.locadora.utils.Input;
 import org.locadora.utils.InputAddress;
-import org.locadora.views.AgencyUI;
 import org.locadora.views.CustomerUI;
 
-import java.util.List;
-
 public class CustomerController {
-    public String paginatedList() {
-        Database db = Database.getInstance();
-        return CustomerUI.list(db.getCustomers(),5,0);
-    }
+
 
     public void create() {
         CustomerUI.add();
@@ -116,7 +108,7 @@ public class CustomerController {
     public void viewCustomer() {
         Database db = Database.getInstance();
         try {
-            int index = GetIndex.exec("DIGITE O ID QUE DESEJA EXIBIR: ");
+            int index = Input.integer("DIGITE O ID QUE DESEJA EXIBIR: ");
             CustomerUI.viewCustomer(db.getCustomer(index));
 
 

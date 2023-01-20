@@ -28,17 +28,17 @@ public class OperationUI {
         * */
 
 
-            String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO (dd/mm/aaaa)", 3);
-            LocalDate startDate = GetLocalDateFromString.Convert(startDateString);
-
-            String endDateString = Input.stringNotNullable("DATA DA ENTREGA (dd/mm/aaaa)", 3);
-            LocalDate endDate = GetLocalDateFromString.Convert(endDateString);
-
-            NaturalPerson person = new NaturalPerson("Washington", "Ferreira", "23044797829", "321654987");
-
-
-            //mocking ome info
-            operationController.save(person, new Agency("São Paulo"), new Car("Nissan", "Versa", "Qnr668"), startDate, endDate);
+//            String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO (dd/mm/aaaa)", 3);
+//            LocalDate startDate = GetLocalDateFromString.Convert(startDateString);
+//
+//            String endDateString = Input.stringNotNullable("DATA DA ENTREGA (dd/mm/aaaa)", 3);
+//            LocalDate endDate = GetLocalDateFromString.Convert(endDateString);
+//
+//            NaturalPerson person = new NaturalPerson("Washington", "Ferreira", "23044797829", "321654987");
+//
+//
+//            //mocking ome info
+//            operationController.save(person, new Agency("São Paulo"), new Car("Nissan", "Versa", "Qnr668"), startDate, endDate);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

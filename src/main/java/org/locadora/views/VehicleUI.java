@@ -18,9 +18,11 @@ public class VehicleUI {
         String vehicleManufacturer;
         String vehicleModel;
         String registrationPlate;
-        String rentalFee;
+        BigDecimal rentalFee;
 
-        option = MenuCreator.exec("DIGITE O TIPO DE VEÍCULO A SER ADICIONADO","MOTO", "CARRO", "CAMINHÃO");
+
+
+        option = MenuCreator.exec("DIGITE O TIPO DE VEÍCULO A SER ADICIONADO", "MOTO", "CARRO", "CAMINHÃO");
 
         switch (option) {
             case 0 -> {
@@ -28,9 +30,10 @@ public class VehicleUI {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
-                    rentalFee = Input.stringNotNullable("TAXA DE LOCAÇÃO : ", 3);
+                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO : ", 3);
+                    String cylinderCapacity = Input.stringNotNullable("QUANTIDADE DE CILINDROS: ", 3);
 
-                    vehicleController.saveMotorcycle(vehicleManufacturer, vehicleModel, registrationPlate);
+                    vehicleController.saveMotorcycle(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, cylinderCapacity);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -42,8 +45,10 @@ public class VehicleUI {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
+                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO : ", 3);
+                    String numberOfDoors = Input.stringNotNullable("NUMERO DE PORTAS : ", 3);
 
-                    vehicleController.saveCar(vehicleManufacturer, vehicleModel, registrationPlate);
+                    vehicleController.saveCar(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfDoors);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -55,8 +60,10 @@ public class VehicleUI {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
+                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO: ", 3);
+                    String numberOfAxies = Input.stringNotNullable("NUMERO DE EIXOS: ", 3);
 
-                    vehicleController.saveTruck(vehicleManufacturer, vehicleModel, registrationPlate);
+                    vehicleController.saveTruck(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfAxies);
 
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -67,6 +74,7 @@ public class VehicleUI {
         }
 
     }
+
     public static int getIndex() throws Exception {
         int index = 0;
 
@@ -74,6 +82,7 @@ public class VehicleUI {
         System.out.println("");
         return index;
     }
+
     public static void list(List<Vehicle> vehicles) {
         int index = 0;
         int tentativas = 0;
@@ -127,12 +136,13 @@ public class VehicleUI {
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex.getMessage()+ "\n");
+                System.out.println(ex.getMessage() + "\n");
                 break;
             }
 
         } while (working);
     }
+
     public static String paginatedList(List<Vehicle> vehicles) {
         boolean working = true;
         int ammount = 0;
@@ -210,13 +220,15 @@ public class VehicleUI {
         }
         return option;
     }
+
     public static void search() {
         VehicleController vehicleController = new VehicleController();
         String term = Input.string("DIGITE O NOME OU PARTE DO NOME DO VEÍCULO: ");
         vehicleController.search(term.toUpperCase());
     }
+
     public static void view(Vehicle vehicle) {
-        
+
         if (vehicle instanceof Motorcycle) {
             System.out.println("------- VEÍCULO -------");
             System.out.println(" FABRICANTE: " + (vehicle).getVehicleManufacturer());

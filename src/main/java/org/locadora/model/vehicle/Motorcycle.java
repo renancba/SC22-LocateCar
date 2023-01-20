@@ -7,12 +7,11 @@ import java.math.BigDecimal;
 public class Motorcycle extends Vehicle {
 
     private String cylinderCapacity;
-    public Motorcycle() {
-    }
 
-    public Motorcycle(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
-        super(vehicleManufacturer, vehicleModel, registrationPlate);
-        super.rentalFee = new BigDecimal(100);
+    public Motorcycle(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity) {
+        super(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee);
+        this.cylinderCapacity = cylinderCapacity;
+        super.rentalFee = rentalFee;
     }
 
     public JSONObject toJSONObject() {
@@ -27,7 +26,7 @@ public class Motorcycle extends Vehicle {
 
     @Override
     public BigDecimal getRentalFee() {
-        return super.rentalFee = new BigDecimal(100);
+        return super.rentalFee;
     }
 
     @Override

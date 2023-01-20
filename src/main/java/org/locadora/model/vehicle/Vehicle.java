@@ -13,11 +13,11 @@ public abstract class Vehicle {
     protected Boolean isAvaible;
     protected BigDecimal rentalFee;
 
-
-    public Vehicle(String vehicleManufacturer, String vehicleModel, String registrationPlate) {
+    public Vehicle(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee) {
         this.vehicleManufacturer = vehicleManufacturer;
         this.vehicleModel = vehicleModel;
         this.registrationPlate = registrationPlate;
+        this.rentalFee = rentalFee;
     }
 
     public Vehicle() {
