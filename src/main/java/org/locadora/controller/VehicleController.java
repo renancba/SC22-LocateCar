@@ -33,7 +33,6 @@ public class VehicleController {
             System.out.println(ex.getMessage());
             System.out.println("voltando...\n");
         }
-
     }
 
     public void saveMotorcycle(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity, Agency agency) {

@@ -15,6 +15,7 @@ import org.locadora.utils.Pagination;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VehicleUI {
     public static void add(Agency agency) {
@@ -67,6 +68,7 @@ public class VehicleUI {
     }
 
     public static String list(List<Vehicle> vehicles, Agency agency, int pageSize, int pageNumber) {
+
         String option = "";
         int totalDisplayed = 0;
 
@@ -84,7 +86,8 @@ public class VehicleUI {
                     System.out.println("NENHUM VEÍCULO ENCONTRADO");
                     working = false;
                 } else {
-                    List<Vehicle> paginatedVehicles = Pagination.exec(vehicles, pageSize, pageNumber);
+                    List<Vehicle> paginatedVehicles = Pagination.exec(vehicles.stream().filter(vehicle ->
+                            vehicle.getAvaible() == true).collect(Collectors.toList()), pageSize, pageNumber);
 
                     System.out.println("------ VEÍCULOS ------");
                     System.out.println("");

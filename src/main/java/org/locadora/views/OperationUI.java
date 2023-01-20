@@ -68,6 +68,8 @@ public class OperationUI {
                 Agency agency = (Agency) result[0];
                 Vehicle vehicle = (Vehicle) result[1];
 
+                vehicle.setAvaible(false);
+
                 String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO (dd/mm/aaaa)", 3);
                 LocalDate startDate = GetLocalDateFromString.Convert(startDateString);
 
