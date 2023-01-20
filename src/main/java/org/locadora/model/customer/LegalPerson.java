@@ -53,6 +53,11 @@ public class LegalPerson extends Customer {
         System.out.println("-------------------------");
     }
 
+    @Override
+    public String getDocument() {
+        return this.cnpj;
+    }
+
     public void completeInfo() {
         this.shortInfo();
         System.out.println(" ENDEREÇO: " + this.getAddress());

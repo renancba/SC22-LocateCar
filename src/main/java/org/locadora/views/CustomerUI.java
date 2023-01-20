@@ -1,10 +1,14 @@
 package org.locadora.views;
 
 
+import org.locadora.controller.AgencyController;
 import org.locadora.controller.CustomerController;
+import org.locadora.model.Agency;
 import org.locadora.model.customer.Customer;
+import org.locadora.model.customer.NaturalPerson;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
+import org.locadora.utils.Pagination;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +21,6 @@ public class CustomerUI {
         String name;
         String surname;
         String cpf;
-        String companyDriver;
         String driverLicense;
         String nickname;
         String cnpj;
@@ -142,66 +145,194 @@ public class CustomerUI {
         return "2";
     }
 
-    //TODO: RESOLVER LISTA PAGINADA COM CASTING?
-
-    public static <T extends Customer> String paginatedCustomerList(List<T> customers, int pageSize, int pageNumber) {
+    public static String list(List<Customer> customers, int pageSize, int pageNumber) {
         String option = "";
 
-        // validate input
-        if (pageNumber < 0) pageNumber = 0;
-        if (pageSize < 0) pageSize = 0;
-        if (pageNumber + pageSize > customers.size()) pageNumber = customers.size() - pageSize;
-        if (pageNumber < 0 || pageNumber >= customers.size()) pageNumber = 0;
+        boolean working = true;
 
-        // paginate the list
-        List<T> paginatedCustomers = customers.stream()
-                .skip((pageNumber) * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+        try {
+            while (working) {
+                List<Customer> paginatedCustomers = Pagination.exec(customers, pageSize, pageNumber);
 
-        // display the paginated list
-        System.out.println("------- CLIENTES -------");
-        paginatedCustomers.forEach(Customer::shortInfo);
-        System.out.println("");
+                System.out.println("------ CLIENTES ------");
+                System.out.println("");
+                for (int i = 0; i< paginatedCustomers.size();i++){
+                    System.out.print(" ID: "+ i+ " ");
+                    paginatedCustomers.get(i).shortInfo();
+                }
 
-        // handle navigation
-        if (customers.size() == 0) {
-            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE");
-            switch (choice) {
-                case 0:
-                    option = "VOLTAR";
-                    break;
-                case 1:
-                    add();
-                    break;
-                default:
-                    System.out.println("OPÇÃO INVÁLIDA\n");
-                    break;
+                System.out.println("--------------------------");
+
+                if (customers.size() == 0) {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            add();
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+                } else if (customers.size() > pageSize) {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CONTATO", "ADICIONAR CONTATO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            list(customers, pageSize, pageNumber + pageSize);
+                            break;
+                        case 2:
+                            list(customers, pageSize, pageNumber - pageSize);
+                            break;
+                        case 3:
+                            option = "exibir";
+                            working = false;
+                            break;
+                        case 4:
+                            add();
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+
+                } else {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR CONTATO", "ADICIONAR CONTATO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            option = "exibir";
+                            working = false;
+                            break;
+                        case 2:
+                            add();
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+                }
             }
-        } else {
-            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CLIENTE", "ADICIONAR CLIENTE");
-            switch (choice) {
-                case 0:
-                    option = "VOLTAR";
-                    break;
-                case 1:
-                    paginatedCustomerList(customers, pageSize, pageNumber + pageSize);
-                    break;
-                case 2:
-                    paginatedCustomerList(customers, pageSize, pageNumber - pageSize);
-                    break;
-                case 3:
-                    option = "EDITAR";
-                    break;
-                case 4:
-                    add();
-                    break;
-                default:
-                    System.out.println("OPÇÃO INVÁLIDA\n");
-                    break;
-            }
+        } catch (Exception ex) {
+            working = false;
+            System.out.println(ex.getMessage());
+            System.out.println("voltando...\n");
         }
+
         return option;
     }
+
+    //TODO: RESOLVER LISTA PAGINADA COM CASTING?
+
+//    public static <T extends Customer> String paginatedCustomerList(List<T> customers, int pageSize, int pageNumber) {
+//        String option = "";
+//
+//        // validate input
+//        if (pageNumber < 0) pageNumber = 0;
+//        if (pageSize < 0) pageSize = 0;
+//        if (pageNumber + pageSize > customers.size()) pageNumber = customers.size() - pageSize;
+//        if (pageNumber < 0 || pageNumber >= customers.size()) pageNumber = 0;
+//
+//        // paginate the list
+//        List<T> paginatedCustomers = customers.stream()
+//                .skip((pageNumber) * pageSize)
+//                .limit(pageSize)
+//                .collect(Collectors.toList());
+//
+//        // display the paginated list
+//        System.out.println("------- CLIENTES -------");
+//        paginatedCustomers.forEach(Customer::shortInfo);
+//        System.out.println("");
+//
+//        // handle navigation
+//        if (customers.size() == 0) {
+//            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE");
+//            switch (choice) {
+//                case 0:
+//                    option = "VOLTAR";
+//                    break;
+//                case 1:
+//                    add();
+//                    break;
+//                default:
+//                    System.out.println("OPÇÃO INVÁLIDA\n");
+//                    break;
+//            }
+//        } else {
+//            int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CLIENTE", "ADICIONAR CLIENTE");
+//            switch (choice) {
+//                case 0:
+//                    option = "VOLTAR";
+//                    break;
+//                case 1:
+//                    paginatedCustomerList(customers, pageSize, pageNumber + pageSize);
+//                    break;
+//                case 2:
+//                    paginatedCustomerList(customers, pageSize, pageNumber - pageSize);
+//                    break;
+//                case 3:
+//                    option = "exibir";
+//                    break;
+//                case 4:
+//                    add();
+//                    break;
+//                default:
+//                    System.out.println("OPÇÃO INVÁLIDA\n");
+//                    break;
+//            }
+//        }
+//        return option;
+//    }
+
+    public static void viewCustomer(Customer customer) {
+        CustomerController customerController = new CustomerController();
+        boolean working = true;
+        try {
+            while (working) {
+
+
+            if (customer instanceof NaturalPerson){
+                System.out.println("------- CLIENTE PF -------");
+                System.out.println("");
+                customer.completeInfo();
+
+                switch (MenuCreator.exec(".:: OPÇÔES DE CLIENTE ::.", "VOLTAR", "EDITAR NOME", "EDITAR SOBRENOME", "EDITAR CNH")) {
+                    case 0 -> {
+                        working = false;
+                    }
+                case 1 -> customerController.edit("name", customer);
+                case 2 -> customerController.edit("surname", customer);
+                case 3 -> customerController.edit("driverLicense", customer);
+                default -> System.out.println("-> Opção inválida \n");
+                }
+
+            } else {
+                System.out.println("------- CLIENTE PJ -------");
+                System.out.println("");
+                customer.completeInfo();
+
+                switch (MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "EDITAR RAZÃO SOCIAL", "EDITAR NOME FANTASIA")) {
+                    case 0 -> {
+                        working = false;
+                    }
+                    case 1 -> customerController.edit("name", customer);
+                    case 2 -> customerController.edit("nickname", customer);
+                    default -> System.out.println("-> Opção inválida \n");
+                }
+            }
+
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("voltando...\n");
+        }
+    }
+
 }
 

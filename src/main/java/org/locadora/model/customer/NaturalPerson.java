@@ -55,6 +55,11 @@ public class NaturalPerson extends Customer {
         System.out.println("-------------------------");
     }
 
+    @Override
+    public String getDocument() {
+        return this.cpf;
+    }
+
     public void completeInfo() {
         this.shortInfo();
         System.out.println(" CNH: " + this.getDriverLicense());
