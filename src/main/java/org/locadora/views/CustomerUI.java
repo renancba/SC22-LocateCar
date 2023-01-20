@@ -151,6 +151,12 @@ public class CustomerUI {
 
         try {
             while (working) {
+
+                if (pageNumber < 0) pageNumber = 0;
+                if (pageSize < 0) pageSize = 0;
+                if (pageNumber + pageSize > customers.size()) pageNumber = customers.size() - pageSize;
+                if (pageNumber < 0 || pageNumber >= customers.size()) pageNumber = 0;
+
                 List<Customer> paginatedCustomers = Pagination.exec(customers, pageSize, pageNumber);
 
                 System.out.println("------ CLIENTES ------");
@@ -182,10 +188,10 @@ public class CustomerUI {
                             working = false;
                             break;
                         case 1:
-                            list(customers, pageSize, pageNumber + pageSize);
+                            pageNumber = pageNumber + 1;
                             break;
                         case 2:
-                            list(customers, pageSize, pageNumber - pageSize);
+                            pageNumber = pageNumber - 1;
                             break;
                         case 3:
                             option = "exibir";

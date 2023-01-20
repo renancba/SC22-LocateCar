@@ -10,6 +10,7 @@ import org.locadora.utils.GetLocalDateFromString;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 import org.locadora.utils.Pagination;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -53,6 +54,11 @@ public class OperationUI {
         boolean working = true;
 
         while (working) {
+            if (pageNumber < 0) pageNumber = 0;
+            if (pageSize < 0) pageSize = 0;
+            if (pageNumber + pageSize > operations.size()) pageNumber = operations.size() - pageSize;
+            if (pageNumber < 0 || pageNumber >= operations.size()) pageNumber = 0;
+
             try {
 
                 if (operations.size() == 0) {
@@ -91,10 +97,10 @@ public class OperationUI {
                             working = false;
                             break;
                         case 1:
-                            List(operations, pageSize, pageNumber + pageSize);
+                            pageNumber = pageNumber + 1;
                             break;
                         case 2:
-                            List(operations, pageSize, pageNumber - pageSize);
+                            pageNumber = pageNumber - 1;
                             break;
                         case 3:
                             option = "exibir";

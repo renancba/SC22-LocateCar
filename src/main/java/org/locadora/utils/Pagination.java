@@ -7,13 +7,8 @@ public class Pagination {
     public static <T> List<T> exec(List<T> list, int pageSize, int pageNumber) {
         List<T> pagination;
 
-        if (pageNumber < 0) pageNumber = 0;
-        if (pageSize < 0) pageSize = 0;
-        if (pageNumber + pageSize > list.size()) pageNumber = list.size() - pageSize;
-        if (pageNumber < 0 || pageNumber >= list.size()) pageNumber = 0;
-
         pagination = list.stream()
-                .skip((pageNumber) * pageSize)
+                .skip(((pageNumber) * pageSize) + 1)
                 .limit(pageSize)
                 .collect(Collectors.toList());
 

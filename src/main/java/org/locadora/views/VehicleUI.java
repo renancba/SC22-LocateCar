@@ -72,6 +72,11 @@ public class VehicleUI {
         boolean working = true;
 
         while (working) {
+            if (pageNumber < 0) pageNumber = 0;
+            if (pageSize < 0) pageSize = 0;
+            if (pageNumber + pageSize > vehicles.size()) pageNumber = vehicles.size() - pageSize;
+            if (pageNumber < 0 || pageNumber >= vehicles.size()) pageNumber = 0;
+
             try {
 
 
@@ -111,10 +116,10 @@ public class VehicleUI {
                             working = false;
                             break;
                         case 1:
-                            list(vehicles, agency, pageSize, pageNumber + pageSize);
+                            pageNumber = pageNumber + 1;
                             break;
                         case 2:
-                            list(vehicles, agency, pageSize, pageNumber - pageSize);
+                            pageNumber = pageNumber - 1;
                             break;
                         case 3:
                             option = "exibir";

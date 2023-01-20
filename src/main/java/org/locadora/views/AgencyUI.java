@@ -35,6 +35,12 @@ public class AgencyUI {
         boolean working = true;
 
         while (working) {
+
+            if (pageNumber < 0) pageNumber = 0;
+            if (pageSize < 0) pageSize = 0;
+            if (pageNumber + pageSize > agencies.size()) pageNumber = agencies.size() - pageSize;
+            if (pageNumber < 0 || pageNumber >= agencies.size()) pageNumber = 0;
+
             try {
 
                 if (agencies.size() == 0) {
@@ -48,7 +54,7 @@ public class AgencyUI {
                 System.out.println("------ AGÊNCIAS ------");
                 System.out.println("");
                 for (int i = 0; i < paginatedAgencies.size(); i++) {
-                    System.out.print(" ID: " + i + "\n");
+                    System.out.print(" ID: " + (i * (pageSize * (pageNumber + 1))) + "\n");
                     paginatedAgencies.get(i).shortInfo();
                     System.out.println("-------------------------\n");
                 }
@@ -73,10 +79,10 @@ public class AgencyUI {
                             working = false;
                             break;
                         case 1:
-                            list(agencies, pageSize, pageNumber + pageSize);
+                            pageNumber = pageNumber + 1;
                             break;
                         case 2:
-                            list(agencies, pageSize, pageNumber - pageSize);
+                            pageNumber = pageNumber - 1;
                             break;
                         case 3:
                             option = "exibir";
@@ -133,7 +139,7 @@ public class AgencyUI {
                         working = false;
                     }
                     case 1 -> VehicleUI.add(agency);
-                case 2 -> vehicleController.listAllFromAgency(agency);
+                    case 2 -> vehicleController.listAllFromAgency(agency);
                     case 3 -> agencyController.edit("name", agency);
                     case 4 -> agencyController.edit("address", agency);
                     default -> System.out.println("-> Opção inválida \n");
