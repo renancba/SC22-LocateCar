@@ -64,7 +64,6 @@ public class Home {
                 case 1 -> { // LISTAR
                     customerController.listAll();
                     executing = false;
-
                 }
                 case 2 -> { // ALTERAR
                     System.out.println("ALTERANDO CLIENTE...");
@@ -98,12 +97,11 @@ public class Home {
                 case 2 -> {
                     // ALTERAR
                     System.out.println("ALTERANDO VEÍCULO...");
-
                     executing = false;
                 }
                 case 3 -> {
                     System.out.println("BUSCANDO VEÍCULO");
-                    //vehicleController.search();
+                    vehicleController.search();
                     executing = false;
                 }
                 case 4 -> {

@@ -79,17 +79,19 @@ public class Database {
         return matchCustomers;
     }
 
-    public List<Vehicle> searchVehicles(String value) {
-        List<Vehicle> matchVehicles = new ArrayList<>();
-
-        for (Vehicle vehicle : vehicles) {
-            String fullName = vehicle.getVehicleManufacturer() + " " + vehicle.getVehicleModel();
-            if (fullName.toUpperCase().contains(value)) {
-                matchVehicles.add(vehicle);
+    public Object[] searchVehiclesByName(String value) {
+        for (Agency agency : agencies) {
+            List<Vehicle> vehicles = agency.getVehicles();
+            for (int i = 0; i < vehicles.size(); i++) {
+                String fullName = vehicles.get(i).getVehicleManufacturer() + " " + vehicles.get(i).getVehicleModel();
+                if (fullName.toUpperCase().contains(value.toUpperCase())) {
+                    return new Object[]{agency, i};
+                }
             }
         }
-        return matchVehicles;
+        return null;
     }
+
 
     public List<Agency> searchAgencies(String value) {
         List<Agency> matchAgencies = new ArrayList<>();

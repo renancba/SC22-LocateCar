@@ -25,7 +25,7 @@ public class VehicleController {
 
             if (agency != null) {
                 VehicleUI.add(agency);
-            }else{
+            } else {
                 System.out.println("--------------------------\n AGÊNCIA NÃO CADASTRADA\n--------------------------");
             }
 
@@ -83,13 +83,13 @@ public class VehicleController {
         try {
             Agency agency = agencyController.searchById();
 
-            if(agency != null){
+            if (agency != null) {
                 String option = list(agency);
 
                 if (option.equals("exibir")) {
                     viewVehicle(agency);
                 }
-            }else{
+            } else {
                 System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
             }
         } catch (Exception ex) {
@@ -158,12 +158,24 @@ public class VehicleController {
         }
     }
 
-//    public void search(String value) {
-//        Database db = Database.getInstance();
-//        if (value != null) {
-//            VehicleUI.list(db.searchVehicles(value));
-//        } else {
-//            VehicleUI.search();
-//        }
-//    }
+    public void search() {
+        String nome = "versa";
+        Database db = Database.getInstance();
+        try {
+            String nomeVeiculo = Input.stringNotNullable("INFORME O NOME DO VEÍCULO", 3);
+
+            Object[] result = db.searchVehiclesByName(nomeVeiculo);
+            if (result != null) {
+                Agency agency = (Agency) result[0];
+                int index = (int) result[1];
+
+                VehicleUI.viewVehicle((Vehicle) agency.getVehicles().get(index), agency);
+            } else {
+                System.out.println("Vehicle not found.");
+            }
+        } catch (Exception ex) {
+            ex.getMessage();
+            System.out.println("voltando...");
+        }
+    }
 }

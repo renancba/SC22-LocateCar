@@ -64,7 +64,6 @@ public class VehicleUI {
             System.out.println(ex.getMessage());
             System.out.println("voltando...\n");
         }
-
     }
 
     public static String list(List<Vehicle> vehicles, Agency agency, int pageSize, int pageNumber) {
@@ -209,11 +208,6 @@ public class VehicleUI {
         }
     }
 
-//    public static void search() {
-//        VehicleController vehicleController = new VehicleController();
-//        String term = Input.string("DIGITE O NOME OU PARTE DO NOME DO VEÍCULO: ");
-//        vehicleController.search(term.toUpperCase());
-//    }
 
     public static void view(Vehicle vehicle) {
 
