@@ -125,21 +125,25 @@ class JSONObjectFactory {
     }
 
     public RentalOperation createOperation(JSONObject operation) {
-
-        //Criar um costumer a partir das informações do costumer
         Customer customer = createCustomer((JSONObject) operation.get("customer"));
-
-        // Criar um carro a partir das informações do vehicle
         Vehicle vehicle = createVehicle((JSONObject) operation.get("vehicle"));
-
-        // Criar uma agencia a partir das informações da Agency
         Agency agency = createAgency((JSONObject) operation.get("agency"));
 
         Integer contrato = (Integer) operation.get("id");
         LocalDate startDate = (LocalDate) operation.get("startDate");
         LocalDate endDate = (LocalDate) operation.get("endDate");
-        BigDecimal cost = new BigDecimal((Double) operation.get("cost"));
         boolean isOver = (boolean) operation.get("isOver");
+
+        Object costObject = operation.get("cost");
+        BigDecimal cost;
+
+        if (costObject instanceof BigDecimal) {
+            cost = (BigDecimal) costObject;
+        } else if (costObject instanceof Double) {
+            cost = new BigDecimal(((Double) costObject).toString());
+        } else {
+            cost = new BigDecimal(((Integer) costObject).toString());
+        }
 
 
         return new RentalOperation(contrato, customer, vehicle, startDate, endDate, agency, cost, isOver);

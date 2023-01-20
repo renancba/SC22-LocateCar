@@ -70,11 +70,11 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
         }
 
         if (vehicle != null) {
-            costumerObject.put("telephone", vehicle.toJSONObject());
+            costumerObject.put("vehicle", vehicle.toJSONObject());
         }
 
         if (agency != null) {
-            costumerObject.put("telephone", agency.toJSONObject());
+            costumerObject.put("agency", agency.getId());
         }
 
         return costumerObject;

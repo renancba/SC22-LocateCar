@@ -31,16 +31,16 @@ public class Motorcycle extends Vehicle {
     }
 
     public void shortInfo() {
-        System.out.println("MARCA: " + this.getVehicleManufacturer());
-        System.out.println("MODELO: " + this.getVehicleModel());
+        System.out.println(" MARCA: " + this.getVehicleManufacturer());
+        System.out.println(" MODELO: " + this.getVehicleModel());
     }
 
     public void completeInfo() {
         shortInfo();
-        System.out.println("PLACA: " + this.getRegistrationPlate());
-        System.out.println("PORTAS: " + this.cylinderCapacity);
-        System.out.println("DIÁRIA: " + this.getRentalFee());
-        System.out.println("DISPONIBILIDADE: " + (super.isAvaible ? "DISPONÍVEL" : "INDISPONÍVEL"));
+        System.out.println(" PLACA: " + this.getRegistrationPlate());
+        System.out.println(" PORTAS: " + this.cylinderCapacity);
+        System.out.println(" DIÁRIA: " + this.getRentalFee());
+        System.out.println(" DISPONIBILIDADE: " + (super.isAvaible ? "DISPONÍVEL" : "INDISPONÍVEL"));
     }
 
     public void setParticularity(String cylinderCapacity) {
