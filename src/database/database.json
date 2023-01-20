@@ -1,39 +1,5 @@
 {
-  "operations": [
-    {
-      "cost": 1417.5,
-      "agency": 108,
-      "endDate": "2023-02-22",
-      "isOver": false,
-      "startDate": "2023-01-18",
-      "rentalID": 81,
-      "customer": {
-        "address": {
-          "zipcode": "200",
-          "number": "Rua bento de barros",
-          "city": "São Paulo",
-          "street": "05570200",
-          "state": "SP"
-        },
-        "surname": "Cantapedrra",
-        "name": "Wellington",
-        "cpf": "23044797829",
-        "driverLicense": "987654321",
-        "telephone": {
-          "number": "963642358",
-          "ddd": "11"
-        }
-      },
-      "vehicle": {
-        "transmission": "AUTOMÁTICA",
-        "isAvaible": true,
-        "vehicleModel": "VERSA",
-        "registrationPlate": "QNR6608",
-        "rentalFee": 109,
-        "vehicleManufacturer": "NISSAN"
-      }
-    }
-  ],
+  "operations": [],
   "agencies": [
     {
       "address": {
@@ -60,6 +26,22 @@
           "registrationPlate": "QNR6608",
           "rentalFee": 109,
           "vehicleManufacturer": "NISSAN"
+        },
+        {
+          "isAvaible": true,
+          "vehicleModel": "ONIX",
+          "registrationPlate": "GGQ444",
+          "rentalFee": 50,
+          "cylinderCapacity": "6",
+          "vehicleManufacturer": "GM"
+        },
+        {
+          "transmission": "MANUALL",
+          "isAvaible": true,
+          "vehicleModel": "ONIXXXX",
+          "registrationPlate": "GGQ444",
+          "rentalFee": 50,
+          "vehicleManufacturer": "GM"
         }
       ],
       "id": 108
@@ -109,7 +91,16 @@
         "state": "asdasd"
       },
       "name": "Agencia do tião",
-      "vehicles": [],
+      "vehicles": [
+        {
+          "transmission": "MANUAL",
+          "isAvaible": true,
+          "vehicleModel": "ONIX",
+          "registrationPlate": "GGQ444",
+          "rentalFee": 150,
+          "vehicleManufacturer": "GM"
+        }
+      ],
       "id": 94
     },
     {

@@ -3,6 +3,7 @@ package org.locadora.model.vehicle;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public abstract class Vehicle {
     protected String vehicleManufacturer;
@@ -68,5 +69,18 @@ public abstract class Vehicle {
     public String toString() {
         return "FABRICANTE: " + vehicleManufacturer + "MODELO: " + vehicleModel + "PLACA: " + registrationPlate +
                "TAXA DE ALUGUEL: " + rentalFee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return Objects.equals(registrationPlate, vehicle.registrationPlate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(registrationPlate);
     }
 }
