@@ -109,6 +109,33 @@ public class VehicleController {
         }
     }
 
+    public Vehicle chooseAVehicle() {
+        AgencyController agencyController = new AgencyController();
+        Database db = Database.getInstance();
+        Vehicle choice = null;
+
+        try {
+            Agency agency = agencyController.searchById();
+
+            if (agency != null) {
+
+                if (db.getVehicles(agency) != null) {
+                    choice = VehicleUI.chooseList(db.getVehicles(agency), agency, 5, 0);
+
+                } else {
+                    System.out.println("ESSA AGENCIA NAO POSSUI VEÍCULOS CADASTRADOS");
+                }
+
+            } else {
+                System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");
+        }
+
+        return choice;
+    }
+
     public void viewVehicle(Agency agency) {
         Database db = Database.getInstance();
         try {

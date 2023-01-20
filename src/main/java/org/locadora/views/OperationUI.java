@@ -1,11 +1,15 @@
 package org.locadora.views;
 
 import org.locadora.controller.AgencyController;
+import org.locadora.controller.CustomerController;
 import org.locadora.controller.OperationController;
+import org.locadora.controller.VehicleController;
 import org.locadora.model.Agency;
 import org.locadora.model.RentalOperation;
+import org.locadora.model.customer.Customer;
 import org.locadora.model.customer.NaturalPerson;
 import org.locadora.model.vehicle.Car;
+import org.locadora.model.vehicle.Vehicle;
 import org.locadora.utils.GetLocalDateFromString;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
@@ -17,29 +21,31 @@ import java.util.List;
 public class OperationUI {
     public static void add() {
         OperationController operationController = new OperationController();
+        CustomerController customerController = new CustomerController();
+        VehicleController vehicleController = new VehicleController();
+
         try {
-        /*
-        pesquisar o cliente
+            System.out.println("PRIMEIRO");
+            Customer customer = customerController.searchByDocument();
 
-        Informar o Id da Agência
-        *
-        * mostrar lista de carros
-        * escolher um carro
-        *        *
-        * */
+            if(customer == null){
+                //quebrar o looping e contar tentativas
+            }
 
+            System.out.println("AGORA");
+            Vehicle vehicle = vehicleController.chooseAVehicle();
 
-//            String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO (dd/mm/aaaa)", 3);
-//            LocalDate startDate = GetLocalDateFromString.Convert(startDateString);
-//
-//            String endDateString = Input.stringNotNullable("DATA DA ENTREGA (dd/mm/aaaa)", 3);
-//            LocalDate endDate = GetLocalDateFromString.Convert(endDateString);
-//
-//            NaturalPerson person = new NaturalPerson("Washington", "Ferreira", "23044797829", "321654987");
-//
-//
-//            //mocking ome info
-//            operationController.save(person, new Agency("São Paulo"), new Car("Nissan", "Versa", "Qnr668"), startDate, endDate);
+            if(vehicle == null){
+                //quebrar o looping e contar tentativas
+            }
+
+            String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO (dd/mm/aaaa)", 3);
+            LocalDate startDate = GetLocalDateFromString.Convert(startDateString);
+
+            String endDateString = Input.stringNotNullable("DATA DA ENTREGA (dd/mm/aaaa)", 3);
+            LocalDate endDate = GetLocalDateFromString.Convert(endDateString);
+
+           operationController.save(customer, new Agency("São Paulo"), vehicle, startDate, endDate);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -70,7 +76,6 @@ public class OperationUI {
 
                 List<RentalOperation> paginatedOperations = Pagination.exec(operations, pageSize, pageNumber);
 
-                // display the paginated list
                 System.out.println("------ OPERAÇÕES ------");
                 System.out.println("");
                 for (int i = 0; i < paginatedOperations.size(); i++) {
