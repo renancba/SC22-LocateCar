@@ -126,7 +126,7 @@ public class AgencyUI {
                 System.out.println("-------------------------\n");
 
 
-                switch (MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "CADASTRAR VEÍCULO", "LISTAR VEICULOS", "EDITAR NOME", "EDITAR ENDERECO")) {
+                switch (MenuCreator.exec(".:: OPÇÕES DE AGÊNCIA ::.", "VOLTAR", "CADASTRAR VEÍCULO", "LISTAR VEICULOS", "EDITAR NOME", "EDITAR ENDERECO")) {
                     case 0 -> {
                         working = false;
                     }
@@ -149,7 +149,7 @@ public class AgencyUI {
         try {
             while (working) {
 
-                int option = MenuCreator.exec("COMO GOSTARIA DE REALIZAR A PESQUISA? ", "VOLTAR", "CODIGO DA AGENCIA", "NOME/LOGRADOURO");
+                int option = MenuCreator.exec("COMO GOSTARIA DE REALIZAR A PESQUISA? ", "VOLTAR", "CÓDIGO DA AGÊNCIA", "NOME/LOGRADOURO");
                 switch (option) {
                     case 0 -> working = false;
                     case 1 -> {
