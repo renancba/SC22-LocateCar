@@ -1,10 +1,8 @@
 package org.locadora.model.vehicle;
 
 import org.json.JSONObject;
-import org.locadora.model.Agency;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public abstract class Vehicle {
     protected String vehicleManufacturer;
@@ -59,6 +57,11 @@ public abstract class Vehicle {
     public abstract BigDecimal getRentalFee();
 
     public abstract JSONObject toJSONObject();
+
+    public abstract void completeInfo();
+
+    public abstract void shortInfo();
+    public abstract void setParticularity(String s);
 
     @Override
     public String toString() {

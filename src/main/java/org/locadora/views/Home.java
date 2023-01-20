@@ -93,7 +93,7 @@ public class Home {
                 case 1 -> {
                     // LISTAR
                     System.out.println("LISTANDO VEÍCULO...");
-                    //vehicleController
+                    vehicleController.listAll();
                     executing = false;
                 }
                 case 2 -> {

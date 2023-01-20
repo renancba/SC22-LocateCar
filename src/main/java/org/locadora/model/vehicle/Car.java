@@ -1,15 +1,16 @@
 package org.locadora.model.vehicle;
 
 import org.json.JSONObject;
+
 import java.math.BigDecimal;
 
 public class Car extends Vehicle {
 
-    private String numberOfDoors;
+    private String transmission;
 
-    public Car(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String numberOfDoors) {
+    public Car(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String transmission) {
         super(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee);
-        this.numberOfDoors = numberOfDoors;
+        this.transmission = transmission;
         super.rentalFee = rentalFee;
     }
 
@@ -21,6 +22,23 @@ public class Car extends Vehicle {
         vehicleObject.put("isAvaible", isAvaible);
         vehicleObject.put("rentalFee", rentalFee);
         return vehicleObject;
+    }
+
+    public void shortInfo() {
+        System.out.println("MARCA: " + this.getVehicleManufacturer());
+        System.out.println("MODELO: " + this.getVehicleModel());
+    }
+
+    public void completeInfo() {
+        shortInfo();
+        System.out.println("PLACA: " + this.getRegistrationPlate());
+        System.out.println("PORTAS: " + this.transmission);
+        System.out.println("DIÁRIA: " + this.getRentalFee());
+        System.out.println("DISPONIBILIDADE: " + (this.getAvaible() ? "DISPONÍVEL" : "INDISPONÍVEL"));
+    }
+
+    public void setParticularity(String transmission) {
+        this.transmission = transmission;
     }
 
     @Override

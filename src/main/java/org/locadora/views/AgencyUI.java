@@ -2,8 +2,10 @@ package org.locadora.views;
 
 
 import org.locadora.controller.AgencyController;
+import org.locadora.controller.VehicleController;
 import org.locadora.model.Address;
 import org.locadora.model.Agency;
+import org.locadora.model.vehicle.Vehicle;
 import org.locadora.utils.Input;
 import org.locadora.utils.InputAddress;
 import org.locadora.utils.MenuCreator;
@@ -118,6 +120,8 @@ public class AgencyUI {
 
     public static void viewAgency(Agency agency) {
         AgencyController agencyController = new AgencyController();
+        VehicleController vehicleController = new VehicleController();
+
         boolean working = true;
         while (working) {
             try {
@@ -131,7 +135,7 @@ public class AgencyUI {
                         working = false;
                     }
                     case 1 -> VehicleUI.add(agency);
-//                case 2 -> /*Listar Veículos*/
+                case 2 -> vehicleController.listAllFromAgency(agency);
                     case 3 -> agencyController.edit("name", agency);
                     case 4 -> agencyController.edit("address", agency);
                     default -> System.out.println("-> Opção inválida \n");

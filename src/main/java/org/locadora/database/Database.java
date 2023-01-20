@@ -126,8 +126,8 @@ public class Database {
         return agencies;
     }
 
-    public List<Vehicle> getVehicles() {
-        return vehicles;
+    public List<Vehicle> getVehicles(Agency agency) {
+        return agency.getVehicles();
     }
 
     public boolean addCustomer(Customer customer) { //RN6
@@ -140,10 +140,16 @@ public class Database {
         return operations;
     }
 
-    public boolean addVehicle(Vehicle vehicle) { //RN1
-        if (vehicles.contains(vehicle)) return false;
-        vehicles.add(vehicle);
-        return true;
+    public boolean addVehicle(Agency agency, Vehicle vehicle) {
+        boolean agencyExists = false;
+        for (int i = 0; i < agencies.size(); i++) {
+            if (agencies.get(i).getId().equals(agency.getId())) {
+                agencies.get(i).addVehicle(vehicle);
+                agencyExists = true;
+                break;
+            }
+        }
+        return agencyExists;
     }
 
     public boolean addAgency(Agency agency) { //RN5
@@ -157,6 +163,7 @@ public class Database {
         operations.add(operation);
         return true;
     }
+
     public boolean updateAgency(Agency updatedAgency) {
         boolean agencyExists = false;
 
@@ -168,6 +175,17 @@ public class Database {
             }
         }
         return agencyExists;
+
+    }
+
+    public boolean updateVehicle(Vehicle updatedVehicle, Agency agency) {
+
+        if (agency.getVehicles().contains(updatedVehicle)) {
+            agency.getVehicles().remove(updatedVehicle);
+            agency.getVehicles().add(updatedVehicle);
+        }
+
+        return updateAgency(agency);
     }
 
     public boolean updateCustomer(Customer updatedCustomer) {
@@ -183,8 +201,6 @@ public class Database {
         }
         return customerExists;
     }
-
-
 
 
     public void deleteAll() {

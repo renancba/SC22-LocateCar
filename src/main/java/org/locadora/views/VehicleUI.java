@@ -4,11 +4,14 @@ package org.locadora.views;
 import org.locadora.controller.AgencyController;
 import org.locadora.controller.VehicleController;
 import org.locadora.model.Agency;
+import org.locadora.model.customer.NaturalPerson;
 import org.locadora.model.vehicle.Car;
 import org.locadora.model.vehicle.Motorcycle;
+import org.locadora.model.vehicle.Truck;
 import org.locadora.model.vehicle.Vehicle;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
+import org.locadora.utils.Pagination;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -42,9 +45,9 @@ public class VehicleUI {
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
                     rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO : ", 3);
-                    String numberOfDoors = Input.stringNotNullable("NUMERO DE PORTAS : ", 3);
+                    String transmission = Input.stringNotNullable("Transmissão : ", 3);
 
-                    vehicleController.saveCar(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfDoors, agency);
+                    vehicleController.saveCar(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, transmission, agency);
                 }
                 case 2 -> {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
@@ -72,149 +75,152 @@ public class VehicleUI {
         return index;
     }
 
-    public static void list(List<Vehicle> vehicles) {
-        int index = 0;
-        int tentativas = 0;
-        boolean working;
-
-        do {
-            working = false;
-
-            try {
-
-                if (vehicles.size() == 0) {
-                    System.out.println("NENHUM VEÍCULO ENCONTRADO PARA O TERMO INFORMADO.\n");
-                    break;
-                }
-
-                if (vehicles.size() > 1) {
-                    System.out.println("");
-                    for (Vehicle vehicle : vehicles) {
-                        System.out.println("-------- VEÍCULO -------");
-                        System.out.println("ID: " + index);
-                        System.out.println("Tipo: " + vehicle.getClass());
-                        System.out.println("Fabricante: " + vehicle.getVehicleManufacturer());
-                        System.out.println("Modelo: " + vehicle.getVehicleModel());
-                        System.out.println("Placa: " + vehicle.getRegistrationPlate());
-                        System.out.println("Diária:" + vehicle.getRentalFee());
-                        System.out.println("------------------------");
-                        index++;
-                    }
-                    System.out.println("");
-
-                    int indexOption = getIndex();
-                    if (indexOption > vehicles.size()) {
-                        System.out.println("-> Opção inválida\n");
-                        index = 0;
-                        tentativas++;
-                        working = true;
-                        continue;
-                    }
-
-                    if (tentativas > 3) {
-                        System.out.println("-> Número de tentativas excedidas");
-                        System.out.println("voltando...\n");
-                        break;
-                    }
-
-                    VehicleUI.view(vehicles.get(indexOption));
-
-                } else {
-                    VehicleUI.view(vehicles.get(0));
-                    break;
-                }
-
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage() + "\n");
-                break;
-            }
-
-        } while (working);
-    }
-
-    public static String paginatedList(List<Vehicle> vehicles) {
-        boolean working = true;
-        int ammount = 0;
-        int start = 0;
+    public static String list(List<Vehicle> vehicles, Agency agency, int pageSize, int pageNumber) {
         String option = "";
+
+        boolean working = true;
 
         while (working) {
             try {
-                if (ammount == 0) {
-                    ammount = Input.integer("Informe a quantidade de veículos por página: ");
-                    System.out.println("");
+
+                if (vehicles.size() == 0) {
+                    System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
+                    working = false;
+                    continue;
                 }
 
-                if (start < 0 || start > vehicles.size()) start = 0;
-                if (ammount < 0) ammount = 0;
-                if (ammount > vehicles.size()) ammount = vehicles.size();
-                if (start + ammount > vehicles.size()) start = vehicles.size() - ammount;
+                List<Vehicle> paginatedVehicles = Pagination.exec(vehicles, pageSize, pageNumber);
 
-                System.out.println("------ VEÍCULOS ------");
-
-                for (int i = start; i < start + ammount; i++) {
-                    if (i == vehicles.size()) break;
-                    System.out.println("ID: " + i);
-                    System.out.println("FABRICANTE: " + vehicles.get(i).getVehicleManufacturer());
-                    System.out.println("MODELO: " + vehicles.get(i).getVehicleModel());
-                    System.out.println("----------------------");
-                }
+                System.out.println("------ AGÊNCIAS ------");
                 System.out.println("");
+                for (int i = 0; i < paginatedVehicles.size(); i++) {
+                    System.out.print(" ID: " + i + "\n");
+                    paginatedVehicles.get(i).shortInfo();
+                    System.out.println("-------------------------\n");
+                }
 
-                boolean better = true;
+                if (vehicles.size() == 0) {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR AGÊNCIA");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            add(agency);
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+                } else if (vehicles.size() > pageSize) {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR VEÍCULO", "ADICIONAR VEÍCULO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            list(vehicles, agency, pageSize, pageNumber + pageSize);
+                            break;
+                        case 2:
+                            list(vehicles, agency, pageSize, pageNumber - pageSize);
+                            break;
+                        case 3:
+                            option = "exibir";
+                            working = false;
+                            break;
+                        case 4:
+                            add(agency);
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
 
-                while (better) {
-                    if (vehicles.size() == 0) {
-                        switch (MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR VEÍCULO")) {
-                            case 0 -> {
-                                better = false;
-                                working = false;
-                                option = "VOLTAR";
-                            }
-                            case 1 -> {
-                                add();
-                                better = false;
-                            }
-                            default -> System.out.println(" OPÇÃO INVÁLIDA\n");
-                        }
-                    } else {
-                        switch (MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR VEÍCULO")) {
-                            case 0 -> {
-                                better = false;
-                                working = false;
-                                option = "VOLTAR";
-                            }
-                            case 1 -> {
-                                start = start + ammount;
-                                better = false;
-                            }
-                            case 2 -> {
-                                start = start - ammount;
-                                better = false;
-                            }
-                            case 3 -> {
-                                better = false;
-                                working = false;
-                                option = "EDITAR";
-                            }
-                            default -> System.out.println(" OPÇÃO INVÁLIDA\n");
-                        }
+                } else {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR VEÍCULO", "ADICIONAR VEÍCULO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            option = "exibir";
+                            working = false;
+                            break;
+                        case 2:
+                            add(agency);
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
                     }
 
                 }
             } catch (Exception ex) {
-                System.out.println(ex.getMessage() + " VOLTANDO AO MENU PRINCIPAL...");
+                working = false;
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
             }
-
         }
         return option;
     }
 
-    public static void search() {
+    public static void viewVehicle(Vehicle vehicle, Agency agency) {
         VehicleController vehicleController = new VehicleController();
-        String term = Input.string("DIGITE O NOME OU PARTE DO NOME DO VEÍCULO: ");
-        vehicleController.search(term.toUpperCase());
+        boolean working = true;
+        while (working) {
+            try {
+                System.out.println("\n------- VEÍCULO -------");
+                vehicle.completeInfo();
+                System.out.println("-------------------------\n");
+
+                if (vehicle instanceof Car) {
+
+                    switch (MenuCreator.exec(".:: OPÇÕES DE VEÍCULO ::.", "VOLTAR", "EDITAR TRANSMISSÂO", "EDITAR MARCA OU MODELO")) {
+                        case 0 -> {
+                            working = false;
+                        }
+                        case 1 -> vehicleController.edit("trasmissão", vehicle, agency);
+                        case 2 -> vehicleController.edit("marca/modelo", vehicle, agency);
+                        default -> System.out.println("-> Opção inválida \n");
+                    }
+                }
+
+                if (vehicle instanceof Motorcycle) {
+
+                    switch (MenuCreator.exec(".:: OPÇÕES DE VEÍCULO ::.", "VOLTAR", "EDITAR CILINDRADAS", "EDITAR MARCA OU MODELO")) {
+                        case 0 -> {
+                            working = false;
+                        }
+                        case 1 -> vehicleController.edit("cilindradas", vehicle, agency);
+                        case 2 -> vehicleController.edit("marca/modelo", vehicle, agency);
+                        default -> System.out.println("-> Opção inválida \n");
+                    }
+                }
+
+                if (vehicle instanceof Truck) {
+
+                    switch (MenuCreator.exec(".:: OPÇÕES DE VEÍCULO ::.", "VOLTAR", "EDITAR NÚMERO DE EIXOS", "EDITAR MARCA OU MODELO")) {
+                        case 0 -> {
+                            working = false;
+                        }
+                        case 1 -> vehicleController.edit("eixos", vehicle, agency);
+                        case 2 -> vehicleController.edit("marca/modelo", vehicle, agency);
+                        default -> System.out.println("-> Opção inválida \n");
+                    }
+                }
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
+            }
+        }
     }
+
+//    public static void search() {
+//        VehicleController vehicleController = new VehicleController();
+//        String term = Input.string("DIGITE O NOME OU PARTE DO NOME DO VEÍCULO: ");
+//        vehicleController.search(term.toUpperCase());
+//    }
 
     public static void view(Vehicle vehicle) {
 
@@ -238,4 +244,6 @@ public class VehicleUI {
             System.out.println("");
         }
     }
+
+
 }

@@ -96,6 +96,7 @@ public class Agency<T extends Vehicle> {
     public void completeInfo() {
         this.shortInfo();
         System.out.println(" ENDEREÇO: " + address);
+        System.out.println("VEÍCULOS: " + vehicles.size());
     }
 
     @Override

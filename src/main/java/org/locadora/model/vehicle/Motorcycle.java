@@ -24,6 +24,23 @@ public class Motorcycle extends Vehicle {
         return vehicleObject;
     }
 
+    public void shortInfo() {
+        System.out.println("MARCA: " + this.getVehicleManufacturer());
+        System.out.println("MODELO: " + this.getVehicleModel());
+    }
+
+    public void completeInfo() {
+        shortInfo();
+        System.out.println("PLACA: " + this.getRegistrationPlate());
+        System.out.println("PORTAS: " + this.cylinderCapacity);
+        System.out.println("DIÁRIA: " + this.getRentalFee());
+        System.out.println("DISPONIBILIDADE: " + (this.getAvaible() ? "DISPONÍVEL" : "INDISPONÍVEL"));
+    }
+
+    public void setParticularity(String cylinderCapacity) {
+        this.cylinderCapacity = cylinderCapacity;
+    }
+
     @Override
     public BigDecimal getRentalFee() {
         return super.rentalFee;
