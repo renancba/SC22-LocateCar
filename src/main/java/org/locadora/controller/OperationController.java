@@ -56,16 +56,17 @@ public class OperationController {
         RentalOperation operation = null;
         int tentativas = 0;
 
-        boolean working = true;
+        boolean working;
 
-        while (working) {
+        do {
+            working = false;
             try {
                 int operationId = Input.integer("INFORME O NUMERO DO CONTRATO: ");
                 operation = db.searchByOperationId(operationId);
 
                 if (operation == null) {
                     if (tentativas > 3) {
-                        working = false;
+                        working = true;
                         continue;
                     }
 
@@ -78,14 +79,14 @@ public class OperationController {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
                 if (tentativas > 3) {
-                    working = false;
+                    working = true;
                     System.out.println("voltando...\n");
                     continue;
                 }
 
                 tentativas += 1;
             }
-        }
+        } while (working);
     }
 
     public void foundList(RentalOperation operation) {

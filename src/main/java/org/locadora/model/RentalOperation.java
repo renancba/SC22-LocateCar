@@ -149,8 +149,7 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
             vehicle.setAvaible(true);
             isReturned = true;
         }
-
-        System.out.println("Esta locação ja se encontra concluida");
+        
 
         return isReturned;
     }

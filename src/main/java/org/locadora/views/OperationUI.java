@@ -198,8 +198,14 @@ public class OperationUI {
                     case 0 -> {
                         working = false;
                     }
-                    case 1 -> operationController.extendReturnDate(operation);
-                    case 2 -> operationController.returVehicle(operation);
+                    case 1 -> {
+                        operationController.extendReturnDate(operation);
+                        working = false;
+                    }
+                    case 2 -> {
+                        operationController.returVehicle(operation);
+                        working = false;
+                    }
                     default -> System.out.println("-> Opção inválida \n");
                 }
             } catch (Exception ex) {
