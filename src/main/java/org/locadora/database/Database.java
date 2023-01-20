@@ -112,7 +112,7 @@ public class Database {
                 .orElse(null);
     }
 
-    public RentalOperation getRentalOperation(Integer id) {
+    public RentalOperation searchByOperationId(Integer id) {
         return operations.stream()
                 .filter(operation -> operation.getRentalID().equals(id))
                 .findFirst()
