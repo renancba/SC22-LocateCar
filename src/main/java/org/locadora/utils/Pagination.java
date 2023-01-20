@@ -8,7 +8,7 @@ public class Pagination {
         List<T> pagination;
 
         pagination = list.stream()
-                .skip(((pageNumber) * pageSize) + 1)
+                .skip((pageNumber) * pageSize)
                 .limit(pageSize)
                 .collect(Collectors.toList());
 

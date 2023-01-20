@@ -31,11 +31,11 @@ public class AgencyUI {
 
     public static String list(List<Agency> agencies, int pageSize, int pageNumber) {
         String option = "";
+        int totalDisplayed = 0;
 
         boolean working = true;
 
         while (working) {
-
             if (pageNumber < 0) pageNumber = 0;
             if (pageSize < 0) pageSize = 0;
             if (pageNumber + pageSize > agencies.size()) pageNumber = agencies.size() - pageSize;
@@ -53,11 +53,14 @@ public class AgencyUI {
 
                 System.out.println("------ AGÊNCIAS ------");
                 System.out.println("");
+
                 for (int i = 0; i < paginatedAgencies.size(); i++) {
-                    System.out.print(" ID: " + (i * (pageSize * (pageNumber + 1))) + "\n");
+                    System.out.print(" ID: " + (i + totalDisplayed) + "\n");
                     paginatedAgencies.get(i).shortInfo();
                     System.out.println("-------------------------\n");
                 }
+
+                totalDisplayed += paginatedAgencies.size();
 
                 if (agencies.size() == 0) {
                     int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR AGÊNCIA");
@@ -83,6 +86,7 @@ public class AgencyUI {
                             break;
                         case 2:
                             pageNumber = pageNumber - 1;
+                            totalDisplayed -= pageSize +2;
                             break;
                         case 3:
                             option = "exibir";
