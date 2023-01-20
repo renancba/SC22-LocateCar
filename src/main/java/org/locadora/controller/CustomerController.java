@@ -70,7 +70,6 @@ public class CustomerController {
         }
     }
 
-
     public void edit(String option, Customer customer) throws Exception {
         Database db = Database.getInstance();
 

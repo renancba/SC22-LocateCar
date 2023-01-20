@@ -95,7 +95,6 @@ public class CustomerUI {
         return index;
     }
 
-
     public static <T extends Customer> String ListCustomer(List<T> customers) {
         int index = 0;
         int tentativas = 0;
@@ -227,7 +226,6 @@ public class CustomerUI {
 
         return option;
     }
-
 
     public static void viewCustomer(Customer customer) {
         CustomerController customerController = new CustomerController();

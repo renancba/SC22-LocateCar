@@ -19,7 +19,6 @@ public class Home {
             option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "SAIR", "CLIENTES", "VEÍCULOS",
                     "AGÊNCIAS", "LOCAÇÕES");
 
-
             switch (option) {
                 case 1 -> {
                     option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "CADASTRAR CLIENTE",
@@ -98,7 +97,8 @@ public class Home {
                 }
                 case 2 -> {
                     // ALTERAR
-                    System.out.println("ALTERANDO VEÍCULO..."); // TODO: CRIAR UM ALTERAR VEÍCULO
+                    System.out.println("ALTERANDO VEÍCULO...");
+
                     executing = false;
                 }
                 case 3 -> {

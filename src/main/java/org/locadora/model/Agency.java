@@ -12,7 +12,7 @@ public class Agency<T extends Vehicle> {
     private Integer id;
     private String name;
     private Address address;
-    private List<T> vehicles;
+    private List<T> vehicles = new ArrayList<>();
 
     public Agency() {
         this.vehicles = new ArrayList<>();
@@ -90,16 +90,18 @@ public class Agency<T extends Vehicle> {
 
         return agencyObject;
     }
+
     public void shortInfo() {
-        System.out.println(" AGÊNCIA " + this.getId() + " - " + this.getName() );
+        System.out.println(" AGÊNCIA " + this.getId() + " - " + this.getName());
     }
+
     public void completeInfo() {
         this.shortInfo();
         System.out.println(" ENDEREÇO: " + address);
         if (vehicles == null) {
             System.out.println("\n SEM VEÍCULOS CADASTRADOS NESTA AGÊNCIA!");
         } else {
-            for (Vehicle vehicle: vehicles) {
+            for (Vehicle vehicle : vehicles) {
                 vehicle.shortInfo();
             }
         }

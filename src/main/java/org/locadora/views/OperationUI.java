@@ -18,7 +18,7 @@ public class OperationUI {
         OperationController operationController = new OperationController();
         try {
         /*
-        Informar o cpf do cliente
+        pesquisar o cliente
 
         Informar o Id da Agência
         *

@@ -21,7 +21,14 @@ public class VehicleController {
             AgencyController agencyController = new AgencyController();
             System.out.println("PARA QUAL AGÊNCIA DESEJA CADASTRAR O VEÍCULO?");
             Agency agency = agencyController.searchById();
-            VehicleUI.add(agency);
+            System.out.println("");
+
+            if (agency != null) {
+                VehicleUI.add(agency);
+            }else{
+                System.out.println("--------------------------\n AGÊNCIA NÃO CADASTRADA\n--------------------------");
+            }
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             System.out.println("voltando...\n");
