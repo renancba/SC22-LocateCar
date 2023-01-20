@@ -45,6 +45,7 @@ public abstract class Customer {
         this.address = address;
     }
 
+
     public JSONObject toJSONObject() {
         return null;
     }
@@ -52,6 +53,9 @@ public abstract class Customer {
     public abstract void completeInfo();
 
     public abstract void shortInfo();
+
+    public abstract String getDocument();
+
 
 
 // TODO: SOBRESCREVER EQUALS, HASHCODE E TOSTRING

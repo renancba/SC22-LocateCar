@@ -171,6 +171,23 @@ public class Database {
         return agencyExists;
     }
 
+    public boolean updateCustomer(Customer updatedCustomer) {
+        boolean customerExists = false;
+
+        for (int i = 0; i < customers.size(); i++) {
+            if (customers.get(i).getDocument().equals(updatedCustomer.getDocument())) {
+                customers.set(i, updatedCustomer);
+                customerExists = true;
+                break;
+            }
+
+        }
+        return customerExists;
+    }
+
+
+
+
     public void deleteAll() {
         customers.clear();
     }

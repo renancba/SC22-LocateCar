@@ -2,16 +2,23 @@ package org.locadora.controller;
 
 import org.locadora.database.Database;
 import org.locadora.model.Address;
+import org.locadora.model.Agency;
 import org.locadora.model.Telephone;
+import org.locadora.model.customer.Customer;
 import org.locadora.model.customer.LegalPerson;
 import org.locadora.model.customer.NaturalPerson;
+import org.locadora.utils.GetIndex;
+import org.locadora.utils.Input;
+import org.locadora.utils.InputAddress;
 import org.locadora.views.AgencyUI;
 import org.locadora.views.CustomerUI;
+
+import java.util.List;
 
 public class CustomerController {
     public String paginatedList() {
         Database db = Database.getInstance();
-        return CustomerUI.paginatedCustomerList(db.getCustomers(),5,0);
+        return CustomerUI.list(db.getCustomers(),5,0);
     }
 
     public void create() {
@@ -60,31 +67,63 @@ public class CustomerController {
     }
     public String list() {
         Database db = Database.getInstance();
-        return CustomerUI.paginatedCustomerList(db.getCustomers(), 5, 0);
+        return CustomerUI.list(db.getCustomers(), 5, 0);
     }
+
     public void listAll() {
         String option = list();
         if (option.equals("exibir")) {
-            viewCustomerInfo();
+            viewCustomer();
         }
     }
 
-    public void view() {
-        String option = paginatedList();
-        if (option.equals("EDITAR")) {
-            viewCustomerInfo();
+
+    public void edit(String option, Customer customer) throws Exception {
+        Database db = Database.getInstance();
+
+        //SE PESSOA FISICA
+        if (customer instanceof NaturalPerson) {
+            switch (option) {
+                case "name" -> customer.setName(Input.stringNotNullable("INFORME UM NOVO NOME: ", 3));
+                case "surname" -> customer.setAddress(InputAddress.exec(""));
+                case "driverLicense" -> ((NaturalPerson) customer).setDriverLicense(Input.stringNotNullable("INFORME A NOVA CNH: ", 3));
+            }
+
+            //SE PPESSOA JURIDICA
+        } else {
+            switch (option){
+                case "name" -> customer.setName(Input.stringNotNullable("INFORME UM NOVO NOME: ", 3));
+                case "nickname" -> ((LegalPerson) customer).setNickname(Input.stringNotNullable("INFORME O NOVO NOME FANTASIA: ", 3));
+            }
         }
+
+            if (db.updateCustomer(customer)) {
+                System.out.println("");
+                System.out.println("-----------------");
+                System.out.println("| CLIENTE ATUALIZADO COM SUCESSO|");
+                System.out.println("-----------------");
+                System.out.println("");
+            } else {
+                System.out.println("");
+                System.out.println("----------------------");
+                System.out.println("| ERRO AO ATUALIZAR AGENDA. TENTE NOVAMENTE MAIS TARDE |");
+                System.out.println("----------------------");
+                System.out.println("");
+            }
     }
 
-    public void viewCustomerInfo() { //TODO: VER SE ISSO ESTÁ FUNCIONANDO COMO A DA AGÊNCIA. VAMOS COLOCAR ID?
+
+    public void viewCustomer() {
         Database db = Database.getInstance();
         try {
-            int index = CustomerUI.getIndex();
-            db.getCustomer(index).completeInfo();
+            int index = GetIndex.exec("DIGITE O ID QUE DESEJA EXIBIR: ");
+            CustomerUI.viewCustomer(db.getCustomer(index));
+
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");
         }
     }
+
 }
 

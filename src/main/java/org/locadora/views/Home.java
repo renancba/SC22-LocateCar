@@ -69,6 +69,7 @@ public class Home {
                 }
                 case 2 -> { // ALTERAR
                     System.out.println("ALTERANDO CLIENTE...");
+
                     executing = false;
                 }
                 case 3 -> { // RETORNAR AO MENU INICIAL
