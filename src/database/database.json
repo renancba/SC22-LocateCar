@@ -1,5 +1,39 @@
 {
-  "operations": [],
+  "operations": [
+    {
+      "cost": 5062.5,
+      "agency": 108,
+      "endDate": "2023-05-25",
+      "isOver": false,
+      "startDate": "2023-01-20",
+      "rentalID": 100,
+      "customer": {
+        "address": {
+          "zipcode": "200",
+          "number": "Rua bento de barros",
+          "city": "São Paulo",
+          "street": "05570200",
+          "state": "SP"
+        },
+        "surname": "Cantapedrra",
+        "name": "Wellington",
+        "cpf": "23044797829",
+        "driverLicense": "987654321",
+        "telephone": {
+          "number": "963642358",
+          "ddd": "11"
+        }
+      },
+      "vehicle": {
+        "transmission": "MANUALL",
+        "isAvaible": true,
+        "vehicleModel": "ONIXXXX",
+        "registrationPlate": "GGQ444",
+        "rentalFee": 50,
+        "vehicleManufacturer": "GM"
+      }
+    }
+  ],
   "agencies": [
     {
       "address": {

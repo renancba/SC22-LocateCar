@@ -6,6 +6,7 @@ import org.locadora.model.RentalOperation;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
 import org.locadora.utils.GetDate;
+import org.locadora.utils.GetLocalDateFromString;
 import org.locadora.utils.Input;
 import org.locadora.views.OperationUI;
 
@@ -102,14 +103,16 @@ public class OperationController {
         }
     }
 
-    public void extendReturnDate(RentalOperation operation) {
-        LocalDate newDate = GetDate.exec("DATA DA ENTREGA: ");
+    public void extendReturnDate(RentalOperation operation) throws Exception {
+        String newDateString = Input.stringNotNullable("DATA DA ENTREGA: ", 3);
+        LocalDate newDate = GetLocalDateFromString.Convert(newDateString);
         operation.updateEndDate(newDate);
     }
 
     public void returVehicle(RentalOperation operation) {
-        Agency agency = OperationUI.returnVehicle(operation);
-        operation.returnVehicle(agency);
+        if (operation.returnVehicle()) {
+            System.out.println("LOCAÇÂO FINALIZADA COM SUCESSO");
+        }
     }
 
 

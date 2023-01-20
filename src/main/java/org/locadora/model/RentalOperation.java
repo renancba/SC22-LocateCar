@@ -127,10 +127,13 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
         calculateCost();
     }
 
-    public void returnVehicle(Agency agency) {
+    public boolean returnVehicle() {
+        boolean isReturned = false;
+
         if (!isOver) {
 
             LocalDate returnDate = LocalDate.now();
+
             if (returnDate.isAfter(endDate)) {
                 long lateDays = Duration.between(endDate.atStartOfDay(), returnDate.atStartOfDay()).toDays();
                 BigDecimal lateFee = new BigDecimal("5").multiply(new BigDecimal(lateDays));
@@ -139,9 +142,12 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
 
             this.isOver = true;
             vehicle.setAvaible(true);
+            isReturned = true;
         }
 
         System.out.println("Esta locação ja se encontra concluida");
+
+        return isReturned;
     }
 
     @Override
