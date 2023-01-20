@@ -31,16 +31,16 @@ public class Car extends Vehicle {
     }
 
     public void shortInfo() {
-        System.out.println("MARCA: " + this.getVehicleManufacturer());
-        System.out.println("MODELO: " + this.getVehicleModel());
+        System.out.println(" MARCA: " + this.getVehicleManufacturer());
+        System.out.println(" MODELO: " + this.getVehicleModel());
     }
 
     public void completeInfo() {
         shortInfo();
-        System.out.println("PLACA: " + this.getRegistrationPlate());
-        System.out.println("PORTAS: " + this.transmission);
-        System.out.println("DIÁRIA: " + this.getRentalFee());
-        System.out.println("DISPONIBILIDADE: " + (this.getAvaible() ? "DISPONÍVEL" : "INDISPONÍVEL"));
+        System.out.println(" PLACA: " + this.getRegistrationPlate());
+        System.out.println(" PORTAS: " + this.transmission);
+        System.out.println(" DIÁRIA: " + this.getRentalFee());
+        System.out.println(" DISPONIBILIDADE: " + (this.getAvaible() ? "DISPONÍVEL" : "INDISPONÍVEL"));
     }
 
     public void setParticularity(String transmission) {

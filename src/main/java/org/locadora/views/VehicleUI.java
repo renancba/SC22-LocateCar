@@ -80,24 +80,22 @@ public class VehicleUI {
 
             try {
 
-
                 if (vehicles.size() == 0) {
-                    System.out.println("NENHUM VEÍCULO ENCONTRADA");
+                    System.out.println("NENHUM VEÍCULO ENCONTRADO");
                     working = false;
-                    continue;
+                } else {
+                    List<Vehicle> paginatedVehicles = Pagination.exec(vehicles, pageSize, pageNumber);
+
+                    System.out.println("------ VEÍCULOS ------");
+                    System.out.println("");
+                    for (int i = 0; i < paginatedVehicles.size(); i++) {
+                        System.out.print("ID: " + (i + totalDisplayed) + "\n");
+                        paginatedVehicles.get(i).shortInfo();
+                        System.out.println("-------------------------\n");
+                    }
+
+                    totalDisplayed += paginatedVehicles.size();
                 }
-
-                List<Vehicle> paginatedVehicles = Pagination.exec(vehicles, pageSize, pageNumber);
-
-                System.out.println("------ VEÍCULOS ------");
-                System.out.println("");
-                for (int i = 0; i < paginatedVehicles.size(); i++) {
-                    System.out.print("ID: " + (i + totalDisplayed) + "\n");
-                    paginatedVehicles.get(i).shortInfo();
-                    System.out.println("-------------------------\n");
-                }
-
-                totalDisplayed += paginatedVehicles.size();
 
                 if (vehicles.size() == 0) {
                     int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR AGÊNCIA");

@@ -100,7 +100,6 @@ public class VehicleController {
     public void listAllFromAgency(Agency agency) {
         try {
             String option = list(agency);
-
             if (option.equals("exibir")) {
                 viewVehicle(agency);
             }

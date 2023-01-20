@@ -102,6 +102,8 @@ public class Agency<T extends Vehicle> {
             System.out.println("\n SEM VEÍCULOS CADASTRADOS NESTA AGÊNCIA!");
         } else {
             for (Vehicle vehicle : vehicles) {
+
+                System.out.println();
                 vehicle.shortInfo();
             }
         }
