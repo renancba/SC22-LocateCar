@@ -8,6 +8,7 @@ import org.locadora.model.customer.LegalPerson;
 import org.locadora.model.customer.NaturalPerson;
 import org.locadora.utils.Input;
 import org.locadora.utils.InputAddress;
+import org.locadora.utils.InputTelephone;
 import org.locadora.views.CustomerUI;
 
 public class CustomerController {
@@ -77,15 +78,19 @@ public class CustomerController {
         if (customer instanceof NaturalPerson) {
             switch (option) {
                 case "name" -> customer.setName(Input.stringNotNullable("INFORME UM NOVO NOME: ", 3));
-                case "surname" -> customer.setAddress(InputAddress.exec(""));
+                case "surname" -> ((NaturalPerson) customer).setSurname(Input.stringNotNullable("INFORME UM NOVO SOBRENOME", 3));
                 case "driverLicense" -> ((NaturalPerson) customer).setDriverLicense(Input.stringNotNullable("INFORME A NOVA CNH: ", 3));
+                case "address" -> customer.setAddress(InputAddress.exec(""));
+                case "telephone" -> customer.setTelephone(InputTelephone.exec(""));
             }
 
             //SE PPESSOA JURIDICA
         } else {
             switch (option){
-                case "name" -> customer.setName(Input.stringNotNullable("INFORME UM NOVO NOME: ", 3));
+                case "name" -> customer.setName(Input.stringNotNullable("INFORME A NOVA RAZÃO SOCIAL: ", 3));
                 case "nickname" -> ((LegalPerson) customer).setNickname(Input.stringNotNullable("INFORME O NOVO NOME FANTASIA: ", 3));
+                case "address" -> customer.setAddress(InputAddress.exec(""));
+                case "telephone" -> customer.setTelephone(InputTelephone.exec(""));
             }
         }
 

@@ -6,7 +6,6 @@ import org.locadora.model.Agency;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.customer.LegalPerson;
 import org.locadora.model.customer.NaturalPerson;
-import org.locadora.model.vehicle.Motorcycle;
 import org.locadora.model.RentalOperation;
 import org.locadora.model.vehicle.Vehicle;
 
@@ -68,12 +67,12 @@ public class Database {
         for (Customer customer : customers) {
             if (customer instanceof NaturalPerson) {
                 String fullName = customer.getName() + " " + ((NaturalPerson) customer).getSurname();
-                if (fullName.contains(value)) {
+                if (fullName.toUpperCase().contains(value)) {
                     matchCustomers.add(customer);
                 }
             } else {
                 String fullName = customer.getName() + " " + ((LegalPerson) customer).getNickname();
-                if (fullName.contains(value)) {
+                if (fullName.toUpperCase().contains(value)) {
                     matchCustomers.add(customer);
                 }
             }
@@ -86,7 +85,7 @@ public class Database {
 
         for (Vehicle vehicle : vehicles) {
             String fullName = vehicle.getVehicleManufacturer() + " " + vehicle.getVehicleModel();
-            if (fullName.contains(value)) {
+            if (fullName.toUpperCase().contains(value)) {
                 matchVehicles.add(vehicle);
             }
         }
