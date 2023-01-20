@@ -305,7 +305,7 @@ public class VehicleUI {
                             working = false;
                             break;
                         case 1:
-                            int option = Input.integer("ESCOLHA O ID DO VEÍCULO QUE DESEJA");
+                            int option = Input.integer("ESCOLHA O ID DO VEÍCULO QUE DESEJA: ");
                             choosed = vehicles.get(option);
                             working = false;
                             break;

@@ -21,8 +21,6 @@ public class OperationUI {
         OperationController operationController = new OperationController();
         CustomerController customerController = new CustomerController();
         VehicleController vehicleController = new VehicleController();
-
-
         boolean working;
 
         do {
@@ -107,7 +105,6 @@ public class OperationUI {
                 }
 
                 List<RentalOperation> paginatedOperations = Pagination.exec(operations, pageSize, pageNumber);
-
                 System.out.println("------ OPERAÇÕES ------");
                 System.out.println("");
                 for (int i = 0; i < paginatedOperations.size(); i++) {
