@@ -126,7 +126,7 @@ public class CustomerController {
 
     public Customer searchByDocument() throws Exception {
         Database db = Database.getInstance();
-        String customerDocument = Input.stringNotNullable("INFORME O NÚMERO DO CPF/CNPJ: ", 3);
+        String customerDocument = Input.stringNotNullable("INFORME O NÚMERO DO CPF/CNPJ DO CLIENTE: ", 3);
         return db.searchCustomerByDocument(customerDocument.toUpperCase());
     }
 

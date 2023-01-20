@@ -221,8 +221,10 @@ public class Database {
 
     public void close() throws IOException {
         Files.newBufferedWriter(dbPath, StandardCharsets.UTF_8);
+
         JSONArray costumersArray = new JSONArray();
         JSONArray agenciesArray = new JSONArray();
+        JSONArray operationsArray = new JSONArray();
 
         for (Customer costumer : customers) {
             JSONObject costumerObject = costumer.toJSONObject();
@@ -234,8 +236,13 @@ public class Database {
             agenciesArray.put(agencieObject);
         }
 
+        for (RentalOperation operation : operations) {
+            JSONObject operationObject = operation.toJSONObject();
+            operationsArray.put(operationObject);
+        }
+
         //Preciso tratar a null pointer aqui
-        JSONObject object = new JSONObject().put("customers", costumersArray).put("vehicles", new JSONArray()).put("agencies", agenciesArray);
+        JSONObject object = new JSONObject().put("customers", costumersArray).put("operations", operationsArray).put("agencies", agenciesArray);
         Files.writeString(dbPath, object.toString(), StandardOpenOption.WRITE);
 
 

@@ -98,7 +98,7 @@ public class VehicleUI {
                 }
 
                 if (vehicles.size() == 0) {
-                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR AGÊNCIA");
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR VEÍCULO");
                     switch (choice) {
                         case 0:
                             working = false;
@@ -240,4 +240,85 @@ public class VehicleUI {
     }
 
 
+    public static Vehicle chooseList(List<Vehicle> vehicles, Agency agency, int pageSize, int pageNumber) {
+        Vehicle choosed = null;
+
+        int totalDisplayed = 0;
+
+        boolean working = true;
+
+        while (working) {
+            if (pageNumber < 0) pageNumber = 0;
+            if (pageSize < 0) pageSize = 0;
+            if (pageNumber + pageSize > vehicles.size()) pageNumber = vehicles.size() - pageSize;
+            if (pageNumber < 0 || pageNumber >= vehicles.size()) pageNumber = 0;
+
+            try {
+
+                if (vehicles.size() == 0) {
+                    System.out.println("ESSA AGÊNCIA NAO POSSUI CARROS CADASTRADOS");
+                    working = false;
+                    continue;
+                }
+
+                List<Vehicle> paginatedVehicles = Pagination.exec(vehicles, pageSize, pageNumber);
+
+                System.out.println("------ VEÍCULOS ------");
+                System.out.println("");
+                for (int i = 0; i < paginatedVehicles.size(); i++) {
+                    System.out.print("ID: " + (i + totalDisplayed) + "\n");
+                    paginatedVehicles.get(i).completeInfo();
+                    System.out.println("-------------------------\n");
+                }
+
+                totalDisplayed += paginatedVehicles.size();
+
+                if (vehicles.size() > pageSize) {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "ESCOLHER VEÍCULO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            pageNumber = pageNumber + 1;
+                            break;
+                        case 2:
+                            pageNumber = pageNumber - 1;
+                            totalDisplayed -= pageSize + 2;
+                            break;
+                        case 3:
+                            int option = Input.integer("ESCOLHA O ID DO VEÍCULO QUE DESEJA");
+                            choosed = vehicles.get(option);
+                            working = false;
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+
+                } else {
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ESCOLHER VEÍCULO");
+                    switch (choice) {
+                        case 0:
+                            working = false;
+                            break;
+                        case 1:
+                            int option = Input.integer("ESCOLHA O ID DO VEÍCULO QUE DESEJA: ");
+                            choosed = vehicles.get(option);
+                            working = false;
+                            break;
+                        default:
+                            System.out.println("OPÇÃO INVÁLIDA\n");
+                            break;
+                    }
+
+                }
+            } catch (Exception ex) {
+                working = false;
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
+            }
+        }
+        return choosed;
+    }
 }
