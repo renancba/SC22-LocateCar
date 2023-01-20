@@ -5,6 +5,8 @@ import org.locadora.model.Agency;
 import org.locadora.model.RentalOperation;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
+import org.locadora.utils.GetDate;
+import org.locadora.utils.Input;
 import org.locadora.views.OperationUI;
 
 import java.time.LocalDate;
@@ -41,19 +43,59 @@ public class OperationController {
         return OperationUI.List(db.getOperations(), 5, 0);
     }
 
-    public void ListAll() {
+    public void listAll() {
         String options = list();
-
-        if (options.equals("EDITAR")) {
-            viewOperationInfo();
+        if (options.equals("exibir")) {
+            viewOperation();
         }
     }
 
-    public void viewOperationInfo() {
+    public void search() {
+        Database db = Database.getInstance();
+        RentalOperation operation = null;
+        int tentativas = 0;
+
+        boolean working = true;
+
+        while (working) {
+            try {
+                int operationId = Input.integer("INFORME O NUMERO DO CONTRATO: ");
+                operation = db.searchByOperationId(operationId);
+
+                if (operation == null) {
+                    if (tentativas > 3) {
+                        working = false;
+                        continue;
+                    }
+
+                    tentativas += 1;
+                    continue;
+                }
+
+                foundList(operation);
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                if (tentativas > 3) {
+                    working = false;
+                    System.out.println("voltando...\n");
+                    continue;
+                }
+
+                tentativas += 1;
+            }
+        }
+    }
+
+    public void foundList(RentalOperation operation) {
+        OperationUI.viewOperation(operation);
+    }
+
+    public void viewOperation() {
         Database db = Database.getInstance();
         try {
-            int index = OperationUI.getIndex();
-            OperationUI.view(db.getOperation(index));
+            int index = Input.integer("INFORME O ID DA LOCACAO: ");
+            OperationUI.viewOperation(db.getOperation(index));
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");
@@ -61,14 +103,13 @@ public class OperationController {
     }
 
     public void extendReturnDate(RentalOperation operation) {
-        LocalDate newDate = OperationUI.getDate();
+        LocalDate newDate = GetDate.exec("DATA DA ENTREGA: ");
         operation.updateEndDate(newDate);
     }
 
     public void returVehicle(RentalOperation operation) {
         Agency agency = OperationUI.returnVehicle(operation);
         operation.returnVehicle(agency);
-
     }
 
 

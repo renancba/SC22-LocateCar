@@ -32,12 +32,18 @@ public class AgencyUI {
 
         boolean working = true;
 
-        try {
-            while (working) {
+        while (working) {
+            try {
+
+                if (agencies.size() == 0) {
+                    System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
+                    working = false;
+                    continue;
+                }
+
                 List<Agency> paginatedAgencies = Pagination.exec(agencies, pageSize, pageNumber);
 
-
-                System.out.println("------ OPERAÇÕES ------");
+                System.out.println("------ AGÊNCIAS ------");
                 System.out.println("");
                 for (Agency agency : paginatedAgencies) {
                     System.out.println(agency.toString());
@@ -98,22 +104,22 @@ public class AgencyUI {
                             System.out.println("OPÇÃO INVÁLIDA\n");
                             break;
                     }
-                }
-            }
-        } catch (Exception ex) {
-            working = false;
-            System.out.println(ex.getMessage());
-            System.out.println("voltando...\n");
-        }
 
+                }
+            } catch (Exception ex) {
+                working = false;
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
+            }
+        }
         return option;
     }
 
     public static void viewAgency(Agency agency) {
         AgencyController agencyController = new AgencyController();
         boolean working = true;
-        try {
-            while (working) {
+        while (working) {
+            try {
                 System.out.println("------- AGÊNCIA -------");
                 System.out.println("");
                 agency.toString();
@@ -129,10 +135,10 @@ public class AgencyUI {
                     case 4 -> agencyController.edit("address", agency);
                     default -> System.out.println("-> Opção inválida \n");
                 }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
             }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("voltando...\n");
         }
     }
 

@@ -52,7 +52,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return "CEP: " + zipcode + ", " + street + " - " + number + ", " + city + " - " + state;
+        return "CEP-" + zipcode + ", " + street + " - " + number + ", " + city + " - " + state;
     }
 
 

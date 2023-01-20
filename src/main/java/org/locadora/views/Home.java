@@ -38,7 +38,8 @@ public class Home {
                     submenuAgency(option);
                 }
                 case 4 -> {
-                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS", "PESQUISAR NUMERO DO CONTRATO", "RETORNAR AO MENU INICIAL");
+                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS",
+                            "PESQUISAR NUMERO DO CONTRATO", "RETORNAR AO MENU INICIAL");
                     submenuRent(option);
                 }
                 case 0 -> {
@@ -155,18 +156,16 @@ public class Home {
                 }
                 case 1 -> {
                     System.out.println("LISTAR CONTRATOS");
-                    operationController.list();
+                    operationController.listAll();
                     executing = false;
                 }
                 case 2 -> {
                     System.out.println("PESQUISAR POR NUMERO DE CONTRATO");
+                    operationController.search();
                     executing = false;
                 }
                 case 3 -> {
-                    System.out.println("PESQUISAR POR NOME DO CLIENTE");
-                    executing = false;
-                }
-                case 4 -> { //retornar ao menu inicial
+                    //retornar ao menu inicial
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");

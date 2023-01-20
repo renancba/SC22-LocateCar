@@ -105,6 +105,7 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
     @Override
     public String toString() {
         return "--------------------------\n" +
+                "\n contrato: " + rentalID +
                 "\n Cliente: " + customer.getName() +
 //                "\n  Cpf: " + costumer.completeInfo() +
                 "\n Veículo: " + vehicle +
