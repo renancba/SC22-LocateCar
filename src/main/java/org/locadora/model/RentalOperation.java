@@ -1,5 +1,6 @@
 package org.locadora.model;
 
+import org.json.JSONObject;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
 
@@ -38,7 +39,8 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
 
     public void shortInfo() {
         System.out.println(" CONTRATO " + this.rentalID);
-        System.out.println(" AGÊNCIA " + this.agency);
+        this.agency.shortInfo();
+        System.out.println("VEÍCULO: " + this.vehicle.getVehicleManufacturer() + " " + this.vehicle.getVehicleModel());
         System.out.println(" DATA DA LOCAÇÃO: " + this.startDate);
         System.out.println(" DATA DE ENTREGA: " + this.endDate);
     }
@@ -52,7 +54,30 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
         System.out.println("------------");
         System.out.println("VEÍCULO");
         this.vehicle.completeInfo();
+    }
 
+    public JSONObject toJSONObject() {
+        JSONObject costumerObject = new JSONObject();
+
+        costumerObject.put("rentalID", this.rentalID);
+        costumerObject.put("startDate", this.startDate);
+        costumerObject.put("endDate", this.endDate);
+        costumerObject.put("cost", this.cost);
+        costumerObject.put("isOver", this.isOver);
+
+        if (customer != null) {
+            costumerObject.put("customer", customer.toJSONObject());
+        }
+
+        if (vehicle != null) {
+            costumerObject.put("telephone", vehicle.toJSONObject());
+        }
+
+        if (agency != null) {
+            costumerObject.put("telephone", agency.toJSONObject());
+        }
+
+        return costumerObject;
     }
 
     private void calculateCost() {
@@ -135,4 +160,6 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
                 "\n Agência: " + agency;
 
     }
+
+
 }
