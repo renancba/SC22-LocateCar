@@ -151,7 +151,7 @@ public class Database {
     public boolean addVehicle(Agency agency, Vehicle vehicle) {
         boolean agencyExists = false;
         for (int i = 0; i < agencies.size(); i++) {
-            if (agencies.get(i).getId().equals(agency.getId())) {
+            if (agencies.get(i).getId().equals(agency.getId()) || !agencies.contains(vehicle)) {
                 agencies.get(i).addVehicle(vehicle);
                 agencyExists = true;
                 break;
