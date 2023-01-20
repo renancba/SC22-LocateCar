@@ -87,12 +87,12 @@ public class LegalPerson extends Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LegalPerson that = (LegalPerson) o;
-        return Objects.equals(cnpj, that.cnpj) && Objects.equals(nickname, that.nickname);
+        return Objects.equals(cnpj, that.cnpj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cnpj, nickname);
+        return Objects.hash(cnpj);
     }
 
     @Override
