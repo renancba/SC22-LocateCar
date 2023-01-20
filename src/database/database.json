@@ -1,40 +1,12 @@
 {
   "operations": [
     {
-      "cost": 1498.5,
-      "endDate": "2023-02-28",
+      "cost": 1417.5,
+      "agency": 108,
+      "endDate": "2023-02-22",
       "isOver": false,
-      "telephone": {
-        "address": {
-          "zipcode": "05570200",
-          "number": "200",
-          "city": "São Paulo",
-          "street": "Rua bento de barros",
-          "state": "SP"
-        },
-        "name": "Taboão da serra",
-        "vehicles": [
-          {
-            "isAvaible": true,
-            "vehicleModel": "asdasd",
-            "registrationPlate": "asdasd",
-            "rentalFee": 55.9,
-            "cylinderCapacity": "50",
-            "vehicleManufacturer": "asdasd"
-          },
-          {
-            "transmission": "AUTOMÁTICA",
-            "isAvaible": true,
-            "vehicleModel": "VERSA",
-            "registrationPlate": "QNR6608",
-            "rentalFee": 109,
-            "vehicleManufacturer": "NISSAN"
-          }
-        ],
-        "id": 108
-      },
-      "startDate": "2023-01-22",
-      "rentalID": 72,
+      "startDate": "2023-01-18",
+      "rentalID": 81,
       "customer": {
         "address": {
           "zipcode": "200",
@@ -51,6 +23,14 @@
           "number": "963642358",
           "ddd": "11"
         }
+      },
+      "vehicle": {
+        "transmission": "AUTOMÁTICA",
+        "isAvaible": true,
+        "vehicleModel": "VERSA",
+        "registrationPlate": "QNR6608",
+        "rentalFee": 109,
+        "vehicleManufacturer": "NISSAN"
       }
     }
   ],
