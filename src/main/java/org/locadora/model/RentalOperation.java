@@ -2,6 +2,8 @@ package org.locadora.model;
 
 import org.json.JSONObject;
 import org.locadora.model.customer.Customer;
+import org.locadora.model.customer.LegalPerson;
+import org.locadora.model.customer.NaturalPerson;
 import org.locadora.model.vehicle.Vehicle;
 
 import java.math.BigDecimal;
@@ -79,11 +81,14 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
 
     private void calculateCost() {
         long days = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
-//        BigDecimal rentalFee = vehicle.getRentalFee();
-        BigDecimal rentalFee = new BigDecimal("45");
+        BigDecimal rentalFee = vehicle.getRentalFee();
 
-        if (days > 5) {
-            // 10% de desconto para locações acima de 5 dias
+
+        if (days > 5 && customer instanceof NaturalPerson) {
+            rentalFee = rentalFee.multiply(new BigDecimal("0.95"));
+        }
+
+        if (days > 3 && customer instanceof LegalPerson) {
             rentalFee = rentalFee.multiply(new BigDecimal("0.9"));
         }
 
