@@ -38,7 +38,8 @@ public class Home {
                     submenuAgency(option);
                 }
                 case 4 -> {
-                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS", "PESQUISAR NUMERO DO CONTRATO", "RETORNAR AO MENU INICIAL");
+                    option = MenuCreator.exec("DIGITE A OPÇÃO DESEJADA:", "ALUGAR VEÍCULO", "LISTAR CONTRATOS",
+                            "PESQUISAR NUMERO DO CONTRATO", "RETORNAR AO MENU INICIAL");
                     submenuRent(option);
                 }
                 case 0 -> {

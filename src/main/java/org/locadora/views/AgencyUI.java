@@ -36,7 +36,7 @@ public class AgencyUI {
             try {
                 List<Agency> paginatedAgencies = Pagination.exec(agencies, pageSize, pageNumber);
 
-                System.out.println("------ OPERAÇÕES ------");
+                System.out.println("------ AGÊNCIAS ------");
                 System.out.println("");
                 for (Agency agency : paginatedAgencies) {
                     System.out.println(agency.toString());
