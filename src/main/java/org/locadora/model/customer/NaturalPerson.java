@@ -94,20 +94,18 @@ public class NaturalPerson extends Customer {
         return this.getName() + this.getSurname();
     }
 
-    // TODO: SOBRESCREVER EQUALS, HASHCODE E TOSTRING
 
-    // PRECISA DO NAME PARA O .EQUALS?
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NaturalPerson that = (NaturalPerson) o;
-        return Objects.equals(surname, that.surname) && Objects.equals(cpf, that.cpf) && Objects.equals(driverLicense, that.driverLicense);
+        return Objects.equals(cpf, that.cpf);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(surname, cpf, driverLicense);
+        return Objects.hash(cpf);
     }
 
     @Override

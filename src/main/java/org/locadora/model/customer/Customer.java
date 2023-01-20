@@ -58,6 +58,6 @@ public abstract class Customer {
 
 
 
-// TODO: SOBRESCREVER EQUALS, HASHCODE E TOSTRING
+
 
 }
