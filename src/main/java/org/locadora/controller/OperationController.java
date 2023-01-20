@@ -17,7 +17,7 @@ public class OperationController {
         OperationUI.add();
     }
 
-    public void save(Customer customer, Agency agency, Vehicle vehicle, LocalDate startDate, LocalDate endDate) {
+    public void save(Customer customer, int agency, Vehicle vehicle, LocalDate startDate, LocalDate endDate) {
 
         Database db = Database.getInstance();
         RentalOperation operation = new RentalOperation(customer, vehicle, startDate, endDate, agency);

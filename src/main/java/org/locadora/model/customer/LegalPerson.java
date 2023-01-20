@@ -24,7 +24,6 @@ public class LegalPerson extends Customer {
         super(name);
         this.nickname = nickname;
         this.cnpj = cnpj;
-
     }
 
 

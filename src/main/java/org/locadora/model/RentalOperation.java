@@ -15,18 +15,18 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal cost;
-    private Agency agency;
+    private int agency;
 
     private boolean isOver;
 
 
-    public RentalOperation(C costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
+    public RentalOperation(C costumer, T vehicle, LocalDate startDate, LocalDate endDate, int agency) {
         this(0, costumer, vehicle, startDate, endDate, agency, new BigDecimal(0.9), false);
         this.rentalID = (int) (Math.random() * 200) + 1;
         calculateCost();
     }
 
-    public RentalOperation(Integer rentalID, C costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost, boolean isOver) {
+    public RentalOperation(Integer rentalID, C costumer, T vehicle, LocalDate startDate, LocalDate endDate, int agency, BigDecimal cost, boolean isOver) {
         this.rentalID = rentalID;
         this.customer = costumer;
         this.vehicle = vehicle;
@@ -38,8 +38,8 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
     }
 
     public void shortInfo() {
-        System.out.println(" CONTRATO " + this.rentalID);
-        this.agency.shortInfo();
+        System.out.println(" CONTRATO: " + this.rentalID);
+        System.out.println(" AGENCIA: " + this.agency);
         System.out.println("VEÍCULO: " + this.vehicle.getVehicleManufacturer() + " " + this.vehicle.getVehicleModel());
         System.out.println(" DATA DA LOCAÇÃO: " + this.startDate);
         System.out.println(" DATA DE ENTREGA: " + this.endDate);
@@ -64,6 +64,7 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
         costumerObject.put("endDate", this.endDate);
         costumerObject.put("cost", this.cost);
         costumerObject.put("isOver", this.isOver);
+        costumerObject.put("agency", this.agency);
 
         if (customer != null) {
             costumerObject.put("customer", customer.toJSONObject());
@@ -71,10 +72,6 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
 
         if (vehicle != null) {
             costumerObject.put("vehicle", vehicle.toJSONObject());
-        }
-
-        if (agency != null) {
-            costumerObject.put("agency", agency.getId());
         }
 
         return costumerObject;
@@ -121,7 +118,7 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
         return cost;
     }
 
-    public Agency getAgency() {
+    public int getAgency() {
         return agency;
     }
 

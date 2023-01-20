@@ -127,11 +127,17 @@ class JSONObjectFactory {
     public RentalOperation createOperation(JSONObject operation) {
         Customer customer = createCustomer((JSONObject) operation.get("customer"));
         Vehicle vehicle = createVehicle((JSONObject) operation.get("vehicle"));
-        Agency agency = createAgency((JSONObject) operation.get("agency"));
 
-        Integer contrato = (Integer) operation.get("id");
-        LocalDate startDate = (LocalDate) operation.get("startDate");
-        LocalDate endDate = (LocalDate) operation.get("endDate");
+        Integer rentalID = (Integer) operation.get("rentalID");
+        Integer agency = (Integer) operation.get("agency");
+
+        String startDateString = (String) operation.get("startDate");
+        LocalDate startDate = LocalDate.parse(startDateString);
+
+        String endDateString = (String) operation.get("endDate");
+        LocalDate endDate = LocalDate.parse(endDateString);
+
+
         boolean isOver = (boolean) operation.get("isOver");
 
         Object costObject = operation.get("cost");
@@ -145,8 +151,7 @@ class JSONObjectFactory {
             cost = new BigDecimal(((Integer) costObject).toString());
         }
 
-
-        return new RentalOperation(contrato, customer, vehicle, startDate, endDate, agency, cost, isOver);
+        return new RentalOperation(rentalID, customer, vehicle, startDate, endDate, agency, cost, isOver);
     }
 
 

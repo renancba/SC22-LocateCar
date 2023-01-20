@@ -23,6 +23,7 @@ public class Database {
     private Path dbPath;
     private List<Customer> customers;
     private DataReader dataReader;
+
     private List<Vehicle> vehicles;
     private List<Agency> agencies;
     private List<RentalOperation> operations;
@@ -42,8 +43,8 @@ public class Database {
 
     public void init() throws IOException {
         customers = dataReader.readCustomers();
-        agencies = dataReader.readAgencies();
         operations = dataReader.readOperations();
+        agencies = dataReader.readAgencies();
     }
 
     public Customer getCustomer(int index) {
@@ -241,7 +242,6 @@ public class Database {
             operationsArray.put(operationObject);
         }
 
-        //Preciso tratar a null pointer aqui
         JSONObject object = new JSONObject().put("customers", costumersArray).put("operations", operationsArray).put("agencies", agenciesArray);
         Files.writeString(dbPath, object.toString(), StandardOpenOption.WRITE);
 
