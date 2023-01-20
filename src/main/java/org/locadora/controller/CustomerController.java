@@ -2,6 +2,7 @@ package org.locadora.controller;
 
 import org.locadora.database.Database;
 import org.locadora.model.Address;
+import org.locadora.model.Agency;
 import org.locadora.model.Telephone;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.customer.LegalPerson;
@@ -10,6 +11,8 @@ import org.locadora.utils.Input;
 import org.locadora.utils.InputAddress;
 import org.locadora.utils.InputTelephone;
 import org.locadora.views.CustomerUI;
+
+import java.util.List;
 
 public class CustomerController {
 
@@ -120,6 +123,13 @@ public class CustomerController {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");
         }
     }
+
+    public Customer searchByDocument() throws Exception {
+        Database db = Database.getInstance();
+        String customerDocument = Input.stringNotNullable("INFORME O NÚMERO DO CPF/CNPJ: ", 3);
+        return db.searchCustomerByDocument(customerDocument.toUpperCase());
+    }
+
 
 }
 

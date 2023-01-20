@@ -110,6 +110,13 @@ public class Database {
                 .orElse(null);
     }
 
+    public Customer searchCustomerByDocument(String document) {
+        return customers.stream()
+                .filter(customer -> customer.getDocument().equalsIgnoreCase(document))
+                .findFirst()
+                .orElse(null);
+    }
+
     public RentalOperation searchByOperationId(Integer id) {
         return operations.stream()
                 .filter(operation -> operation.getRentalID().equals(id))
