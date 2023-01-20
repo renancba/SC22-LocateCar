@@ -107,10 +107,11 @@ public class OperationUI {
                         case 0:
                             working = false;
                             break;
-                        case 2:
+                        case 1:
                             option = "exibir";
+                            working = false;
                             break;
-                        case 3:
+                        case 2:
                             add();
                             break;
                         default:

@@ -171,7 +171,6 @@ public class Database {
         return agencyExists;
     }
 
-
     public void deleteAll() {
         customers.clear();
     }

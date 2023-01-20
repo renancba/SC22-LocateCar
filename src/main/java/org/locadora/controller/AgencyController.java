@@ -4,7 +4,6 @@ package org.locadora.controller;
 import org.locadora.database.Database;
 import org.locadora.model.Address;
 import org.locadora.model.Agency;
-import org.locadora.utils.GetIndex;
 import org.locadora.utils.Input;
 import org.locadora.utils.InputAddress;
 import org.locadora.views.AgencyUI;
@@ -89,7 +88,7 @@ public class AgencyController {
             String option = AgencyUI.searchBy();
 
             if (option == "codigo") {
-                int agencyId = GetIndex.exec("INFORME O CÓDIGO DA AGÊNCIA: ");
+                int agencyId = Input.integer("INFORME O CÓDIGO DA AGÊNCIA: ");
                 Agency agency = db.searchByAgencyId(agencyId);
 
                 if (agency != null) {
@@ -115,7 +114,7 @@ public class AgencyController {
     public void viewAgency() {
         Database db = Database.getInstance();
         try {
-            int index = GetIndex.exec("DIGITE O ID QUE DESEJA EXIBIR: ");
+            int index = Input.integer("DIGITE O ID QUE DESEJA EXIBIR: ");
             AgencyUI.viewAgency(db.getAgency(index));
 
 

@@ -6,13 +6,10 @@ import org.locadora.model.RentalOperation;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
 import org.locadora.utils.GetDate;
-import org.locadora.utils.GetIndex;
 import org.locadora.utils.Input;
-import org.locadora.views.AgencyUI;
 import org.locadora.views.OperationUI;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class OperationController {
 
@@ -56,16 +53,37 @@ public class OperationController {
     public void search() {
         Database db = Database.getInstance();
         RentalOperation operation = null;
+        int tentativas = 0;
 
-        try {
-            int operationId = Input.integer("INFORME O NUMERO DO CONTRATO: ");
-            operation = db.searchByOperationId(operationId);
+        boolean working = true;
 
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("voltando...\n");
-        } finally {
-            foundList(operation);
+        while (working) {
+            try {
+                int operationId = Input.integer("INFORME O NUMERO DO CONTRATO: ");
+                operation = db.searchByOperationId(operationId);
+
+                if (operation == null) {
+                    if (tentativas > 3) {
+                        working = false;
+                        continue;
+                    }
+
+                    tentativas += 1;
+                    continue;
+                }
+
+                foundList(operation);
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                if (tentativas > 3) {
+                    working = false;
+                    System.out.println("voltando...\n");
+                    continue;
+                }
+
+                tentativas += 1;
+            }
         }
     }
 
