@@ -49,12 +49,12 @@ public class AgencyController {
     }
 
     public void foundList(List<Agency> foundAgencies) {
-        if (foundAgencies.size() > 1) {
+        if (foundAgencies.size() == 0) {
+            AgencyUI.viewAgency(foundAgencies.get(0));
+        } else {
             if (AgencyUI.list(foundAgencies, 5, 0).equals("exibir")) {
                 viewAgency();
             }
-        } else {
-            AgencyUI.viewAgency(foundAgencies.get(0));
         }
     }
 
@@ -84,30 +84,36 @@ public class AgencyController {
         Database db = Database.getInstance();
         List<Agency> agencies = new ArrayList<>();
 
-        try {
-            String option = AgencyUI.searchBy();
+        boolean working = true;
 
-            if (option == "codigo") {
-                int agencyId = Input.integer("INFORME O CÓDIGO DA AGÊNCIA: ");
-                Agency agency = db.searchByAgencyId(agencyId);
+        while (working) {
+            try {
+                String option = AgencyUI.searchBy();
 
-                if (agency != null) {
-                    agencies.add(agency);
+                if (option == "codigo") {
+                    int agencyId = Input.integer("INFORME O CÓDIGO DA AGÊNCIA: ");
+                    Agency agency = db.searchByAgencyId(agencyId);
+
+                    if (agency != null) {
+                        agencies.add(agency);
+                    }
+
+                } else if (option == "name") {
+                    String param = Input.stringNotNullable("INFORME O NOME DA AGÊNCIA OU O LOGRADOURO", 3);
+                    List<Agency> foundAgencies = db.searchAgencies(param.toUpperCase());
+
+                    if (foundAgencies.size() > 0) {
+                        agencies = foundAgencies;
+                    }
                 }
-            } else if (option == "name") {
-                String param = Input.stringNotNullable("INFORME O NOME DA AGÊNCIA OU O LOGRADOURO", 3);
-                List<Agency> foundAgencies = db.searchAgencies(param.toUpperCase());
 
-                if (foundAgencies.size() > 0) {
-                    agencies = foundAgencies;
-                }
+                foundList(agencies);
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
+
             }
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("voltando...\n");
-        } finally {
-            foundList(agencies);
         }
     }
 

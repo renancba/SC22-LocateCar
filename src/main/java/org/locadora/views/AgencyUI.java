@@ -34,6 +34,13 @@ public class AgencyUI {
 
         while (working) {
             try {
+
+                if (agencies.size() == 0) {
+                    System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
+                    working = false;
+                    continue;
+                }
+
                 List<Agency> paginatedAgencies = Pagination.exec(agencies, pageSize, pageNumber);
 
                 System.out.println("------ AGÊNCIAS ------");

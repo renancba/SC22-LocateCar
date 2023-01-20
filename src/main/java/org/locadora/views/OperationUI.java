@@ -54,6 +54,13 @@ public class OperationUI {
 
         while (working) {
             try {
+
+                if (operations.size() == 0) {
+                    System.out.println("NENHUMA OPERACAO ENCONTRADA");
+                    working = false;
+                    continue;
+                }
+
                 List<RentalOperation> paginatedOperations = Pagination.exec(operations, pageSize, pageNumber);
 
                 // display the paginated list
