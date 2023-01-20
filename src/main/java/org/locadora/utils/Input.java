@@ -3,6 +3,7 @@ package org.locadora.utils;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class Input {
@@ -84,17 +85,16 @@ public class Input {
             isInvalid = false;
 
             try {
-                System.out.println(nomeDoCampo);
                 String input = string(nomeDoCampo);
 
                 if (!input.isBlank()) {
                     output = (BigDecimal) decimalFormat.parse(input);
                 }
 
-            } catch (NumberFormatException ex) {
+            } catch (ParseException ex) {
                 tentadas += 1;
 
-                System.out.printf("NÚMERO INVÁLIDO, TENTE NOVAMENTE\n");
+                System.out.printf("NÚMERO INVÁLIDO, TENTE NOVAMENTE ex: 40 ou 40,50\n");
                 if (tentadas < tentativas) {
                     isInvalid = true;
                     continue;
@@ -104,7 +104,7 @@ public class Input {
             } catch (Exception ex) {
                 tentadas += 1;
 
-                System.out.printf("-> % não pode ser nulo\n", ex.getMessage());
+                System.out.printf("-> % não pode ser nulo\n");
                 if (tentadas < tentativas) {
                     isInvalid = true;
                     continue;

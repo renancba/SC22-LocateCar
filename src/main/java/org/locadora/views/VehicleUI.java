@@ -67,14 +67,6 @@ public class VehicleUI {
 
     }
 
-    public static int getIndex() throws Exception {
-        int index = 0;
-
-        index = Input.integer("DIGITE O ID QUE DESEJA EXIBIR: ");
-        System.out.println("");
-        return index;
-    }
-
     public static String list(List<Vehicle> vehicles, Agency agency, int pageSize, int pageNumber) {
         String option = "";
 
@@ -91,10 +83,10 @@ public class VehicleUI {
 
                 List<Vehicle> paginatedVehicles = Pagination.exec(vehicles, pageSize, pageNumber);
 
-                System.out.println("------ AGÊNCIAS ------");
+                System.out.println("------ VEÍCULOS ------");
                 System.out.println("");
                 for (int i = 0; i < paginatedVehicles.size(); i++) {
-                    System.out.print(" ID: " + i + "\n");
+                    System.out.print("ID: " + i + "\n");
                     paginatedVehicles.get(i).shortInfo();
                     System.out.println("-------------------------\n");
                 }

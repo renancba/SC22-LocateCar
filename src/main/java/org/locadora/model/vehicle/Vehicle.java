@@ -16,6 +16,7 @@ public abstract class Vehicle {
         this.vehicleModel = vehicleModel;
         this.registrationPlate = registrationPlate;
         this.rentalFee = rentalFee;
+        this.isAvaible = true;
     }
 
     public Vehicle() {
