@@ -89,6 +89,12 @@ public class VehicleUI {
                     List<Vehicle> paginatedVehicles = Pagination.exec(vehicles.stream().filter(vehicle ->
                             vehicle.getAvaible() == true).collect(Collectors.toList()), pageSize, pageNumber);
 
+                    if (paginatedVehicles.size() == 0) {
+                        System.out.println("NENHUM VEÍCULO DISPONÍVEL\n");
+                        working = false;
+                        continue;
+                    }
+
                     System.out.println("------ VEÍCULOS ------");
                     System.out.println("");
                     for (int i = 0; i < paginatedVehicles.size(); i++) {
