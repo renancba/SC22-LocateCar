@@ -158,12 +158,6 @@ public class CustomerUI {
 
             try {
 
-                if (customers.size() == 0) {
-                    System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
-                    working = false;
-                    continue;
-                }
-
                 List<Customer> paginatedCustomers = Pagination.exec(customers, pageSize, pageNumber);
 
                 System.out.println("------ CLIENTES ------");
@@ -183,6 +177,7 @@ public class CustomerUI {
                             break;
                         case 1:
                             add();
+                            working = false;
                             break;
                         default:
                             System.out.println("OPÇÃO INVÁLIDA\n");
