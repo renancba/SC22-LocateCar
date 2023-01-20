@@ -154,18 +154,16 @@ public class Home {
                 }
                 case 1 -> {
                     System.out.println("LISTAR CONTRATOS");
-                    operationController.list();
+                    operationController.listAll();
                     executing = false;
                 }
                 case 2 -> {
                     System.out.println("PESQUISAR POR NUMERO DE CONTRATO");
+                    operationController.search();
                     executing = false;
                 }
                 case 3 -> {
-                    System.out.println("PESQUISAR POR NOME DO CLIENTE");
-                    executing = false;
-                }
-                case 4 -> { //retornar ao menu inicial
+                    //retornar ao menu inicial
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");
