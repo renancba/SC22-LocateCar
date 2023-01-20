@@ -137,9 +137,9 @@ public class VehicleController {
                 vehicle.setRegistrationPlate(Input.stringNotNullable("INFORME A PLACA DO VEÍCULO: ", 3));
             }
             case "marca/modelo" -> {
-                vehicle.setVehicleManufacturer(Input.stringNotNullable("INFORME UMA NOVA TRANSMISSÂO (MANUAL/AUTOMÁTICA): ", 3));
-                vehicle.setVehicleModel(Input.stringNotNullable("INFORME UMA NOVA TRANSMISSÂO (MANUAL/AUTOMÁTICA): ", 3));
-                vehicle.setRegistrationPlate(Input.stringNotNullable("INFORME UMA NOVA TRANSMISSÂO (MANUAL/AUTOMÁTICA): ", 3));
+                vehicle.setVehicleManufacturer(Input.stringNotNullable("INFORME A FABRICANTE DO VEÍCULO: ", 3));
+                vehicle.setVehicleModel(Input.stringNotNullable("INFORME O MODELO DO VEÍCULO: ", 3));
+                vehicle.setRegistrationPlate(Input.stringNotNullable("INFORME A PLACA DO VEÍCULO: ", 3));
             }
         }
 
