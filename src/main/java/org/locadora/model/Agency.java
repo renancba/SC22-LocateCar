@@ -98,10 +98,8 @@ public class Agency<T extends Vehicle> {
 
     @Override
     public String toString() {
-        return "Agency{" +
-                "name='" + name + '\'' +
-                ", address=" + address +
-                '}';
+        return "NOME DA AGÊNCIA: " + name + "\n" +
+                "ENDEREÇO: " + address + "\n";
     }
 
 
