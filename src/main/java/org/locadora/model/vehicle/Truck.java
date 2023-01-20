@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 
 public class Truck extends Vehicle {
+
+        int numberOfAxles;
         public Truck() {
         }
 

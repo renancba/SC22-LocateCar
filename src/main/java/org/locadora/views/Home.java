@@ -85,16 +85,19 @@ public class Home {
         boolean executing = true;
         while (executing) {
             switch (option) {
-                case 0 -> { // CADASTRAR
+                case 0 -> {
+                    // CADASTRAR
                     vehicleController.create();
                     executing = false;
                 }
-                case 1 -> { // LISTAR
+                case 1 -> {
+                    // LISTAR
                     System.out.println("LISTANDO VEÍCULO...");
                     //vehicleController
                     executing = false;
                 }
-                case 2 -> { // ALTERAR
+                case 2 -> {
+                    // ALTERAR
                     System.out.println("ALTERANDO VEÍCULO..."); // TODO: CRIAR UM ALTERAR VEÍCULO
                     executing = false;
                 }
@@ -103,7 +106,8 @@ public class Home {
                     //vehicleController.search();
                     executing = false;
                 }
-                case 4 -> { // RETORNAR AO MENU INICIAL
+                case 4 -> {
+                    // RETORNAR AO MENU INICIAL
                     executing = false;
                 }
                 default -> System.out.println("OPÇÃO INVÁLIDA");

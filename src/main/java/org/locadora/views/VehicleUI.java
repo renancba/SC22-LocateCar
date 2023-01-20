@@ -8,6 +8,7 @@ import org.locadora.model.vehicle.Vehicle;
 import org.locadora.utils.Input;
 import org.locadora.utils.MenuCreator;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class VehicleUI {
@@ -17,6 +18,7 @@ public class VehicleUI {
         String vehicleManufacturer;
         String vehicleModel;
         String registrationPlate;
+        String rentalFee;
 
         option = MenuCreator.exec("DIGITE O TIPO DE VEÍCULO A SER ADICIONADO","MOTO", "CARRO", "CAMINHÃO");
 
@@ -26,6 +28,7 @@ public class VehicleUI {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
+                    rentalFee = Input.stringNotNullable("TAXA DE LOCAÇÃO : ", 3);
 
                     vehicleController.saveMotorcycle(vehicleManufacturer, vehicleModel, registrationPlate);
 
