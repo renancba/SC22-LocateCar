@@ -9,7 +9,9 @@ import org.locadora.model.Telephone;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.customer.LegalPerson;
 import org.locadora.model.customer.NaturalPerson;
+import org.locadora.model.vehicle.Car;
 import org.locadora.model.vehicle.Motorcycle;
+import org.locadora.model.vehicle.Truck;
 import org.locadora.model.vehicle.Vehicle;
 
 import java.math.BigDecimal;
@@ -54,10 +56,29 @@ class JSONObjectFactory {
     }
 
     public Vehicle createVehicle(JSONObject vehicle) {
-        String vehicleManufacturer = (String) vehicle.get("manufacturer");
-        String vehicleModel = (String) vehicle.get("model");
-        String vehicleRegPlate = (String) vehicle.get("registration plate");
-        return new Motorcycle(vehicleManufacturer, vehicleModel, vehicleRegPlate);
+
+
+        String vehicleManufacturer = (String) vehicle.get("vehicleManufacturer");
+        String vehicleModel = (String) vehicle.get("vehicleModel");
+        String vehicleRegPlate = (String) vehicle.get("registrationPlate");
+        boolean isAvaible = vehicle.optBoolean ("isAvaible", true);
+        BigDecimal rentalFee = new BigDecimal((String) vehicle.get("rentalFee"));
+
+        if (vehicle.has("cylinderCapacity")) {
+
+            String cylinderCapacity = (String) vehicle.get("cylinderCapacity");
+            return new Motorcycle(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, cylinderCapacity);
+
+        } else if (vehicle.has("transmission")) {
+
+            String transmission = (String) vehicle.get("transmission");
+            return new Car(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, transmission);
+
+        } else {
+
+            String numberOfAxles = (String) vehicle.get("number of axles");
+            return new Truck(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, numberOfAxles);
+        }
     }
 
     public Agency createAgency(JSONObject agency) {

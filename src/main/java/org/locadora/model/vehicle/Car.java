@@ -21,6 +21,7 @@ public class Car extends Vehicle {
         vehicleObject.put("registrationPlate", registrationPlate);
         vehicleObject.put("isAvaible", isAvaible);
         vehicleObject.put("rentalFee", rentalFee);
+        vehicleObject.put("transmission", transmission);
         return vehicleObject;
     }
 

@@ -175,7 +175,7 @@ public class VehicleUI {
 
                 if (vehicle instanceof Car) {
 
-                    switch (MenuCreator.exec(".:: OPÇÕES DE VEÍCULO ::.", "VOLTAR", "EDITAR TRANSMISSÂO", "EDITAR MARCA OU MODELO")) {
+                    switch (MenuCreator.exec(".:: OPÇÕES DE VEÍCULO ::.", "VOLTAR", "EDITAR TRANSMISSÃO", "EDITAR MARCA OU MODELO")) {
                         case 0 -> {
                             working = false;
                         }

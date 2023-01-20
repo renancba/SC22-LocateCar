@@ -96,7 +96,14 @@ public class Agency<T extends Vehicle> {
     public void completeInfo() {
         this.shortInfo();
         System.out.println(" ENDEREÇO: " + address);
-        System.out.println("VEÍCULOS: " + vehicles.size());
+        if (vehicles == null) {
+            System.out.println("\n SEM VEÍCULOS CADASTRADOS NESTA AGÊNCIA!");
+        } else {
+            for (Vehicle vehicle: vehicles) {
+                vehicle.shortInfo();
+            }
+        }
+
     }
 
     @Override

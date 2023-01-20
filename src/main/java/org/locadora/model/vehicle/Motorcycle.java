@@ -21,6 +21,7 @@ public class Motorcycle extends Vehicle {
         vehicleObject.put("registrationPlate", registrationPlate);
         vehicleObject.put("isAvaible", isAvaible);
         vehicleObject.put("rentalFee", rentalFee);
+        vehicleObject.put("cylinderCapacity", cylinderCapacity);
         return vehicleObject;
     }
 

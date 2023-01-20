@@ -128,8 +128,6 @@ public class AgencyUI {
                 System.out.println("\n------- AGÊNCIA -------");
                 agency.completeInfo();
                 System.out.println("-------------------------\n");
-
-
                 switch (MenuCreator.exec(".:: OPÇÕES DE AGÊNCIA ::.", "VOLTAR", "CADASTRAR VEÍCULO", "LISTAR VEICULOS", "EDITAR NOME", "EDITAR ENDERECO")) {
                     case 0 -> {
                         working = false;

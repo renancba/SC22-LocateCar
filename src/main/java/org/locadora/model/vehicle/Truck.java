@@ -21,6 +21,8 @@ public class Truck extends Vehicle {
         vehicleObject.put("registrationPlate", registrationPlate);
         vehicleObject.put("isAvaible", isAvaible);
         vehicleObject.put("rentalFee", rentalFee);
+        vehicleObject.put("numberOfAxles", numberOfAxles);
+        //TODO: FALTARIA O NUMBEROFAXLES AQUI?
         return vehicleObject;
     }
 
