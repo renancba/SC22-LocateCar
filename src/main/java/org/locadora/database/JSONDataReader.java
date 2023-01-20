@@ -18,8 +18,6 @@ import java.util.List;
 interface DataReader {
     List<Customer> readCustomers() throws IOException;
 
-    List<Vehicle> readVehicles() throws IOException;
-
     List<Agency> readAgencies() throws IOException;
 
     List<RentalOperation> readOperations() throws IOException;
@@ -62,21 +60,6 @@ class JSONDataReader implements DataReader {
             return operations;
         } catch (JSONException jex) {
             return operations;
-        }
-    }
-
-    public List<Vehicle> readVehicles() throws IOException {
-        List<Vehicle> vehicles = new ArrayList<>();
-        try {
-            JSONObject vehiclesObject = new JSONObject(String.join(" ", Files.readAllLines(dbPath, StandardCharsets.UTF_8)));
-            JSONArray vehiclesArray = (JSONArray) vehiclesObject.get("vehicles");
-            for (Object vehicleObject : vehiclesArray) {
-                JSONObject vehicle = (JSONObject) vehicleObject;
-                vehicles.add(objectFactory.createVehicle(vehicle));
-            }
-            return vehicles;
-        } catch (JSONException jex) {
-            return vehicles;
         }
     }
 

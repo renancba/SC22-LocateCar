@@ -11,7 +11,12 @@ public class Truck extends Vehicle {
     public Truck(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String numberOfAxles) {
         super(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee);
         this.numberOfAxles = numberOfAxles;
-        super.rentalFee = rentalFee;
+    }
+
+    public Truck(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String numberOfAxles, boolean isAvaliable) {
+        super(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee);
+        super.isAvaible = isAvaliable;
+        this.numberOfAxles = numberOfAxles;
     }
 
     public JSONObject toJSONObject() {

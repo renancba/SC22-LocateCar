@@ -75,8 +75,9 @@ public class VehicleUI {
         while (working) {
             try {
 
+
                 if (vehicles.size() == 0) {
-                    System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
+                    System.out.println("NENHUM VEÍCULO ENCONTRADA");
                     working = false;
                     continue;
                 }

@@ -82,10 +82,15 @@ public class VehicleController {
         AgencyController agencyController = new AgencyController();
         try {
             Agency agency = agencyController.searchById();
-            String option = list(agency);
 
-            if (option.equals("exibir")) {
-                viewVehicle(agency);
+            if(agency != null){
+                String option = list(agency);
+
+                if (option.equals("exibir")) {
+                    viewVehicle(agency);
+                }
+            }else{
+                System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage() + "VOLTANDO AO MENU PRINCIPAL ...\n");

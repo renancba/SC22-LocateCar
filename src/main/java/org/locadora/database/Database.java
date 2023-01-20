@@ -42,7 +42,6 @@ public class Database {
 
     public void init() throws IOException {
         customers = dataReader.readCustomers();
-        vehicles = dataReader.readVehicles();
         agencies = dataReader.readAgencies();
         operations = dataReader.readOperations();
     }

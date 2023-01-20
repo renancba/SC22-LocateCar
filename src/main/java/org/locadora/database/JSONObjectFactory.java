@@ -16,6 +16,8 @@ import org.locadora.model.vehicle.Vehicle;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 class JSONObjectFactory {
@@ -57,27 +59,36 @@ class JSONObjectFactory {
 
     public Vehicle createVehicle(JSONObject vehicle) {
 
-
         String vehicleManufacturer = (String) vehicle.get("vehicleManufacturer");
         String vehicleModel = (String) vehicle.get("vehicleModel");
         String vehicleRegPlate = (String) vehicle.get("registrationPlate");
-        boolean isAvaible = vehicle.optBoolean ("isAvaible", true);
-        BigDecimal rentalFee = new BigDecimal((String) vehicle.get("rentalFee"));
+        boolean isAvaible = vehicle.optBoolean("isAvaible", true);
+
+        Object rentalFeeObject = vehicle.get("rentalFee");
+        BigDecimal rentalFee;
+
+        if (rentalFeeObject instanceof BigDecimal) {
+            rentalFee = (BigDecimal) rentalFeeObject;
+        } else if (rentalFeeObject instanceof Double) {
+            rentalFee = new BigDecimal(((Double) rentalFeeObject).toString());
+        } else {
+            rentalFee = new BigDecimal(((Integer) rentalFeeObject).toString());
+        }
 
         if (vehicle.has("cylinderCapacity")) {
 
             String cylinderCapacity = (String) vehicle.get("cylinderCapacity");
-            return new Motorcycle(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, cylinderCapacity);
+            return new Motorcycle(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, cylinderCapacity, isAvaible);
 
         } else if (vehicle.has("transmission")) {
 
             String transmission = (String) vehicle.get("transmission");
-            return new Car(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, transmission);
+            return new Car(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, transmission, isAvaible);
 
         } else {
 
             String numberOfAxles = (String) vehicle.get("number of axles");
-            return new Truck(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, numberOfAxles);
+            return new Truck(vehicleManufacturer, vehicleModel, vehicleRegPlate, rentalFee, numberOfAxles, isAvaible);
         }
     }
 
@@ -94,23 +105,21 @@ class JSONObjectFactory {
         String state = (String) address.get("state");
 
         Address newAddress = new Address(cep, street, number, city, state);
-
         Agency newAgency = new Agency(agencyName, newAddress);
         newAgency.setId(id);
 
+        JSONArray vehiclesArray = (JSONArray) agency.get("vehicles");
 
-//        JSONArray vehiclesArray = (JSONArray) agency.get("vehicles");
+        for (Object vehicleObject : vehiclesArray) {
+            JSONObject vehicle = (JSONObject) vehicleObject;
 
-//        for (Object vehicleObject : vehiclesArray) {
-//            JSONObject contact = (JSONObject) vehicleObject;
-//
-//            String name = (String) contact.get("name");
-//            String surname = (String) contact.get("surname");
-//            Contact newContact = new Contact(name, surname);
-//            getAddresses(contact, newContact);
-//            getTelephones(contact, newContact);
-//            contacts.add(newContact);
-//        }
+            Vehicle responseVehicle = createVehicle(vehicle);
+
+            if (vehicle != null) {
+                newAgency.addVehicle(responseVehicle);
+            }
+        }
+
 
         return newAgency;
     }

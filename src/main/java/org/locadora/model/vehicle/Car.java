@@ -11,7 +11,12 @@ public class Car extends Vehicle {
     public Car(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String transmission) {
         super(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee);
         this.transmission = transmission;
-        super.rentalFee = rentalFee;
+    }
+
+    public Car(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String transmission, boolean isAvaliable) {
+        super(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee);
+        super.isAvaible = isAvaliable;
+        this.transmission = transmission;
     }
 
     public JSONObject toJSONObject() {
