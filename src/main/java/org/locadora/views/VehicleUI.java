@@ -35,7 +35,7 @@ public class VehicleUI {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
-                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO : ", 3);
+                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO (MOTO: 100 | CARRO: 150 | CAMINHÃO: 200) : ", 3);
                     String cylinderCapacity = Input.stringNotNullable("QUANTIDADE DE CILINDROS: ", 3);
 
                     vehicleController.saveMotorcycle(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, cylinderCapacity, agency);
@@ -44,7 +44,7 @@ public class VehicleUI {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
-                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO : ", 3);
+                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO (MOTO: 100 | CARRO: 150 | CAMINHÃO: 200) : ", 3);
                     String transmission = Input.stringNotNullable("Transmissão : ", 3);
 
                     vehicleController.saveCar(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, transmission, agency);
@@ -53,7 +53,7 @@ public class VehicleUI {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
-                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO: ", 3);
+                    rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO (MOTO: 100 | CARRO: 150 | CAMINHÃO: 200) : ", 3);
                     String numberOfAxies = Input.stringNotNullable("NUMERO DE EIXOS: ", 3);
 
                     vehicleController.saveTruck(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfAxies, agency);

@@ -188,9 +188,9 @@ public class OperationUI {
 
         while (working) {
             try {
-                System.out.println("------- CONTATO -------");
+                System.out.println("------- OPERAÇÃO -------");
                 System.out.println("");
-                operation.toString();
+                operation.completeInfo();
 
                 switch (MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "EXTENDER DEVOLUÇÃO", "REALIZAR DEVOLUÇÃO")) {
                     case 0 -> {
