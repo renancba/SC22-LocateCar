@@ -2,7 +2,9 @@ package org.locadora.views;
 
 
 import org.locadora.controller.AgencyController;
+import org.locadora.controller.CustomerController;
 import org.locadora.controller.OperationController;
+import org.locadora.controller.VehicleController;
 import org.locadora.utils.MenuCreator;
 
 public class Home {
@@ -51,16 +53,16 @@ public class Home {
 
     // TODO: NÃO SOUBE EXATAMENTE SE ESSES SUBMENUS ENTRARIAM AQUI. CONTINUAR IMPLEMENTANDO.
     public static void submenuCustomer(Integer option) {
-        CustomerUI customerUI = new CustomerUI();
+        CustomerController customerController = new CustomerController();
         boolean executing = true;
         while (executing) {
             switch (option) {
                 case 0 -> { // CADASTRAR
-                    customerUI.add();
+                    customerController.create();
                     executing = false;
                 }
                 case 1 -> { // LISTAR
-                    customerUI.paginatedCustomerList(null, 5, 0);
+                    customerController.listAll();
                     executing = false;
 
                 }
@@ -77,17 +79,17 @@ public class Home {
     }
 
     public static void submenuVehicle(Integer option) {
-        VehicleUI vehicleUI = new VehicleUI();
+        VehicleController vehicleController = new VehicleController();
         boolean executing = true;
         while (executing) {
             switch (option) {
                 case 0 -> { // CADASTRAR
-                    vehicleUI.add();
+                    vehicleController.create();
                     executing = false;
                 }
                 case 1 -> { // LISTAR
                     System.out.println("LISTANDO VEÍCULO...");
-                    vehicleUI.paginatedList(null); //TODO: FAZER METODO PAGINADO COMO O DA CUSTOMER E ADICIONAR AQUI
+                    //vehicleController
                     executing = false;
                 }
                 case 2 -> { // ALTERAR
@@ -96,7 +98,7 @@ public class Home {
                 }
                 case 3 -> {
                     System.out.println("BUSCANDO VEÍCULO");
-                    vehicleUI.search();
+                    //vehicleController.search();
                     executing = false;
                 }
                 case 4 -> { // RETORNAR AO MENU INICIAL

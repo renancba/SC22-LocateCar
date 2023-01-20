@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 
 public class Motorcycle extends Vehicle {
+
+    private String cylinderCapacity;
     public Motorcycle() {
     }
 

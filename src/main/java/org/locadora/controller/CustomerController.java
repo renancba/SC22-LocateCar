@@ -5,6 +5,7 @@ import org.locadora.model.Address;
 import org.locadora.model.Telephone;
 import org.locadora.model.customer.LegalPerson;
 import org.locadora.model.customer.NaturalPerson;
+import org.locadora.views.AgencyUI;
 import org.locadora.views.CustomerUI;
 
 public class CustomerController {
@@ -57,6 +58,16 @@ public class CustomerController {
             System.out.println("");
         }
     }
+    public String list() {
+        Database db = Database.getInstance();
+        return CustomerUI.paginatedCustomerList(db.getCustomers(), 5, 0);
+    }
+    public void listAll() {
+        String option = list();
+        if (option.equals("exibir")) {
+            viewCustomerInfo();
+        }
+    }
 
     public void view() {
         String option = paginatedList();
@@ -65,7 +76,7 @@ public class CustomerController {
         }
     }
 
-    public void viewCustomerInfo() {
+    public void viewCustomerInfo() { //TODO: VER SE ISSO ESTÁ FUNCIONANDO COMO A DA AGÊNCIA. VAMOS COLOCAR ID?
         Database db = Database.getInstance();
         try {
             int index = CustomerUI.getIndex();
