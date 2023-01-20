@@ -107,6 +107,7 @@ public class AgencyController {
                 foundList(agencies);
 
             } catch (Exception ex) {
+                working = false;
                 System.out.println(ex.getMessage());
                 System.out.println("voltando...\n");
 
