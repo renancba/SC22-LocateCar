@@ -157,11 +157,11 @@ public class CustomerUI {
                 System.out.println("------ CLIENTES ------");
                 System.out.println("");
                 for (int i = 0; i< paginatedCustomers.size();i++){
-                    System.out.print(" ID: "+ i+ " ");
+                    System.out.print(" ID: " + i + "\n");
                     paginatedCustomers.get(i).shortInfo();
+                    System.out.println("-------------------------\n");
                 }
 
-                System.out.println("--------------------------");
 
                 if (customers.size() == 0) {
                     int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE");
@@ -177,7 +177,7 @@ public class CustomerUI {
                             break;
                     }
                 } else if (customers.size() > pageSize) {
-                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PAGINA SEGUINTE", "PAGINA ANTERIOR", "EXIBIR CONTATO", "ADICIONAR CONTATO");
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "PÁGINA SEGUINTE", "PÁGINA ANTERIOR", "EXIBIR CLIENTE", "ADICIONAR CLIENTE");
                     switch (choice) {
                         case 0:
                             working = false;
@@ -201,7 +201,7 @@ public class CustomerUI {
                     }
 
                 } else {
-                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR CONTATO", "ADICIONAR CONTATO");
+                    int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "EXIBIR CLIENTE", "ADICIONAR CLIENTE");
                     switch (choice) {
                         case 0:
                             working = false;
@@ -237,11 +237,11 @@ public class CustomerUI {
 
 
             if (customer instanceof NaturalPerson){
-                System.out.println("------- CLIENTE PF -------");
-                System.out.println("");
+                System.out.println("\n------- CLIENTE PF -------");
                 customer.completeInfo();
+                System.out.println("-------------------------\n");
 
-                switch (MenuCreator.exec(".:: OPÇÔES DE CLIENTE ::.", "VOLTAR", "EDITAR NOME", "EDITAR SOBRENOME", "EDITAR CNH", "EDITAR ENDEREÇO", "EDITAR TELEFONE")) {
+                switch (MenuCreator.exec(".:: OPÇÕES DE CLIENTE ::.", "VOLTAR", "EDITAR NOME", "EDITAR SOBRENOME", "EDITAR CNH", "EDITAR ENDEREÇO", "EDITAR TELEFONE")) {
                     case 0 -> {
                         working = false;
                     }
@@ -254,11 +254,11 @@ public class CustomerUI {
                 }
 
             } else {
-                System.out.println("------- CLIENTE PJ -------");
-                System.out.println("");
+                System.out.println("\n------- CLIENTE PJ -------");
                 customer.completeInfo();
+                System.out.println("-------------------------\n");
 
-                switch (MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "EDITAR RAZÃO SOCIAL", "EDITAR NOME FANTASIA", "EDITAR ENDEREÇO", "EDITAR TELEPHONE")) {
+                switch (MenuCreator.exec(".:: OPÇÕES DE CONTATO ::.", "VOLTAR", "EDITAR RAZÃO SOCIAL", "EDITAR NOME FANTASIA", "EDITAR ENDEREÇO", "EDITAR TELEFONE")) {
                     case 0 -> {
                         working = false;
                     }

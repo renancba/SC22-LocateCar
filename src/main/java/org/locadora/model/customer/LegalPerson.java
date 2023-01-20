@@ -50,7 +50,6 @@ public class LegalPerson extends Customer {
         System.out.println(" RAZÃO SOCIAL: " + this.getName());
         System.out.println(" NOME FANTASIA: " + this.getNickname());
         System.out.println(" CNPJ: " + this.getCnpj());
-        System.out.println("-------------------------");
     }
 
     @Override
@@ -62,7 +61,6 @@ public class LegalPerson extends Customer {
         this.shortInfo();
         System.out.println(" ENDEREÇO: " + this.getAddress());
         System.out.println(" TELEFONE: " + this.getTelephone());
-        System.out.println("-------------------------");
     }
 
 

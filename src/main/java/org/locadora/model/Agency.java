@@ -90,6 +90,13 @@ public class Agency<T extends Vehicle> {
 
         return agencyObject;
     }
+    public void shortInfo() {
+        System.out.println(" AGÊNCIA " + this.getId() + " - " + this.getName() );
+    }
+    public void completeInfo() {
+        this.shortInfo();
+        System.out.println(" ENDEREÇO: " + address);
+    }
 
     @Override
     public int hashCode() {
@@ -98,7 +105,7 @@ public class Agency<T extends Vehicle> {
 
     @Override
     public String toString() {
-        return "NOME DA AGÊNCIA: " + name + "\n" +
+        return "AGÊNCIA " + this.getId() + " - " + name + "\n" +
                 "ENDEREÇO: " + address + "\n";
     }
 

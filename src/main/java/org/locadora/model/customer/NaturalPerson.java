@@ -52,7 +52,6 @@ public class NaturalPerson extends Customer {
         System.out.println(" NOME: " + this.getName());
         System.out.println(" SOBRENOME: " + this.getSurname());
         System.out.println(" CPF: " + this.getCpf());
-        System.out.println("-------------------------");
     }
 
     @Override
@@ -65,7 +64,6 @@ public class NaturalPerson extends Customer {
         System.out.println(" CNH: " + this.getDriverLicense());
         System.out.println(" ENDEREÇO: " + this.getAddress());
         System.out.println(" TELEFONE: " + this.getTelephone());
-        System.out.println("-------------------------");
     }
 
     public String getSurname() {

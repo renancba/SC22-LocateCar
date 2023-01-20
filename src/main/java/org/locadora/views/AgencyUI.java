@@ -45,10 +45,11 @@ public class AgencyUI {
 
                 System.out.println("------ AGÊNCIAS ------");
                 System.out.println("");
-                for (Agency agency : paginatedAgencies) {
-                    System.out.println(agency.toString());
+                for (int i = 0; i < paginatedAgencies.size(); i++) {
+                    System.out.print(" ID: " + i + "\n");
+                    paginatedAgencies.get(i).shortInfo();
+                    System.out.println("-------------------------\n");
                 }
-                System.out.println("--------------------------");
 
                 if (agencies.size() == 0) {
                     int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR AGÊNCIA");
@@ -120,9 +121,9 @@ public class AgencyUI {
         boolean working = true;
         while (working) {
             try {
-                System.out.println("------- AGÊNCIA -------");
-                System.out.println("");
-                agency.toString();
+                System.out.println("\n------- AGÊNCIA -------");
+                agency.completeInfo();
+                System.out.println("-------------------------\n");
 
 
                 switch (MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "CADASTRAR VEÍCULO", "LISTAR VEICULOS", "EDITAR NOME", "EDITAR ENDERECO")) {
