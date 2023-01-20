@@ -81,7 +81,6 @@ public class AgencyController {
     }
 
     public void search() {
-        Database db = Database.getInstance();
         List<Agency> agencies = new ArrayList<>();
 
         boolean working = true;
@@ -91,17 +90,15 @@ public class AgencyController {
                 String option = AgencyUI.searchBy();
 
                 if (option == "codigo") {
-                    int agencyId = Input.integer("INFORME O CÓDIGO DA AGÊNCIA: ");
-                    Agency agency = db.searchByAgencyId(agencyId);
+                    Agency agency = searchById();
 
                     if (agency != null) {
                         agencies.add(agency);
                     }
 
                 } else if (option == "name") {
-                    String param = Input.stringNotNullable("INFORME O NOME DA AGÊNCIA OU O LOGRADOURO", 3);
-                    List<Agency> foundAgencies = db.searchAgencies(param.toUpperCase());
 
+                    List<Agency> foundAgencies = searchString();
                     if (foundAgencies.size() > 0) {
                         agencies = foundAgencies;
                     }
@@ -116,6 +113,20 @@ public class AgencyController {
             }
         }
     }
+
+
+    public Agency searchById() throws Exception {
+        Database db = Database.getInstance();
+        int agencyId = Input.integer("INFORME O CÓDIGO DA AGÊNCIA: ");
+        return db.searchByAgencyId(agencyId);
+    }
+
+    public List<Agency> searchString() throws Exception {
+        Database db = Database.getInstance();
+        String param = Input.stringNotNullable("INFORME O NOME DA AGÊNCIA OU O LOGRADOURO", 3);
+        return db.searchAgencies(param.toUpperCase());
+    }
+
 
     public void viewAgency() {
         Database db = Database.getInstance();

@@ -2,6 +2,7 @@ package org.locadora.controller;
 
 
 import org.locadora.database.Database;
+import org.locadora.model.Agency;
 import org.locadora.model.vehicle.Car;
 import org.locadora.model.vehicle.Motorcycle;
 import org.locadora.model.vehicle.Truck;
@@ -16,47 +17,36 @@ public class VehicleController {
     public void create() {
         VehicleUI.add();
     }
-    public void saveMotorcycle(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity) {
-        Motorcycle motorcycle = new Motorcycle(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, cylinderCapacity);
+
+    public void saveMotorcycle(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity, Agency agency) {
         Database db = Database.getInstance();
 
-        if (db.addVehicle(motorcycle)) {
-            System.out.println("");
-            System.out.println("-----------------");
-            System.out.println("| VEÍCULO SALVO |");
-            System.out.println("-----------------");
-            System.out.println("");
-        } else {
-            System.out.println("");
-            System.out.println("----------------------");
-            System.out.println("| VEÍCULO DUPLICADO! |");
-            System.out.println("----------------------");
-            System.out.println("");
-        }
+        Motorcycle vehicle = new Motorcycle(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, cylinderCapacity);
+        agency.addVehicle(vehicle);
+
+        dbResponse(db.updateAgency(agency));
     }
-    public void saveCar(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity) {
-        Vehicle vehicle = new Car();
+
+    public void saveCar(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String numberOfDoors, Agency agency) {
         Database db = Database.getInstance();
 
-        if (db.addVehicle(vehicle)) {
-            System.out.println("");
-            System.out.println("-----------------");
-            System.out.println("| VEÍCULO SALVO |");
-            System.out.println("-----------------");
-            System.out.println("");
-        } else {
-            System.out.println("");
-            System.out.println("----------------------");
-            System.out.println("| VEÍCULO DUPLICADO! |");
-            System.out.println("----------------------");
-            System.out.println("");
-        }
+        Vehicle vehicle = new Car(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfDoors);
+        agency.addVehicle(vehicle);
+
+        dbResponse(db.updateAgency(agency));
     }
-    public void saveTruck(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String cylinderCapacity) {
-        Vehicle vehicle = new Truck();
+
+    public void saveTruck(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String numberOfAxies, Agency agency) {
         Database db = Database.getInstance();
 
-        if (db.addVehicle(vehicle)) {
+        Vehicle vehicle = new Truck(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfAxies);
+        agency.addVehicle(vehicle);
+
+        dbResponse(db.updateAgency(agency));
+    }
+
+    public void dbResponse(Boolean response) {
+        if (response) {
             System.out.println("");
             System.out.println("-----------------");
             System.out.println("| VEÍCULO SALVO |");

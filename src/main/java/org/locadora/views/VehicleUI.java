@@ -1,7 +1,9 @@
 package org.locadora.views;
 
 
+import org.locadora.controller.AgencyController;
 import org.locadora.controller.VehicleController;
+import org.locadora.model.Agency;
 import org.locadora.model.vehicle.Car;
 import org.locadora.model.vehicle.Motorcycle;
 import org.locadora.model.vehicle.Vehicle;
@@ -14,63 +16,55 @@ import java.util.List;
 public class VehicleUI {
     public static void add() {
         VehicleController vehicleController = new VehicleController();
+        AgencyController agencyController = new AgencyController();
+
         Integer option;
         String vehicleManufacturer;
         String vehicleModel;
         String registrationPlate;
         BigDecimal rentalFee;
 
+        try {
+
+            System.out.println("PARA QUAL AGÊNCIA DESEJA CADASTRAR O VEÍCULO?");
+            Agency agency = agencyController.searchById();
 
 
-        option = MenuCreator.exec("DIGITE O TIPO DE VEÍCULO A SER ADICIONADO", "MOTO", "CARRO", "CAMINHÃO");
+            option = MenuCreator.exec("DIGITE O TIPO DE VEÍCULO A SER ADICIONADO", "MOTO", "CARRO", "CAMINHÃO");
 
-        switch (option) {
-            case 0 -> {
-                try {
+            switch (option) {
+                case 0 -> {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
                     rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO : ", 3);
                     String cylinderCapacity = Input.stringNotNullable("QUANTIDADE DE CILINDROS: ", 3);
 
-                    vehicleController.saveMotorcycle(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, cylinderCapacity);
-
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                    System.out.println("voltando...\n");
+                    vehicleController.saveMotorcycle(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, cylinderCapacity, agency);
                 }
-            }
-            case 1 -> {
-                try {
+                case 1 -> {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
                     rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO : ", 3);
                     String numberOfDoors = Input.stringNotNullable("NUMERO DE PORTAS : ", 3);
 
-                    vehicleController.saveCar(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfDoors);
-
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                    System.out.println("voltando...\n");
+                    vehicleController.saveCar(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfDoors, agency);
                 }
-            }
-            case 2 -> {
-                try {
+                case 2 -> {
                     vehicleManufacturer = Input.stringNotNullable("FABRICANTE: ", 3);
                     vehicleModel = Input.stringNotNullable("MODELO: ", 3);
                     registrationPlate = Input.stringNotNullable("PLACA: ", 3);
                     rentalFee = Input.bigDecimal("TAXA DE LOCAÇÃO: ", 3);
                     String numberOfAxies = Input.stringNotNullable("NUMERO DE EIXOS: ", 3);
 
-                    vehicleController.saveTruck(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfAxies);
-
-                } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
-                    System.out.println("voltando...\n");
+                    vehicleController.saveTruck(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee, numberOfAxies, agency);
                 }
+                default -> System.out.println("OPÇÃO INVÁLIDA");
             }
-            default -> System.out.println("OPÇÃO INVÁLIDA");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            System.out.println("voltando...\n");
         }
 
     }

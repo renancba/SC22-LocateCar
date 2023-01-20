@@ -8,9 +8,6 @@ public class Truck extends Vehicle {
 
     String numberOfAxles;
 
-    public Truck() {
-    }
-
     public Truck(String vehicleManufacturer, String vehicleModel, String registrationPlate, BigDecimal rentalFee, String numberOfAxles) {
         super(vehicleManufacturer, vehicleModel, registrationPlate, rentalFee);
         this.numberOfAxles = numberOfAxles;
