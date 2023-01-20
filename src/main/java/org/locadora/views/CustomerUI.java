@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class CustomerUI {
     public static void add() {
         CustomerController customerController = new CustomerController();
-       // AddressUI addressUI = new AddressUI();
+        // AddressUI addressUI = new AddressUI();
         Integer option;
         String name;
         String surname;
@@ -146,27 +146,34 @@ public class CustomerUI {
 
     public static String list(List<Customer> customers, int pageSize, int pageNumber) {
         String option = "";
+        int totalDisplayed = 0;
 
         boolean working = true;
 
-        try {
-            while (working) {
+        while (working) {
+            if (pageNumber < 0) pageNumber = 0;
+            if (pageSize < 0) pageSize = 0;
+            if (pageNumber + pageSize > customers.size()) pageNumber = customers.size() - pageSize;
+            if (pageNumber < 0 || pageNumber >= customers.size()) pageNumber = 0;
 
-                if (pageNumber < 0) pageNumber = 0;
-                if (pageSize < 0) pageSize = 0;
-                if (pageNumber + pageSize > customers.size()) pageNumber = customers.size() - pageSize;
-                if (pageNumber < 0 || pageNumber >= customers.size()) pageNumber = 0;
+            try {
+
+                if (customers.size() == 0) {
+                    System.out.println("NENHUMA AGÊNCIA ENCONTRADA");
+                    working = false;
+                    continue;
+                }
 
                 List<Customer> paginatedCustomers = Pagination.exec(customers, pageSize, pageNumber);
 
                 System.out.println("------ CLIENTES ------");
                 System.out.println("");
-                for (int i = 0; i< paginatedCustomers.size();i++){
-                    System.out.print(" ID: " + i + "\n");
+                for (int i = 0; i < paginatedCustomers.size(); i++) {
+                    System.out.print(" ID: " + (i + totalDisplayed) + "\n");
                     paginatedCustomers.get(i).shortInfo();
                     System.out.println("-------------------------\n");
                 }
-
+                totalDisplayed += paginatedCustomers.size();
 
                 if (customers.size() == 0) {
                     int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR CLIENTE");
@@ -192,6 +199,7 @@ public class CustomerUI {
                             break;
                         case 2:
                             pageNumber = pageNumber - 1;
+                            totalDisplayed -= pageSize + 2;
                             break;
                         case 3:
                             option = "exibir";
@@ -223,11 +231,11 @@ public class CustomerUI {
                             break;
                     }
                 }
+            } catch (Exception ex) {
+                working = false;
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
             }
-        } catch (Exception ex) {
-            working = false;
-            System.out.println(ex.getMessage());
-            System.out.println("voltando...\n");
         }
 
         return option;
@@ -240,39 +248,39 @@ public class CustomerUI {
             while (working) {
 
 
-            if (customer instanceof NaturalPerson){
-                System.out.println("\n------- CLIENTE PF -------");
-                customer.completeInfo();
-                System.out.println("-------------------------\n");
+                if (customer instanceof NaturalPerson) {
+                    System.out.println("\n------- CLIENTE PF -------");
+                    customer.completeInfo();
+                    System.out.println("-------------------------\n");
 
-                switch (MenuCreator.exec(".:: OPÇÕES DE CLIENTE ::.", "VOLTAR", "EDITAR NOME", "EDITAR SOBRENOME", "EDITAR CNH", "EDITAR ENDEREÇO", "EDITAR TELEFONE")) {
-                    case 0 -> {
-                        working = false;
+                    switch (MenuCreator.exec(".:: OPÇÕES DE CLIENTE ::.", "VOLTAR", "EDITAR NOME", "EDITAR SOBRENOME", "EDITAR CNH", "EDITAR ENDEREÇO", "EDITAR TELEFONE")) {
+                        case 0 -> {
+                            working = false;
+                        }
+                        case 1 -> customerController.edit("name", customer);
+                        case 2 -> customerController.edit("surname", customer);
+                        case 3 -> customerController.edit("driverLicense", customer);
+                        case 4 -> customerController.edit("address", customer);
+                        case 5 -> customerController.edit("telephone", customer);
+                        default -> System.out.println("-> Opção inválida \n");
                     }
-                case 1 -> customerController.edit("name", customer);
-                case 2 -> customerController.edit("surname", customer);
-                case 3 -> customerController.edit("driverLicense", customer);
-                case 4 -> customerController.edit("address", customer);
-                case 5 -> customerController.edit("telephone", customer);
-                default -> System.out.println("-> Opção inválida \n");
-                }
 
-            } else {
-                System.out.println("\n------- CLIENTE PJ -------");
-                customer.completeInfo();
-                System.out.println("-------------------------\n");
+                } else {
+                    System.out.println("\n------- CLIENTE PJ -------");
+                    customer.completeInfo();
+                    System.out.println("-------------------------\n");
 
-                switch (MenuCreator.exec(".:: OPÇÕES DE CONTATO ::.", "VOLTAR", "EDITAR RAZÃO SOCIAL", "EDITAR NOME FANTASIA", "EDITAR ENDEREÇO", "EDITAR TELEFONE")) {
-                    case 0 -> {
-                        working = false;
+                    switch (MenuCreator.exec(".:: OPÇÕES DE CONTATO ::.", "VOLTAR", "EDITAR RAZÃO SOCIAL", "EDITAR NOME FANTASIA", "EDITAR ENDEREÇO", "EDITAR TELEFONE")) {
+                        case 0 -> {
+                            working = false;
+                        }
+                        case 1 -> customerController.edit("name", customer);
+                        case 2 -> customerController.edit("nickname", customer);
+                        case 3 -> customerController.edit("address", customer);
+                        case 4 -> customerController.edit("telephone", customer);
+                        default -> System.out.println("-> Opção inválida \n");
                     }
-                    case 1 -> customerController.edit("name", customer);
-                    case 2 -> customerController.edit("nickname", customer);
-                    case 3 -> customerController.edit("address", customer);
-                    case 4 -> customerController.edit("telephone", customer);
-                    default -> System.out.println("-> Opção inválida \n");
                 }
-            }
 
             }
         } catch (Exception ex) {

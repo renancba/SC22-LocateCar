@@ -2,6 +2,7 @@ package org.locadora.model;
 
 import org.locadora.model.customer.Customer;
 import org.locadora.model.vehicle.Vehicle;
+
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -19,13 +20,13 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
 
 
     public RentalOperation(C costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency) {
-        this(0,costumer, vehicle, startDate, endDate, agency, new BigDecimal(0.9), false);
+        this(0, costumer, vehicle, startDate, endDate, agency, new BigDecimal(0.9), false);
         this.rentalID = (int) (Math.random() * 200) + 1;
         calculateCost();
     }
 
     public RentalOperation(Integer rentalID, C costumer, T vehicle, LocalDate startDate, LocalDate endDate, Agency agency, BigDecimal cost, boolean isOver) {
-       this.rentalID = rentalID;
+        this.rentalID = rentalID;
         this.customer = costumer;
         this.vehicle = vehicle;
         this.startDate = startDate;
@@ -33,6 +34,25 @@ public class RentalOperation<T extends Vehicle, C extends Customer> {
         this.agency = agency;
         this.cost = cost;
         this.isOver = isOver;
+    }
+
+    public void shortInfo() {
+        System.out.println(" CONTRATO " + this.rentalID);
+        System.out.println(" AGÊNCIA " + this.agency);
+        System.out.println(" DATA DA LOCAÇÃO: " + this.startDate);
+        System.out.println(" DATA DE ENTREGA: " + this.endDate);
+    }
+
+    public void completeInfo() {
+        this.shortInfo();
+        System.out.println("CUSTO DO ALUGUEL: " + this.cost);
+        System.out.println("SITUAÇÂO DO CONTRATO: " + (this.isOver ? "CONCLUÍDO" : "EM ABERTO"));
+        System.out.println("CLIENTE");
+        this.customer.completeInfo();
+        System.out.println("------------");
+        System.out.println("VEÍCULO");
+        this.vehicle.completeInfo();
+
     }
 
     private void calculateCost() {

@@ -68,6 +68,7 @@ public class VehicleUI {
 
     public static String list(List<Vehicle> vehicles, Agency agency, int pageSize, int pageNumber) {
         String option = "";
+        int totalDisplayed = 0;
 
         boolean working = true;
 
@@ -91,10 +92,12 @@ public class VehicleUI {
                 System.out.println("------ VEÍCULOS ------");
                 System.out.println("");
                 for (int i = 0; i < paginatedVehicles.size(); i++) {
-                    System.out.print("ID: " + i + "\n");
+                    System.out.print("ID: " + (i + totalDisplayed) + "\n");
                     paginatedVehicles.get(i).shortInfo();
                     System.out.println("-------------------------\n");
                 }
+
+                totalDisplayed += paginatedVehicles.size();
 
                 if (vehicles.size() == 0) {
                     int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR AGÊNCIA");
@@ -120,6 +123,7 @@ public class VehicleUI {
                             break;
                         case 2:
                             pageNumber = pageNumber - 1;
+                            totalDisplayed -= pageSize + 2;
                             break;
                         case 3:
                             option = "exibir";

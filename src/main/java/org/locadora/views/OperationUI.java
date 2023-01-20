@@ -50,6 +50,7 @@ public class OperationUI {
 
     public static String List(List<RentalOperation> operations, int pageSize, int pageNumber) {
         String option = "";
+        int totalDisplayed = 0;
 
         boolean working = true;
 
@@ -72,10 +73,13 @@ public class OperationUI {
                 // display the paginated list
                 System.out.println("------ OPERAÇÕES ------");
                 System.out.println("");
-                for (RentalOperation operation : paginatedOperations) {
-                    System.out.println(operation.toString());
+                for (int i = 0; i < paginatedOperations.size(); i++) {
+                    System.out.print(" ID: " + (i + totalDisplayed) + "\n");
+                    paginatedOperations.get(i).shortInfo();
+                    System.out.println("-------------------------\n");
                 }
-                System.out.println("--------------------------");
+
+                totalDisplayed += paginatedOperations.size();
 
                 if (operations.size() == 0) {
                     int choice = MenuCreator.exec(".:: NAVEGAÇÃO ::.", "SAIR", "ADICIONAR OPERACAO");
@@ -101,6 +105,7 @@ public class OperationUI {
                             break;
                         case 2:
                             pageNumber = pageNumber - 1;
+                            totalDisplayed -= pageSize + 2;
                             break;
                         case 3:
                             option = "exibir";
