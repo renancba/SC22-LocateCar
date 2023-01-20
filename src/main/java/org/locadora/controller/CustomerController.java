@@ -2,15 +2,13 @@ package org.locadora.controller;
 
 import org.locadora.database.Database;
 import org.locadora.model.Address;
-import org.locadora.model.Agency;
 import org.locadora.model.Telephone;
 import org.locadora.model.customer.Customer;
 import org.locadora.model.customer.LegalPerson;
 import org.locadora.model.customer.NaturalPerson;
-import org.locadora.utils.GetIndex;
 import org.locadora.utils.Input;
 import org.locadora.utils.InputAddress;
-import org.locadora.views.AgencyUI;
+import org.locadora.utils.InputTelephone;
 import org.locadora.views.CustomerUI;
 
 import java.util.List;
@@ -85,15 +83,19 @@ public class CustomerController {
         if (customer instanceof NaturalPerson) {
             switch (option) {
                 case "name" -> customer.setName(Input.stringNotNullable("INFORME UM NOVO NOME: ", 3));
-                case "surname" -> customer.setAddress(InputAddress.exec(""));
+                case "surname" -> ((NaturalPerson) customer).setSurname(Input.stringNotNullable("INFORME UM NOVO SOBRENOME", 3));
                 case "driverLicense" -> ((NaturalPerson) customer).setDriverLicense(Input.stringNotNullable("INFORME A NOVA CNH: ", 3));
+                case "address" -> customer.setAddress(InputAddress.exec(""));
+                case "telephone" -> customer.setTelephone(InputTelephone.exec(""));
             }
 
             //SE PPESSOA JURIDICA
         } else {
             switch (option){
-                case "name" -> customer.setName(Input.stringNotNullable("INFORME UM NOVO NOME: ", 3));
+                case "name" -> customer.setName(Input.stringNotNullable("INFORME A NOVA RAZÃO SOCIAL: ", 3));
                 case "nickname" -> ((LegalPerson) customer).setNickname(Input.stringNotNullable("INFORME O NOVO NOME FANTASIA: ", 3));
+                case "address" -> customer.setAddress(InputAddress.exec(""));
+                case "telephone" -> customer.setTelephone(InputTelephone.exec(""));
             }
         }
 
@@ -116,7 +118,7 @@ public class CustomerController {
     public void viewCustomer() {
         Database db = Database.getInstance();
         try {
-            int index = GetIndex.exec("DIGITE O ID QUE DESEJA EXIBIR: ");
+            int index = Input.integer("DIGITE O ID QUE DESEJA EXIBIR: ");
             CustomerUI.viewCustomer(db.getCustomer(index));
 
 

@@ -302,13 +302,15 @@ public class CustomerUI {
                 System.out.println("");
                 customer.completeInfo();
 
-                switch (MenuCreator.exec(".:: OPÇÔES DE CLIENTE ::.", "VOLTAR", "EDITAR NOME", "EDITAR SOBRENOME", "EDITAR CNH")) {
+                switch (MenuCreator.exec(".:: OPÇÔES DE CLIENTE ::.", "VOLTAR", "EDITAR NOME", "EDITAR SOBRENOME", "EDITAR CNH", "EDITAR ENDEREÇO", "EDITAR TELEFONE")) {
                     case 0 -> {
                         working = false;
                     }
                 case 1 -> customerController.edit("name", customer);
                 case 2 -> customerController.edit("surname", customer);
                 case 3 -> customerController.edit("driverLicense", customer);
+                case 4 -> customerController.edit("address", customer);
+                case 5 -> customerController.edit("telephone", customer);
                 default -> System.out.println("-> Opção inválida \n");
                 }
 
@@ -317,12 +319,14 @@ public class CustomerUI {
                 System.out.println("");
                 customer.completeInfo();
 
-                switch (MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "EDITAR RAZÃO SOCIAL", "EDITAR NOME FANTASIA")) {
+                switch (MenuCreator.exec(".:: OPÇÔES DE CONTATO ::.", "VOLTAR", "EDITAR RAZÃO SOCIAL", "EDITAR NOME FANTASIA", "EDITAR ENDEREÇO", "EDITAR TELEPHONE")) {
                     case 0 -> {
                         working = false;
                     }
                     case 1 -> customerController.edit("name", customer);
                     case 2 -> customerController.edit("nickname", customer);
+                    case 3 -> customerController.edit("address", customer);
+                    case 4 -> customerController.edit("telephone", customer);
                     default -> System.out.println("-> Opção inválida \n");
                 }
             }
