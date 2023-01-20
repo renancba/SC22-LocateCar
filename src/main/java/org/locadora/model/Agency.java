@@ -65,7 +65,7 @@ public class Agency<T extends Vehicle> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Agency agency = (Agency) o;
-        return Objects.equals(name, agency.name) && Objects.equals(address, agency.address);
+        return Objects.equals(name, agency.name);
     }
 
     public JSONObject toJSONObject() {
@@ -102,6 +102,8 @@ public class Agency<T extends Vehicle> {
             System.out.println("\n SEM VEÍCULOS CADASTRADOS NESTA AGÊNCIA!");
         } else {
             for (Vehicle vehicle : vehicles) {
+
+                System.out.println();
                 vehicle.shortInfo();
             }
         }
@@ -110,7 +112,7 @@ public class Agency<T extends Vehicle> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, address);
+        return Objects.hash(name);
     }
 
     @Override
