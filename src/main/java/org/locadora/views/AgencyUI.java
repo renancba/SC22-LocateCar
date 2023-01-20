@@ -70,6 +70,7 @@ public class AgencyUI {
                             break;
                         case 1:
                             add();
+                            working = false;
                             break;
                         default:
                             System.out.println("OPÇÃO INVÁLIDA\n");
