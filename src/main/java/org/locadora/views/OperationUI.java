@@ -74,7 +74,7 @@ public class OperationUI {
                 String endDateString = Input.stringNotNullable("DATA DA ENTREGA (dd/mm/aaaa)", 3);
                 LocalDate endDate = GetLocalDateFromString.Convert(endDateString);
 
-                operationController.save(customer, agency, vehicle, startDate, endDate);
+                operationController.save(customer, agency.getId(), vehicle, startDate, endDate);
 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
@@ -225,7 +225,7 @@ public class OperationUI {
                 case 0 -> {
                     working = false;
                 }
-                case 1 -> agency = operation.getAgency();
+//                case 1 -> agency = operation.getAgency();
 //                case 2 ->  agency = agencyController.view();
                 default -> System.out.println("-> Opção inválida \n");
             }
