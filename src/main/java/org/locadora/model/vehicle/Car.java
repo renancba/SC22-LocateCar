@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 
 public class Car extends Vehicle {
+
     private Boolean automatic;
     public Car() {
     }
