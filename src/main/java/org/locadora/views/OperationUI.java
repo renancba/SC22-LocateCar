@@ -7,8 +7,6 @@ import org.locadora.controller.VehicleController;
 import org.locadora.model.Agency;
 import org.locadora.model.RentalOperation;
 import org.locadora.model.customer.Customer;
-import org.locadora.model.customer.NaturalPerson;
-import org.locadora.model.vehicle.Car;
 import org.locadora.model.vehicle.Vehicle;
 import org.locadora.utils.GetLocalDateFromString;
 import org.locadora.utils.Input;
@@ -24,33 +22,67 @@ public class OperationUI {
         CustomerController customerController = new CustomerController();
         VehicleController vehicleController = new VehicleController();
 
-        try {
-            System.out.println("PRIMEIRO");
-            Customer customer = customerController.searchByDocument();
 
-            if(customer == null){
-                //quebrar o looping e contar tentativas
+        boolean working;
+
+        do {
+            working = false;
+            try {
+                System.out.println("PRIMEIRO");
+                Customer customer = customerController.searchByDocument();
+
+                if (customer == null) {
+
+                    boolean inception = true;
+                    int tentativas = 0;
+
+                    while (inception) {
+
+                        if (tentativas > 3) {
+                            inception = false;
+                            throw new Exception("-> Número de tentativas excedidas");
+                        }
+
+                        System.out.println("CLIENTE NAO ENCONTRADO, TENTE NOVAMENTE");
+                        tentativas += 1;
+                    }
+                }
+
+                System.out.println("AGORA");
+                Object[] result = vehicleController.chooseAVehicle();
+
+                if (result == null) {
+
+                    boolean inception = true;
+                    int tentativas = 0;
+
+                    while (inception) {
+                        if (tentativas > 3) {
+                            inception = false;
+                            throw new Exception("-> Número de tentativas excedidas");
+                        }
+
+                        System.out.println("VEÍCULO AGENCIA OU VEÍCULO NÃO ENCONTRADOS, TENTE NOVAMENTE");
+                        tentativas += 1;
+                    }
+                }
+
+                Agency agency = (Agency) result[0];
+                Vehicle vehicle = (Vehicle) result[1];
+
+                String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO (dd/mm/aaaa)", 3);
+                LocalDate startDate = GetLocalDateFromString.Convert(startDateString);
+
+                String endDateString = Input.stringNotNullable("DATA DA ENTREGA (dd/mm/aaaa)", 3);
+                LocalDate endDate = GetLocalDateFromString.Convert(endDateString);
+
+                operationController.save(customer, agency, vehicle, startDate, endDate);
+
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("voltando...\n");
             }
-
-            System.out.println("AGORA");
-            Vehicle vehicle = vehicleController.chooseAVehicle();
-
-            if(vehicle == null){
-                //quebrar o looping e contar tentativas
-            }
-
-            String startDateString = Input.stringNotNullable("DATA DA LOCAÇÃO (dd/mm/aaaa)", 3);
-            LocalDate startDate = GetLocalDateFromString.Convert(startDateString);
-
-            String endDateString = Input.stringNotNullable("DATA DA ENTREGA (dd/mm/aaaa)", 3);
-            LocalDate endDate = GetLocalDateFromString.Convert(endDateString);
-
-           operationController.save(customer, new Agency("São Paulo"), vehicle, startDate, endDate);
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("voltando...\n");
-        }
+        } while (working);
 
     }
 

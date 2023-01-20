@@ -109,10 +109,10 @@ public class VehicleController {
         }
     }
 
-    public Vehicle chooseAVehicle() {
+    public Object[] chooseAVehicle() {
         AgencyController agencyController = new AgencyController();
         Database db = Database.getInstance();
-        Vehicle choice = null;
+        Object[] choice = null;
 
         try {
             Agency agency = agencyController.searchById();
@@ -120,7 +120,7 @@ public class VehicleController {
             if (agency != null) {
 
                 if (db.getVehicles(agency) != null) {
-                    choice = VehicleUI.chooseList(db.getVehicles(agency), agency, 5, 0);
+                    choice = new Object[]{agency, VehicleUI.chooseList(db.getVehicles(agency), agency, 5, 0)};
 
                 } else {
                     System.out.println("ESSA AGENCIA NAO POSSUI VEÍCULOS CADASTRADOS");
